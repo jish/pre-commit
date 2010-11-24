@@ -4,7 +4,8 @@
 
 class Utils
   def self.staged_files(*dirs)
-    @staged_files ||= `git diff --cached --name-only #{dirs.join(' ')} | xargs`.chomp
+    @staged_files ||= {}
+    @staged_files[dirs.join(' ')] ||= `git diff --cached --name-only #{dirs.join(' ')} | xargs`.chomp
   end
 end
 
