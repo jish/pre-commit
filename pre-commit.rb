@@ -27,6 +27,14 @@ Debugger = lambda {
   end
 }
 
+Tabs = lambda { 
+  if (files = Utils.staged_files('*')).size > 0
+    !system("grep -PnH '^\t' #{files}")
+  else
+    true
+  end
+}
+
 ClosureSyntaxCheck = lambda {
   compiler = "test/javascript/lib/compiler.jar"
 
@@ -42,11 +50,12 @@ checks = [
           WhiteSpace, 
           ConsoleLog, 
           Debugger, 
+          Tabs
           #ClosureSyntaxCheck
          ]
 
 exit_status = checks.inject(true) do |acc, cmd|
-  acc = acc && cmd.call
+  acc = cmd.call && acc
 end
 
 exit(exit_status ? 0 : 1)
