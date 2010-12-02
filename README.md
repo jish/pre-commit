@@ -29,14 +29,14 @@ By default all of the pre-commit checks will run
 * tabs
 * closure\_syntax\_check
 
-To configure which checks you would like to run, simply the `pre-commit.checks` git configuration setting.
+To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
 
-To enable white_space and tab checks:
+To enable `white_space` and `tab` checks:
 
     # From your git repo
     $ git config "pre-commit.checks" "white_space, tabs"
 
-To enable white_space, console_log, and debugger checks:
+To enable `white_space`, `console_log` and `debugger` checks:
 
     # From your git repo
     $ git config "pre-commit.checks" "white_space, console_log, debugger"
