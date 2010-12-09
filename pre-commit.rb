@@ -25,7 +25,7 @@ class PreCommit
   }
 
   Debugger = lambda {
-    if (args = Utils.staged_files('app/', 'lib/', 'script/', 'vendor/')).size > 0
+    if (args = Utils.staged_files('app/', 'lib/', 'script/', 'vendor/', 'test/')).size > 0
       !system("git grep debugger #{args}")
     else
       true
