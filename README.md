@@ -2,22 +2,15 @@ A better pre-commit hook for git.
 
 ## Installation
 
-This is how we have it configured right now. Hopefully these installation steps will become more friendly in the future.
+Install the gem
+    $ gem install pre-commit
 
-Rename the default git pre-commit hook to 'whitespace'
+Use the pre-commit binary to generate a stub pre-commit hook
 
-    # Starting in your git repo
-    $ cp .git/hooks/pre-commit.sample .git/hooks/whitespace
+    # In your git repo
+    $ pre-commit install
 
-Clone this pre-commit repository
-
-    # From your git repo
-    $ git clone https://jish@github.com/jish/pre-commit.git ../pre-commit
-
-Add a soft link to the pre-commit hook
-
-    # From your git repo
-    $ ln -s ../pre-commit/pre-commit.rb .git/hooks/pre-commit
+This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled.
 
 ## Configuration
 
@@ -28,6 +21,8 @@ By default all of the pre-commit checks will run
 * debugger
 * tabs
 * closure\_syntax\_check
+* js_lint_all (Runs JSLint on all staged JS files)
+* js_lint_new (Runs JSLint on all new staged JS files)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
 

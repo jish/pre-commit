@@ -1,0 +1,1 @@
+require 'pre-commit/checks'

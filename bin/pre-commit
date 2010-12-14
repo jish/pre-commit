@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby -rrubygems
+
+template = <<EOS
+#!/usr/bin/env ruby -rrubygems
+require 'pre-commit'
+
+exit_status = PreCommit.checks_to_run.inject(true) do |acc, cmd|
+  acc = cmd.call && acc
+end
+
+exit(exit_status ? 0 : 1)
+
+EOS
+
+if ARGV[0] != "install"
+  puts "Usage: pre-commit install"
+  exit(1)
+end
+
+if !File.exists?(".git")
+  puts "No .git directory found."
+  exit(1)
+end
+
+if File.exists?(".git/hooks/pre-commit")
+  puts "Not overwriting existing hook: .git/hooks/pre-commit"
+  exit(1)
+end
+
+File.open(".git/hooks/pre-commit","w") {|f| 
+  f.write(template)
+}
+
+require 'fileutils'
+
+FileUtils.chmod(0755, ".git/hooks/pre-commit")
+
+puts "Installed hook: .git/hooks/pre-commit"
