@@ -27,7 +27,7 @@ class JSLint
 
       context['reportErrors'] = lambda{|js_errors|
         js_errors.each do |e|
-          next if OK_REASONS.include? e.reason
+          next if e.nil? || OK_REASONS.include?(e.reason)
 
           errors << "\n\e[1;31mJSLINT: #{file}\e[0m"
           errors << "  Error at line #{e['line'].to_i + 1} " + 
