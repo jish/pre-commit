@@ -10,7 +10,12 @@ class PreCommit
   ConsoleLog = lambda {
     
     if File.exists?('public/javascripts') && (args = Utils.staged_files('public/javascripts')).size > 0
-      !system("git grep -n \"console\.log\" #{args}")
+      if system("git grep -n -q \"console\.log\" #{args}")
+        puts "\n[ERROR] console.log found:"
+        !system("git grep -n \"console\.log\" #{args}")
+      else
+        true
+      end
     else
       true
     end
@@ -19,7 +24,12 @@ class PreCommit
   Debugger = lambda {
     dirs = ['app/', 'lib/', 'script/', 'vendor/', 'test/'].reject {|d| !File.exists?(d)}
     if dirs.size > 0 && (args = Utils.staged_files(dirs)).size > 0
-      !system("git grep debugger #{args}")
+      if system("git grep -n -q debugger #{args}") 
+        puts "\n[ERROR] debugger statement(s) found:"
+        !system("git grep -n debugger #{args}") 
+      else
+        true
+      end
     else
       true
     end
@@ -27,7 +37,12 @@ class PreCommit
 
   Tabs = lambda {
     if (files = Utils.staged_files('*')).size > 0
-      !system("grep -PnH '^\t' #{files}")
+      if system("grep -PnH -q '^\t' #{files}")
+        puts "\n[ERROR] tab before initial space:"
+        !system("grep -PnH '^\t' #{files}")
+      else
+        true
+      end
     else
       true
     end
@@ -81,7 +96,7 @@ class PreCommit
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
     if checks_to_run.empty?
-      Checks.values_at(:white_space, :console_log, :debugger, :tabs, :closure_syntax_check, :js_lint_all)
+      Checks.values_at(:white_space, :console_log, :debugger, :tabs, :closure_syntax_check, :js_lint_new)
     else
       Checks.values_at(*checks_to_run)
     end.compact
