@@ -37,7 +37,7 @@ class PreCommit
     compiler = "test/javascript/lib/compiler.jar"
 
     if File.exists?('public/javascripts') && (args = Utils.staged_files('public/javascripts')).size > 0
-      ClosureChecker.check(args)
+      ClosureChecker.check(args.split(" "))
     else
       true
     end
