@@ -1,5 +1,6 @@
 require 'support/all'
 require 'pre-commit/utils'
+require 'pre-commit/checks/merge_conflict'
 
 class PreCommit
 
@@ -89,7 +90,8 @@ class PreCommit
     :js_lint_new          => JSLintNew,
     :debugger             => Debugger,
     :tabs                 => Tabs,
-    :closure_syntax_check => ClosureSyntaxCheck
+    :closure_syntax_check => ClosureSyntaxCheck,
+    :merge_conflict       => MergeConflict
   }
 
   def self.checks_to_run
