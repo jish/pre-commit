@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email = %q{dontneedmoreemail@example.com}
   s.executables = ["pre-commit"]
   s.extra_rdoc_files = ["README.md"]
-  s.files = ["pre-commit.gemspec", "README.md", "bin/pre-commit", "lib/pre-commit/check.rb", "lib/pre-commit/checks.rb", "lib/pre-commit/grep_helper.rb", "lib/pre-commit/utils.rb", "lib/pre-commit.rb", "lib/support/all.rb", "lib/support/closure/closure_checker.rb", "lib/support/closure/compiler.jar", "lib/support/jslint/jslint_checker.rb", "lib/support/jslint/lint.js", "lib/support/whitespace/whitespace", "lib/support/whitespace/whitespace_checker.rb"]
+  s.files = Dir["lib/**/*"]
   s.homepage = %q{http://github.com/jish/pre-commit}
   s.rdoc_options = ["--main", "README.md"]
   s.require_paths = ["lib"]
@@ -19,12 +19,6 @@ Gem::Specification.new do |s|
   s.summary = %q{What this thing does}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
-
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-    else
-    end
-  else
   end
 end
