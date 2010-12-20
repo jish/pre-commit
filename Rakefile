@@ -2,10 +2,9 @@ require "rubygems"
 require "rake/gempackagetask"
 require "rake/rdoctask"
 
-
-
-task :default => :package do
-  puts "Don't forget to write some tests!"
+desc 'Run tests'
+task :test do
+  system "ruby -Ilib -Itest -e 'ARGV.each { |f| load f }' test/unit/*"
 end
 
 # This builds the actual gem. For details of what all these options
