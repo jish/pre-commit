@@ -2,6 +2,12 @@ class ConsoleLog
 
   attr_accessor :staged_files, :error_message
 
+  def self.call
+    check = new
+    check.staged_files = Utils.staged_files('public/javascripts')
+    check.run
+  end
+
   def run
     if detected_bad_code?
       @error_message = "pre-commit: console.log found:\n"
