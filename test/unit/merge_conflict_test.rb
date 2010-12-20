@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'minitest_helper'
 require 'pre-commit/checks/merge_conflict'
 
 class MergeConflictTest < MiniTest::Unit::TestCase
@@ -15,12 +15,5 @@ class MergeConflictTest < MiniTest::Unit::TestCase
     check.staged_files = test_filename('valid_file.rb')
     assert check.run, 'A file with no merge conflicts should pass'
   end
-
-  private
-
-    def test_filename(filename)
-      file_dir = File.expand_path('../../files', __FILE__)
-      File.join(file_dir, filename)
-    end
 
 end
