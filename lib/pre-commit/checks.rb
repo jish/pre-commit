@@ -94,6 +94,11 @@ class PreCommit
     :merge_conflict       => MergeConflict
   }
 
+  # Can not delete this method with out a deprecation strategy.
+  # It is refered to in the generated pre-commit hook in versions 0.0-0.1.1
+  #
+  # NOTE: The deprecation strategy *may* be just delete it since, we're still
+  # pre 1.0.
   def self.checks_to_run
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
