@@ -1,0 +1,4 @@
+Create a Runner class to make the running of checks testable #refactor
+Print the `error_message` of a check if the check fails and the message exists
+Use the ConsoleLog class instead of the lambda #refactor
+In the generated hook, rescue LoadError when requiring 'pre-commit' #robustness
