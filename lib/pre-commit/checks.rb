@@ -1,6 +1,7 @@
 require 'support/all'
 require 'pre-commit/utils'
 require 'pre-commit/checks/merge_conflict'
+require 'pre-commit/checks/tabs'
 
 class PreCommit
 
@@ -28,19 +29,6 @@ class PreCommit
       if system("git grep -n -q debugger #{args}") 
         puts "\n[ERROR] debugger statement(s) found:"
         !system("git grep -n debugger #{args}") 
-      else
-        true
-      end
-    else
-      true
-    end
-  }
-
-  Tabs = lambda {
-    if (files = Utils.staged_files('*')).size > 0
-      if system("grep -PnH -q '^\t' #{files}")
-        puts "\n[ERROR] tab before initial space:"
-        !system("grep -PnH '^\t' #{files}")
       else
         true
       end
