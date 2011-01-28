@@ -2,39 +2,14 @@ require 'support/all'
 require 'pre-commit/utils'
 require 'pre-commit/checks/merge_conflict'
 require 'pre-commit/checks/tabs'
+require 'pre-commit/checks/console_log'
+require 'pre-commit/checks/initial_tab'
+require 'pre-commit/checks/debugger_check'
 
 class PreCommit
 
   WhiteSpace = lambda { 
     WhiteSpaceChecker.check
-  }
-
-  ConsoleLog = lambda {
-    
-    if File.exists?('public/javascripts') && (args = Utils.staged_files('public/javascripts')).size > 0
-      if system("git grep -n -q \"console\.log\" #{args}")
-        puts "\n[ERROR] console.log found:"
-        !system("git grep -n \"console\.log\" #{args}")
-      else
-        true
-      end
-    else
-      true
-    end
-  }
-
-  Debugger = lambda {
-    dirs = ['app/', 'lib/', 'script/', 'vendor/', 'test/'].reject {|d| !File.exists?(d)}
-    if dirs.size > 0 && (args = Utils.staged_files(dirs)).size > 0
-      if system("git grep -n -q debugger #{args}") 
-        puts "\n[ERROR] debugger statement(s) found:"
-        !system("git grep -n debugger #{args}") 
-      else
-        true
-      end
-    else
-      true
-    end
   }
 
   ClosureSyntaxCheck = lambda {
@@ -76,8 +51,8 @@ class PreCommit
     :console_log          => ConsoleLog,
     :js_lint_all          => JSLintAll,
     :js_lint_new          => JSLintNew,
-    :debugger             => Debugger,
-    :tabs                 => Tabs,
+    :debugger             => DebuggerCheck,
+    :tabs                 => InitialTab,
     :closure_syntax_check => ClosureSyntaxCheck,
     :merge_conflict       => MergeConflict
   }
