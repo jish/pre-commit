@@ -15,4 +15,19 @@ class TabsTest < MiniTest::Unit::TestCase
     assert !check.detected_bad_code?, 'should pass valid files'
   end
 
+  def test_should_pass_a_binary_file_with_initial_tab
+    check = Tabs.new
+    check.staged_files = test_filename('property_sets-0.3.0.gem')
+    assert check.run, 'A binary file with initial tab'
+  end
+
+  def test_error_message_should_contain_an_error_message_when_an_initial_tab_is_found
+    check = Tabs.new
+    check.staged_files = test_filename('initial_tab.rb')
+    assert !check.run, 'We should prevent an initial tab from being committed'
+
+    assert_match(/pre-commit: detected tab before initial space:/, check.error_message)
+    assert_match(/initial_tab.rb/, check.error_message)
+  end
+
 end

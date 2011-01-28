@@ -3,7 +3,6 @@ require 'pre-commit/utils'
 require 'pre-commit/checks/merge_conflict'
 require 'pre-commit/checks/tabs'
 require 'pre-commit/checks/console_log'
-require 'pre-commit/checks/initial_tab'
 require 'pre-commit/checks/debugger_check'
 
 class PreCommit
@@ -52,7 +51,7 @@ class PreCommit
     :js_lint_all          => JSLintAll,
     :js_lint_new          => JSLintNew,
     :debugger             => DebuggerCheck,
-    :tabs                 => InitialTab,
+    :tabs                 => Tabs,
     :closure_syntax_check => ClosureSyntaxCheck,
     :merge_conflict       => MergeConflict
   }

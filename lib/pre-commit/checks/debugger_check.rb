@@ -8,7 +8,7 @@ class DebuggerCheck
 
     result = check.run
     if !quiet && !result
-      puts check.error_message
+      $stderr.puts check.error_message
     end
     result
   end

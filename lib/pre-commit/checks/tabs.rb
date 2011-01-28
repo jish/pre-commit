@@ -1,6 +1,6 @@
 class Tabs
 
-  attr_accessor :staged_files
+  attr_accessor :staged_files, :error_message
 
   # Maintaining the functionality of `call` for backwards compatibility
   # Currently, the call method is expected to:
@@ -9,17 +9,17 @@ class Tabs
   def self.call
     check = new
     check.staged_files = Utils.staged_files('*')
-    check.execute
+    check.run
   end
 
-  def execute
+  def run
     return unless staged_files.size > 0
 
     if detected_bad_code?
-      error_message = "pre-commit: detected tab before initial space:\n"
-      error_message += violations
+      @error_message = "pre-commit: detected tab before initial space:\n"
+      @error_message += violations
 
-      $stderr.puts error_message
+      $stderr.puts @error_message
       $stderr.puts
 
       @passed = false
@@ -29,11 +29,11 @@ class Tabs
   end
 
   def detected_bad_code?
-    system("grep -PnH -q '^\t' #{staged_files}")
+    system("grep -PnIH -q '^\t' #{staged_files}")
   end
 
   def violations
-    `grep -PnH '^\t' #{staged_files}`
+    `grep -PnIH '^\t' #{staged_files}`
   end
 
 end
