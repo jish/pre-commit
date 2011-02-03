@@ -2,7 +2,7 @@
 ## 0.1.3
 
 ### Bugs
-* On the debugger check, only checking the lines that the committer has added.
+* On the debugger check, only checking the lines that the committer has added. (thanks to staugaard for pointing this out)
 
 ### Enhancements
 * Adding a reminder that the pre-commit check can be bypassed using `git commit -n`
