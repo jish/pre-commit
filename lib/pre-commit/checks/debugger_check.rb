@@ -26,8 +26,7 @@ class DebuggerCheck
   end
 
   def detected_bad_code?
-    cmd = grep_command || "git grep"
-    system("#{cmd} -nH -q debugger #{staged_files}")
+    !system("git diff --cached -S debugger --quiet --exit-code")
   end
 
   def instances_of_debugger_violations
