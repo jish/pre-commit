@@ -7,6 +7,8 @@ task :test do
   system "ruby -Ilib -Itest -e 'ARGV.each { |f| load f }' test/unit/*"
 end
 
+task :default => [:test]
+
 # This builds the actual gem. For details of what all these options
 # mean, and other ones you can add, check the documentation here:
 #
