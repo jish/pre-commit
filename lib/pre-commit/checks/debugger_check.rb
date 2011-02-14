@@ -28,7 +28,7 @@ class DebuggerCheck
   end
 
   def detected_bad_code?
-    !system("git diff --cached -S debugger --quiet --exit-code")
+    !system("git diff --cached -Sdebugger --quiet --exit-code")
   end
 
   def instances_of_debugger_violations
