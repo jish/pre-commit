@@ -4,7 +4,7 @@ class ConsoleLog
 
   def self.call(quiet=false)
     check = new
-    check.staged_files = Utils.staged_files(['public/javascripts'])
+    check.staged_files = Utils.staged_files('public/javascripts')
 
     result = check.run
     if !quiet && !result
