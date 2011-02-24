@@ -25,11 +25,11 @@ class ConsoleLog
   end
 
   def detected_bad_code?
-    system("grep -q 'console.log' #{staged_files}")
+    system("grep -qe \"console\\.log\" #{staged_files}")
   end
 
   def instances_of_console_log_violations
-    `grep -nH 'console.log' #{staged_files}`
+    `grep -nHe \"console\\.log\" #{staged_files}`
   end
 
 end
