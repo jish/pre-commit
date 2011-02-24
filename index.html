@@ -1,1 +1,117 @@
-My github page
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pre-commit</title>
+  </head>
+
+  <style type="text/css" media="screen">
+    body {
+      font-family: Arial;
+    }
+
+    #container {
+      border: 1px solid #ddd;
+      margin: auto;
+      padding: 0 15px;
+      width: 500px;
+
+      border-radius: 10px;
+    }
+
+    h1 {
+      margin: 20px auto 10px;
+      width: 500px;
+    }
+
+    h2 {
+      color: #d22;
+    }
+
+    code {
+      font-family: monaco, monospace;
+      font-size: 9pt;
+    }
+
+    .terminal {
+      background: #222;
+      color: #ddd;
+      font-family: monaco, monospace;
+      font-size: 9pt;
+      padding: 6px 8px;
+
+      border-radius: 10px;
+    }
+
+    .terminal p {
+      margin: 0;
+    }
+
+    #footer {
+      font-size: .85em;
+      margin: 10px auto 20px;
+      text-align: right;
+      width: 500px;
+    }
+
+    #footer p {
+      margin: 0;
+    }
+  </style>
+
+  <body>
+    <h1>pre-commit</h1>
+
+    <div id="container">
+
+      <p><code>pre-commit</code> checks your code for errors before you commit it.</p>
+
+      <p><code>pre-commit</code> is configurable.</p>
+
+      <h2>Check for merge conflicts</h2>
+      <p>Make sure you don't commit a merge conflict</p>
+      <div class="terminal">
+        <p>$ git commit</p>
+        <p>pre-commit: detected a merge conflict</p>
+        <p>lib/foo.rb:13 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+        <p>&nbsp;</p>
+        <p>You can bypass this check using `git commit -n`</p>
+      </div>
+
+      <h2>Check for console.log</h2>
+      <p>Everyone adds console.log statements to help debug javascript. Make sure you don't accidentally commit one.</p>
+      <div class="terminal">
+        <p>$ git commit</p>
+        <p>pre-commit: console.log found</p>
+        <p>public/javascripts/application.js:64 console.log('checking something');</p>
+        <p>&nbsp;</p>
+        <p>You can bypass this check using `git commit -n`</p>
+      </div>
+
+      <h2>More checks</h2>
+      <p><code>pre-commit</code> comes with a variety of checks that you can turn on or off.</p>
+      <ul>
+        <li><strong>debugger:</strong> make sure you don't commit a debugger statement</li>
+        <li><strong>tabs:</strong> make sure your code uses leading spaces instead of tabs</li>
+        <li><strong>whitespace:</strong> make sure you don't commit trailing whitespace</li>
+        <li><strong>jslint:</strong> syntax check your javascript before you commit it</li>
+      </ul>
+
+      <h2>Install</h2>
+      <div class="terminal">
+        <p>$ gem install pre-commit</p>
+        <p>$ pre-commit install</p>
+      </div>
+
+      <h2>Bugs</h2>
+      <p>Please report bugs to <a href="https://github.com/jish/pre-commit/issues">github's issue tracker</a>.</p>
+
+    </div>
+
+    <div id="footer">
+      <p>Josh Lubaway</p>
+      <p>Shajith Chacko</p>
+      <p>Zendesk</p>
+    </div>
+
+  </body>
+</html>
