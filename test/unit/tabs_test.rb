@@ -30,4 +30,10 @@ class TabsTest < MiniTest::Unit::TestCase
     assert_match(/initial_tab.rb/, check.error_message)
   end
 
+  def test_check_should_pass_if_staged_file_list_is_empty
+    check = Tabs.new
+    check.staged_files = []
+    assert check.run
+  end
+
 end

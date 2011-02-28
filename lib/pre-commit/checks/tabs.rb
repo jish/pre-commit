@@ -13,7 +13,10 @@ class Tabs
   end
 
   def run
-    return unless staged_files.size > 0
+    # There is nothing to check
+    if staged_files.empty?
+      return true
+    end
 
     if detected_bad_code?
       @error_message = "pre-commit: detected tab before initial space:\n"
