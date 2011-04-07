@@ -4,6 +4,7 @@ require 'pre-commit/checks/merge_conflict'
 require 'pre-commit/checks/tabs'
 require 'pre-commit/checks/console_log'
 require 'pre-commit/checks/debugger_check'
+require 'pre-commit/checks/jslint_check'
 
 class PreCommit
 
@@ -53,8 +54,8 @@ class PreCommit
   Checks = {
     :white_space          => WhiteSpace,
     :console_log          => ConsoleLog,
-    :js_lint_all          => JSLintAll,
-    :js_lint_new          => JSLintNew,
+    :js_lint_all          => JslintCheck.new(:all),
+    :js_lint_new          => JslintCheck.new(:new),
     :debugger             => DebuggerCheck,
     :tabs                 => Tabs,
     :closure_syntax_check => ClosureSyntaxCheck,

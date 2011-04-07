@@ -10,14 +10,6 @@ class JSLint
   LINT_PATH = File.join(File.dirname(__FILE__), "lint.js")
 
   def self.lint_file(file)
-    begin
-      require 'rubygems'
-      require 'v8'
-    rescue LoadError
-      puts "ERROR: Couldn't load therubyracer, which is needed to run JSLint checks. Install via \"gem install therubyracer\", or disable the JS lint checks."
-      return []
-    end
-
     errors = []
     V8::Context.new do |context|
       context.load(LINT_PATH)
