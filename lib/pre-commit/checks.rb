@@ -27,6 +27,11 @@ class PreCommit
       errors << JSLint.lint_file(file)
     end
 
+    # JSLint.lint_file returns an array.
+    # Therefore no errors looks like this: [[]]
+    # And errors.empty? returns false
+    errors.flatten!
+
     if errors.empty?
       true
     else
