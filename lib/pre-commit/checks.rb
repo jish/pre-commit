@@ -36,7 +36,10 @@ class PreCommit
     if errors.empty?
       true
     else
-      puts errors.join("\n")
+      $stderr.puts errors.join("\n")
+      $stderr.puts
+      $stderr.puts 'pre-commit: You can bypass this check using `git commit -n`'
+      $stderr.puts
       false
     end
   }
