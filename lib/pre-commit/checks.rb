@@ -61,6 +61,12 @@ class PreCommit
   #
   # NOTE: The deprecation strategy *may* be just delete it since, we're still
   # pre 1.0.
+
+  #
+  # Actually, on the deprecation note. This method isn't really the problem.
+  # The problem is the default generated pre-commit hook. It shouldn't have
+  # logic in it. The we have freedom to change the gem implementation however
+  # we want, and nobody is forced to update their pre-commit binary.
   def self.checks_to_run
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
