@@ -1,4 +1,9 @@
 
+## 0.1.6
+
+### Bugs
+* Pre commit would fail -- silently :( -- when adding new .js files due to an error in the jslint check.
+
 ## 0.1.3
 
 ### Bugs
