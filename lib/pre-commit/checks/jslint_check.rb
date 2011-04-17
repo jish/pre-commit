@@ -19,7 +19,7 @@ class PreCommit
         run
       else
         $stderr.puts 'pre-commit: Skipping JSLint check (to run it: `gem install therubyracer`)'
-        # pretent the check passed and move on
+        # pretend the check passed and move on
         true
       end
     end
