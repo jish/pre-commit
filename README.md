@@ -20,9 +20,10 @@ These are the available checks:
 * console_log
 * debugger
 * tabs
+* jshint
+* js\_lint\_all (Runs JSLint on all staged JS files)
+* js\_lint\_new (Runs JSLint on all new staged JS files)
 * closure\_syntax\_check
-* js_lint_all (Runs JSLint on all staged JS files)
-* js_lint_new (Runs JSLint on all new staged JS files)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting. 
 
