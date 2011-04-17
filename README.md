@@ -36,4 +36,6 @@ To enable `white_space`, `console_log` and `debugger` checks:
     # From your git repo
     $ git config "pre-commit.checks" "white_space, console_log, debugger"
 
-Note: If no checks are configured, a default set of checks is run: white_space, console_log, debugger, tabs, closure_syntax_check and js_lint_new.
+Note: If no checks are configured, a default set of checks is run:
+
+    white_space, console_log, debugger, tabs, jshint

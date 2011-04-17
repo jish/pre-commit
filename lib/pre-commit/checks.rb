@@ -82,7 +82,7 @@ class PreCommit
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
     if checks_to_run.empty?
-      Checks.values_at(:white_space, :console_log, :debugger, :tabs, :js_lint_new)
+      Checks.values_at(:white_space, :console_log, :debugger, :tabs, :jshint)
     else
       Checks.values_at(*checks_to_run)
     end.compact
