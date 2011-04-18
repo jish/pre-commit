@@ -33,6 +33,11 @@ class JshintCheckTest < MiniTest::Unit::TestCase
     assert_equal(['bar.js'], check.reject_non_js(['foo.rb', 'bar.js']))
   end
 
+  def test_reject_staged_files_should_not_blow_up_with_a_list_of_one_file
+    check = PreCommit::JshintCheck.new
+    assert_equal(['bar.js'], check.reject_non_js(['bar.js']))
+  end
+
   def test_should_display_errors
     check = PreCommit::JshintCheck.new
     error_object = {

@@ -75,7 +75,7 @@ class PreCommit
     end
 
     def reject_non_js(staged_files)
-      staged_files.reject! { |f| f !~ /\.js$/ }
+      staged_files.select { |f| f =~ /\.js$/ }
     end
 
     def display_error(error_object, file)
