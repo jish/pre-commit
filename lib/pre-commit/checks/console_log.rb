@@ -25,7 +25,7 @@ class ConsoleLog
   end
 
   def detected_bad_code?
-    system("grep -qe \"console\\.log\" #{staged_files}")
+    system("grep -v \/\/ #{staged_files} | grep -qe \"console\\.log\"")
   end
 
   def instances_of_console_log_violations
