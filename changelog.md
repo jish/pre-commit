@@ -1,4 +1,13 @@
 
+## 0.1.9
+
+* Allowing commented out console.log to pass (only single line comment support for now =/)
+
+## 0.1.7
+
+* Adding JSHint support
+* Making JSHint a default check
+
 ## 0.1.6
 
 ### Bugs
