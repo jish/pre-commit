@@ -39,4 +39,4 @@ To enable `white_space`, `console_log` and `debugger` checks:
 
 Note: If no checks are configured, a default set of checks is run:
 
-    white_space, console_log, debugger, tabs, jshint
+    white_space, console_log, debugger, tabs, jshint, migrations
