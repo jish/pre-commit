@@ -1,4 +1,8 @@
 
+## 0.1.10
+
+* Adding a migration sanity check
+
 ## 0.1.9
 
 * Allowing commented out console.log to pass (only single line comment support for now =/)
