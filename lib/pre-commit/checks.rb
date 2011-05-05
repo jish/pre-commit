@@ -6,6 +6,7 @@ require 'pre-commit/checks/console_log'
 require 'pre-commit/checks/debugger_check'
 require 'pre-commit/checks/jslint_check'
 require 'pre-commit/checks/jshint_check'
+require 'pre-commit/checks/migration_check'
 
 class PreCommit
 
@@ -64,7 +65,8 @@ class PreCommit
     :debugger             => DebuggerCheck,
     :tabs                 => Tabs,
     :closure_syntax_check => ClosureSyntaxCheck,
-    :merge_conflict       => MergeConflict
+    :merge_conflict       => MergeConflict,
+    :migrations           => MigrationCheck.new
   }
 
   # Can not delete this method with out a deprecation strategy.
