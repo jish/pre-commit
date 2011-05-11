@@ -1,44 +1,41 @@
+require 'pre-commit/checks/js_check'
+
 # This (PreCommit) should be a module
 # ... it should also have a cooler name :P
 class PreCommit
-  class JslintCheck
+  class JslintCheck < JsCheck
 
-    attr_accessor :therubyracer_installed, :type
+    attr_accessor :type
+
+    def check_name
+      "JSLint"
+    end
 
     def initialize(type = :all)
+      super()
       @type = type
-      @therubyracer_installed = check_for_therubyracer_install
     end
 
-    def should_run?
-      @therubyracer_installed
-    end
-
-    def call
-      if should_run?
-        run
+    def files_to_check
+      case @type
+      when :new
+        Utils.new_files('.').split(" ")
       else
-        $stderr.puts 'pre-commit: Skipping JSLint check (to run it: `gem install therubyracer`)'
-        # pretend the check passed and move on
-        true
+        Utils.staged_files('.').split(" ")
       end
     end
 
-    def run
-      errors = check_to_run.call
+    def run_check(file)
+      context = ExecJS.compile(File.read(linter_src))
+      if !(context.call('JSLINT', File.read(file)))
+        context.exec('return JSLINT.errors;')
+      else
+        []
+      end
     end
 
-    def check_to_run
-      @type == :all ? JSLintAll : JSLintNew
-    end
-
-    private
-
-    def check_for_therubyracer_install
-      require 'v8'
-      @therubyracer_installed = true
-    rescue LoadError
-      @therubyracer_installed = false
+    def linter_src
+      File.join(PreCommit.root, 'lib', 'support', 'jslint', 'lint.js')
     end
 
   end

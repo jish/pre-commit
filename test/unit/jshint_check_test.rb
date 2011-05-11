@@ -3,19 +3,19 @@ require 'pre-commit/checks/jshint_check'
 
 class JshintCheckTest < MiniTest::Unit::TestCase
 
-  def test_should_not_run_if_therubyracer_is_not_installed
+  def test_should_not_run_if_execjs_cant_run
     check = PreCommit::JshintCheck.new
 
-    check.therubyracer_installed = false
+    check.can_run_js = false
     assert !check.should_run?(['foo.js'])
 
-    check.therubyracer_installed = true
+    check.can_run_js = true
     assert check.should_run?(['foo.js'])
   end
 
   def test_should_not_run_if_staged_files_is_empty
     check = PreCommit::JshintCheck.new
-    check.therubyracer_installed = true
+    check.can_run_js = true
 
     assert check.should_run?(['foo.js'])
 
@@ -25,7 +25,7 @@ class JshintCheckTest < MiniTest::Unit::TestCase
   def test_should_know_where_the_jshint_source_code_is
     check = PreCommit::JshintCheck.new
     expected = File.join(PreCommit.root, 'lib/support/jshint/jshint.js')
-    assert_equal(expected, check.jshint_src)
+    assert_equal(expected, check.linter_src)
   end
 
   def test_should_reject_staged_files_that_are_not_js_files
