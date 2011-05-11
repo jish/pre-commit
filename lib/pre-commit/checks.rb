@@ -4,13 +4,14 @@ require 'pre-commit/checks/merge_conflict'
 require 'pre-commit/checks/tabs'
 require 'pre-commit/checks/console_log'
 require 'pre-commit/checks/debugger_check'
+require 'pre-commit/checks/js_check'
 require 'pre-commit/checks/jslint_check'
 require 'pre-commit/checks/jshint_check'
 require 'pre-commit/checks/migration_check'
 
 class PreCommit
 
-  WhiteSpace = lambda { 
+  WhiteSpace = lambda {
     WhiteSpaceChecker.check
   }
 
@@ -24,38 +25,6 @@ class PreCommit
     end
   }
 
-  JSLintCheck = lambda { |files|
-    errors = []
-    files.each do |file|
-      errors << JSLint.lint_file(file)
-    end
-
-    # JSLint.lint_file returns an array.
-    # Therefore no errors looks like this: [[]]
-    # And errors.empty? returns false
-    errors.flatten!
-
-    if errors.empty?
-      true
-    else
-      $stderr.puts errors.join("\n")
-      $stderr.puts
-      $stderr.puts 'pre-commit: You can bypass this check using `git commit -n`'
-      $stderr.puts
-      false
-    end
-  }
-
-  JSLintNew = lambda {
-    new_js_files = Utils.new_files('.').split(" ").reject {|f| f !~ /\.js$/}
-    JSLintCheck[new_js_files]
-  }
-
-  JSLintAll = lambda {
-    staged_js_files = Utils.staged_files('.').split(" ").reject {|f| f !~ /\.js$/}
-    JSLintCheck[staged_js_files]
-  }
-  
   Checks = {
     :white_space          => WhiteSpace,
     :console_log          => ConsoleLog,
