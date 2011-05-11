@@ -16,7 +16,7 @@ class PreCommit
       if should_run?(js_files)
         run(js_files)
       else
-        $stderr.puts 'pre-commit: Skipping JSHint check (to run it: `gem install therubyracer`)'
+        $stderr.puts 'pre-commit: Skipping JSHint check (to run it: `gem install therubyracer`)' if !ruby_racer_installed?
         # pretend the check passed and move on
         true
       end
