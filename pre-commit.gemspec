@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Shajith Chacko, Josh Lubaway"]
-  s.date = %q{2011-05-05}
+  s.date = %q{2011-05-17}
   s.default_executable = %q{pre-commit}
   s.email = %q{dontneedmoreemail@example.com}
   s.executables = ["pre-commit"]
