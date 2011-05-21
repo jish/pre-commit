@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.md"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{What this thing does}
+  s.summary = "A slightly better git pre-commit hook"
+  s.description = "A git pre-commit hook written in ruby with a few more tricks up it's sleeve"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
