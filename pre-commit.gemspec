@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   s.summary = "A slightly better git pre-commit hook"
   s.description = "A git pre-commit hook written in ruby with a few more tricks up it's sleeve"
 
+  s.add_dependency('execjs')
+
   if s.respond_to? :specification_version then
     s.specification_version = 3
   end
