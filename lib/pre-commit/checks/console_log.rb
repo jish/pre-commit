@@ -25,11 +25,11 @@ class ConsoleLog
   end
 
   def detected_bad_code?
-    system('git diff --cached --pickaxe-regex -S"^[^/][^/].*console.log')
+    system("grep -v \/\/ #{staged_files} | grep -qe \"console\\.log\"")
   end
 
   def instances_of_console_log_violations
-    `git grep -nH "console.log" #{staged_files}`
+    `grep -nHe \"console\\.log\" #{staged_files}`
   end
 
 end
