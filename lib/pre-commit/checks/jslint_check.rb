@@ -12,7 +12,6 @@ class PreCommit
     end
 
     def initialize(type = :all)
-      super()
       @type = type
     end
 

@@ -5,18 +5,11 @@ require 'execjs'
 class PreCommit
   class JsCheck
 
-    attr_accessor :can_run_js
-
-    def initialize
-      @can_run_js = can_run_js?
-    end
-
     def call
       js_files = reject_non_js(files_to_check)
       if should_run?(js_files)
         run(js_files)
       else
-        $stderr.puts 'pre-commit: Skipping #{check_name} check (to run it: `gem install therubyracer`)' if !can_run_js?
         # pretend the check passed and move on
         true
       end
@@ -42,20 +35,7 @@ class PreCommit
     end
 
     def should_run?(js_files)
-      can_run_js? && js_files.any?
-    end
-
-    def can_run_js?
-      if instance_variable_defined?(:@can_run_js)
-        @can_run_js
-      else
-        begin
-          require 'execjs'
-          @can_run_js = true
-        rescue ExecJS::RuntimeError
-          @can_run_js = false
-        end
-      end
+      js_files.any?
     end
 
     def reject_non_js(staged_files)

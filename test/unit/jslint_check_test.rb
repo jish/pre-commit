@@ -6,15 +6,8 @@ require 'pre-commit/checks'
 
 class JslintCheckTest < MiniTest::Unit::TestCase
 
-  def test_should_not_run_if_execjs_cant_run
-    check = PreCommit::JslintCheck.new
-    check.can_run_js = false
-    assert !check.should_run?(['foo.js'])
-  end
-
   def test_should_not_run_if_staged_files_is_empty
     check = PreCommit::JslintCheck.new
-    check.can_run_js = true
 
     assert check.should_run?(['foo.js'])
 
