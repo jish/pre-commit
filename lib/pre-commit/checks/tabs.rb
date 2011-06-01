@@ -11,7 +11,7 @@ class Tabs
     check.staged_files = Utils.staged_files('*')
     result = check.run
 
-    if !passed
+    if !result
       $stderr.puts check.error_message
       $stderr.puts
       $stderr.puts 'pre-commit: You can bypass this check using `git commit -n`'
