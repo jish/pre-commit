@@ -11,9 +11,20 @@ class PreCommit
       Utils.staged_files('.').split(" ")
     end
 
+    def config
+      config_file = ENV['JSHINT_CONFIG']
+      config_file ||= File.exists?(".jshintrc") ? ".jshintrc" : nil
+
+      if config_file
+        ExecJS.exec("return (#{File.read(config_file)});")
+      else
+        {}
+      end
+    end
+
     def run_check(file)
       context = ExecJS.compile(File.read(linter_src))
-      if !(context.call('JSHINT', File.read(file)))
+      if !(context.call('JSHINT', File.read(file), config))
         context.exec('return JSHINT.errors;')
       else
         []
