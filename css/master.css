@@ -5,7 +5,7 @@ body {
 
 #container {
   border: 1px solid #ddd;
-  margin: auto;
+  margin: 1em auto 1em;
   padding: 0 15px;
   width: 500px;
 
@@ -31,7 +31,7 @@ code {
   color: #ddd;
   font-family: monaco, monospace;
   font-size: 9pt;
-  padding: 6px 8px;
+  padding: 11px 12px;
 
   border-radius: 10px;
 }

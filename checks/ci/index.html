@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ci Check</title>
+    <title>CI Check</title>
+    <link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" charset="utf-8">
   </head>
 
   <body>
 
-    <p>Test</p>
+    <h1>pre-commit</h1>
+
+    <div id="container">
+      <h2>CI Check</h2>
+
+      <p>If you turn on the ci check, it will look for and run a rake task called <code>pre_commit:ci</code> before each commit.</p>
+
+      <p>Example output:</p>
+
+      <div class="terminal">
+        <p>$ git commit</p>
+        <p>pre-commit: your test suite has failed</p>
+        <p>for the full output run `pre_commit:ci`</p>
+        <p>&nbsp;</p>
+        <p>You can bypass this check using `git commit -n`</p>
+      </div>
+
+      <h2>Troubleshooting</h2>
+
+      <div class="terminal">
+        <p>$ git commit</p>
+        <p>pre-commit: skipping ci check. The `pre_commit:ci` task is not defined.</p>
+      </div>
+
+      <p>If you see a message like this, you need to define a rake task called <code>pre_commit:ci</code>.</p>
+
+      <p>If you're using test/unit you can point the <code>pre_commit:ci</code> task to run your test suite like this:</p>
+
+      <code><pre>
+        namespace :pre_commit do
+          task :ci => [:test]
+        end
+      </pre></code>
+
+      <p>Or you can define your own custom <code>pre_commit:ci</code> task. This could, for example, run a small test suite of core tests. This small test suite should run very quickly. Remember, you're going to be running this test before <em>every</em> commit.</p>
+    </div>
 
   </body>
 </html>
