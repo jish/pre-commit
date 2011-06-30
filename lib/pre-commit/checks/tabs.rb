@@ -9,7 +9,16 @@ class Tabs
   def self.call
     check = new
     check.staged_files = Utils.staged_files('*')
-    check.run
+    result = check.run
+
+    if !result
+      $stderr.puts check.error_message
+      $stderr.puts
+      $stderr.puts 'pre-commit: You can bypass this check using `git commit -n`'
+      $stderr.puts
+    end
+
+    result
   end
 
   def run
@@ -21,9 +30,6 @@ class Tabs
     if detected_bad_code?
       @error_message = "pre-commit: detected tab before initial space:\n"
       @error_message += violations
-
-      $stderr.puts @error_message
-      $stderr.puts
 
       @passed = false
     else
