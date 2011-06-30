@@ -1,4 +1,9 @@
 
+## 0.1.13
+
+* Adding a JSHint config file. You can put your options in a .jshintrc file
+* Adding a ci check. You can run a quick test suite each time you commit.
+
 ## 0.1.10
 
 * Adding a migration sanity check
