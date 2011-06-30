@@ -23,6 +23,10 @@ class TabsTest < MiniTest::Unit::TestCase
 
   def test_error_message_should_contain_an_error_message_when_an_initial_tab_is_found
     check = Tabs.new
+    def check.detected_bad_code?
+      true
+    end
+
     check.staged_files = test_filename('initial_tab.rb')
     assert !check.run, 'We should prevent an initial tab from being committed'
 
