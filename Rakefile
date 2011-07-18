@@ -7,3 +7,8 @@ end
 
 task :ci => [:test]
 task :default => [:test]
+
+namespace :pre_commit do
+  desc "run the tests"
+  task :ci => [:test]
+end
