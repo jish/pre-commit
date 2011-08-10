@@ -51,6 +51,8 @@ class PreCommit
     end
 
     def display_error(error_object, file)
+      return "" unless error_object
+
       line = error_object['line'].to_i + 1
       "pre-commit: #{check_name.upcase} #{error_object['reason']}\n#{file}:#{line} #{error_object['evidence']}"
     end
