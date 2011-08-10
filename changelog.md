@@ -1,4 +1,8 @@
 
+## 0.1.14
+
+* Better error reporting when JSHint stops scanning a file for errors half way through
+
 ## 0.1.13
 
 * Adding a JSHint config file. You can put your options in a .jshintrc file
