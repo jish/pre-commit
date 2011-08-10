@@ -19,7 +19,7 @@ class PreCommit
       errors = []
 
       js_files.each do |file|
-        error_list = run_check(file)
+        error_list = Array(run_check(file))
         error_list.each { |error_object| errors << display_error(error_object, file) }
       end
 
