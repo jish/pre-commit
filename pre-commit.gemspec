@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pre-commit}
-  s.version = "0.1.13"
+  s.version = "0.1.14"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Shajith Chacko, Josh Lubaway"]
-  s.date = %q{2011-06-29}
+  s.date = %q{2011-08-10}
   s.default_executable = %q{pre-commit}
   s.email = %q{dontneedmoreemail@example.com}
   s.executables = ["pre-commit"]
