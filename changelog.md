@@ -1,4 +1,8 @@
 
+## 0.1.15
+
+* The previous release handled some error reporting when using therubyracer vm. This release fixes errors if you're using ExecJS and *do not* have therubyracer installed.
+
 ## 0.1.14
 
 * Better error reporting when JSHint stops scanning a file for errors half way through
