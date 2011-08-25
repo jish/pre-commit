@@ -9,6 +9,12 @@ class TabsTest < MiniTest::Unit::TestCase
     assert check.detected_bad_code?, 'should detect tabs'
   end
 
+  def test_should_detect_leading_whitespace_followed_by_a_tab
+    check = Tabs.new
+    check.staged_files = test_filename('bad_tabs2.rb')
+    assert check.detected_bad_code?, 'should detect leading whitespace followed by tabs'
+  end
+
   def test_should_pass_a_valid_file
     check = Tabs.new
     check.staged_files = test_filename('valid_file.rb')

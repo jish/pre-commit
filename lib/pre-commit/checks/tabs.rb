@@ -37,12 +37,14 @@ class Tabs
     end
   end
 
+  LEADING_TAB_PATTERN = '^ *\t'
+
   def detected_bad_code?
-    system("grep -PnIH -q '^\t' #{staged_files}")
+    system("grep -PnIH -q '#{LEADING_TAB_PATTERN}' #{staged_files}")
   end
 
   def violations
-    `grep -PnIH '^\t' #{staged_files}`
+    `grep -PnIH '#{LEADING_TAB_PATTERN}' #{staged_files}`
   end
 
 end
