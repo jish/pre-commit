@@ -1,4 +1,8 @@
 
+## 0.1.16
+
+* Detecting leading whitespace before leading tabs in the tabs check.
+
 ## 0.1.15
 
 * The previous release handled some error reporting when using therubyracer vm. This release fixes errors if you're using ExecJS and *do not* have therubyracer installed.
