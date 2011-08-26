@@ -22,7 +22,7 @@ class PreCommit
         @error_message = "It looks like you're adding a migration, but did not update the schema file"
         @passed = false
       elsif schema_change && !migration_present
-        @error_message = "You're trying to change the schema without adding a migraiton file"
+        @error_message = "You're trying to change the schema without adding a migration file"
         @passed = false
       else
         @passed = true
