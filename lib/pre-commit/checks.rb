@@ -8,6 +8,7 @@ require 'pre-commit/checks/jslint_check'
 require 'pre-commit/checks/jshint_check'
 require 'pre-commit/checks/migration_check'
 require 'pre-commit/checks/ci_check'
+require 'pre-commit/checks/php_check'
 
 class PreCommit
 
@@ -36,7 +37,8 @@ class PreCommit
     :closure_syntax_check => ClosureSyntaxCheck,
     :merge_conflict       => MergeConflict,
     :migrations           => MigrationCheck.new,
-    :ci                   => CiCheck.new
+    :ci                   => CiCheck.new,
+    :php                  => PhpCheck.new
   }
 
   # Can not delete this method with out a deprecation strategy.
