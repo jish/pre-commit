@@ -24,6 +24,7 @@ These are the available checks:
 * js\_lint\_all (Runs JSLint on all staged JS files)
 * js\_lint\_new (Runs JSLint on all new staged JS files)
 * closure\_syntax\_check
+* php (Runs php -l on all staged files)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting. 
 
