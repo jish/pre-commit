@@ -69,11 +69,13 @@ class PreCommit
       result = %x[ #{cmd} ]
       # Filter out the obvious note from PHP.
       result = result.split($/).find_all {|line| line !~ /Errors/}.join($/)
+      # If PHP exited non-zero then there was a parse error.
       if ($?)
         result
       end
     end
 
+    # Format an error line.
     def display_error(error)
       "pre-commit: #{check_name.upcase} #{error}"
     end
