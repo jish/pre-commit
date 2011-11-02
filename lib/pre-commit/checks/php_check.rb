@@ -4,19 +4,8 @@ require 'pre-commit/utils'
 class PreCommit
   class PhpCheck
 
-    attr_accessor :type
-
-    def initialize(type = :all)
-      @type = type
-    end
-
     def files_to_check
-      case @type
-      when :new
-        Utils.new_files('.').split(" ")
-      else
-        Utils.staged_files('.').split(" ")
-      end
+      Utils.staged_files('.').split(" ")
     end
 
     def call
@@ -70,7 +59,7 @@ class PreCommit
       # Filter out the obvious note from PHP.
       result = result.split($/).find_all {|line| line !~ /Errors/}.join($/)
       # If PHP exited non-zero then there was a parse error.
-      if ($?)
+      if ($? != 0)
         result
       end
     end
