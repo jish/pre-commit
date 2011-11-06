@@ -1,4 +1,9 @@
 
+## 0.1.17
+
+* Fixing typos
+* Adding a php check
+
 ## 0.1.16
 
 * Detecting leading whitespace before leading tabs in the tabs check.
