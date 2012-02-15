@@ -21,4 +21,11 @@ class JshintCheckTest < MiniTest::Unit::TestCase
     assert_equal(expected, check.display_error(error_object, 'foo.js'))
   end
 
+  def test_should_retrieve_errors_from_jshint
+    check = PreCommit::JshintCheck.new
+
+    assert_empty(check.run_check(test_filename('valid_file.js')))
+    refute_empty(check.run_check(test_filename('bad_file.js')))
+  end
+
 end

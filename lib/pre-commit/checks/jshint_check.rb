@@ -24,11 +24,7 @@ class PreCommit
 
     def run_check(file)
       context = ExecJS.compile(File.read(linter_src))
-      if !(context.call('JSHINT', File.read(file), config))
-        context.exec('return JSHINT.errors;')
-      else
-        []
-      end
+      context.call('JSHINT', File.read(file), config)
     end
 
     def linter_src
