@@ -1,4 +1,9 @@
 
+## 0.1.18
+
+* Upgrading JSHint
+* Playing nicely with execjs
+
 ## 0.1.17
 
 * Fixing typos
