@@ -3,6 +3,7 @@ A better pre-commit hook for git.
 ## Installation
 
 Install the gem
+
     $ gem install pre-commit
 
 Use the pre-commit command to generate a stub pre-commit hook
