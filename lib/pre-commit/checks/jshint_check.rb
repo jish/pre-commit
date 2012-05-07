@@ -1,4 +1,5 @@
 require 'pre-commit/checks/js_check'
+require 'multi_json'
 
 class PreCommit
   class JshintCheck < JsCheck
@@ -24,7 +25,12 @@ class PreCommit
 
     def run_check(file)
       context = ExecJS.compile(File.read(linter_src))
-      context.call('JSHINT', File.read(file), config)
+
+      js = []
+      js << "JSHINT(#{MultiJson.dump(File.read(file))}, #{MultiJson.dump(config)});"
+      js << "return JSHINT.errors;"
+
+      context.exec js.join("\n")
     end
 
     def linter_src
