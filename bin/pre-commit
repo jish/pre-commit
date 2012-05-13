@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby -rrubygems
 
 template = <<EOS
-#!/usr/bin/env ruby -rrubygems
+#!/usr/bin/env ruby
+
+require 'rubygems'
 require 'pre-commit'
 
 exit_status = PreCommit.checks_to_run.inject(true) do |acc, cmd|
