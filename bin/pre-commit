@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -rrubygems
+#!/usr/bin/env ruby
 
 template = <<EOS
 #!/usr/bin/env ruby
