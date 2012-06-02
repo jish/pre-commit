@@ -1,0 +1,3 @@
+.foo {
+  background-size: 94px 45px; /* declaration contains an invisible utf-8 character */
+}
