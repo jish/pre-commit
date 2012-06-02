@@ -9,6 +9,7 @@ require 'pre-commit/checks/jshint_check'
 require 'pre-commit/checks/migration_check'
 require 'pre-commit/checks/ci_check'
 require 'pre-commit/checks/php_check'
+require 'pre-commit/checks/sanity'
 
 class PreCommit
 
@@ -38,7 +39,8 @@ class PreCommit
     :merge_conflict       => MergeConflict,
     :migrations           => MigrationCheck.new,
     :ci                   => CiCheck.new,
-    :php                  => PhpCheck.new
+    :php                  => PhpCheck.new,
+    :sanity               => Sanity
   }
 
   # Can not delete this method with out a deprecation strategy.
