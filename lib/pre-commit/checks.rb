@@ -61,4 +61,12 @@ class PreCommit
       Checks.values_at(*checks_to_run)
     end.compact
   end
+
+  def self.run
+    exit_status = self.checks_to_run.inject(true) do |acc, cmd|
+      acc = cmd.call && acc
+    end
+
+    exit(exit_status ? 0 : 1)
+  end
 end

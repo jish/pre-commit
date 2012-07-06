@@ -3,15 +3,7 @@
 template = <<EOS
 #!/usr/bin/env ruby
 
-require 'rubygems'
-require 'pre-commit'
-
-exit_status = PreCommit.checks_to_run.inject(true) do |acc, cmd|
-  acc = cmd.call && acc
-end
-
-exit(exit_status ? 0 : 1)
-
+exit(system("%cmd%") ? 0 : 1)
 EOS
 
 if ARGV[0] != "install"
@@ -29,8 +21,16 @@ if File.exists?(".git/hooks/pre-commit")
   exit(1)
 end
 
+if system("which rvm")
+  cmd = "#{`which rvm`.chomp} default do ruby -rrubygems "
+else
+  cmd = "#{`which ruby`.chomp} -rrubygems "
+end
+
+cmd << '-e\"require \'pre-commit\';PreCommit.run\"'
+
 File.open(".git/hooks/pre-commit","w") {|f| 
-  f.write(template)
+  f.write(template.gsub("%cmd%", cmd))
 }
 
 require 'fileutils'
