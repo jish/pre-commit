@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'fileutils'
+require 'pre-commit/cli'
 
 PRE_COMMIT_HOOK_PATH = '.git/hooks/pre-commit'
 
@@ -14,14 +14,8 @@ if !File.exists?(".git")
   exit(1)
 end
 
-# TODO overwrite and backup?
-if File.exists?(PRE_COMMIT_HOOK_PATH)
-  puts "Not overwriting existing hook: #{PRE_COMMIT_HOOK_PATH}"
-  exit(1)
-end
-
-pre_commit_hook = File.expand_path('../../templates/pre-commit-hook', __FILE__)
-FileUtils.cp(pre_commit_hook, PRE_COMMIT_HOOK_PATH)
-FileUtils.chmod(0755, PRE_COMMIT_HOOK_PATH)
+cli = PreCommit::Cli.new
+cli.install
 
 puts "Installed hook: #{PRE_COMMIT_HOOK_PATH}"
+puts
