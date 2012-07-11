@@ -1,4 +1,13 @@
 
+## 0.2.0
+
+* Fixing a segmentation fault that was occurring when some people did not have the proper ruby setup in their environment
+* Adding the option to overwrite existing pre-commit hooks during installation
+
+## 0.1.19
+
+* Removing arguments from the shebang line as these are not interpreted the same way on all operating systems
+
 ## 0.1.18
 
 * Upgrading JSHint
