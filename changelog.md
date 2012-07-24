@@ -1,4 +1,8 @@
 
+## 0.3.0
+
+* Adding the merge conflict check to the list of default checks
+
 ## 0.2.0
 
 * Fixing a segmentation fault that was occurring when some people did not have the proper ruby setup in their environment
