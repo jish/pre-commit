@@ -1,4 +1,8 @@
 
+## 0.3.1
+
+* Fix for Mountain Lion's grep.
+
 ## 0.3.0
 
 * Adding the merge conflict check to the list of default checks
