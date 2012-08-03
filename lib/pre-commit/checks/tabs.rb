@@ -40,11 +40,19 @@ class Tabs
   LEADING_TAB_PATTERN = '^ *\t'
 
   def detected_bad_code?
-    system("grep -PnIH -q '#{LEADING_TAB_PATTERN}' #{staged_files}")
+    system("#{grep} -q '#{LEADING_TAB_PATTERN}' #{staged_files}")
   end
 
   def violations
-    `grep -PnIH '#{LEADING_TAB_PATTERN}' #{staged_files}`
+    `#{grep} '#{LEADING_TAB_PATTERN}' #{staged_files}`
   end
 
+  def grep
+    grep_version = `grep --version | head -n 1 | sed -e 's/^[^0-9.]*\([0-9.]*\)$/\1/'`
+    if grep_version =~ /FreeBSD/
+      "grep -EnIH"
+    else
+      "grep -PnIH"
+    end
+  end
 end
