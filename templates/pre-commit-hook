@@ -1,7 +1,12 @@
 #!/usr/bin/env ruby
 
 if system("which rvm > /dev/null")
-  cmd = "rvm default do ruby -rrubygems "
+  if system("rvm default do gem list | grep pre-commit > /dev/null")
+    cmd = "rvm default do ruby -rrubygems "
+  else
+    rvm_default = `rvm default do rvm current`
+    abort("Please install pre-commit in your RVM default Ruby: #{rvm_default}")
+  end
 else
   cmd = "ruby -rrubygems "
 end
