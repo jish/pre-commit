@@ -7,8 +7,7 @@ else
 end
 
 if !system("#{cmd} -rpre-commit -e '' 2> /dev/null")
-  $stderr.puts "pre-commit: WARNING: It looks like you've upgraded your Ruby version."
-  $stderr.puts "The pre-commit gem is not installed, skipping checks."
+  $stderr.puts "pre-commit: WARNING: Skipping checks because the pre-commit gem is not installed. (Did you change your Ruby version?)"
   exit(0)
 end
 
