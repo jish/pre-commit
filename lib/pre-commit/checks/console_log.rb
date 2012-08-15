@@ -14,7 +14,7 @@ class ConsoleLog
   end
 
   def run
-    return true if staged_files.empty?
+    return true if staged_js_files.empty?
     if detected_bad_code?
       @error_message = "pre-commit: console.log found:\n"
       @error_message += instances_of_console_log_violations
@@ -25,11 +25,16 @@ class ConsoleLog
   end
 
   def detected_bad_code?
-    system("grep -v \/\/ #{staged_files} | grep -qe \"console\\.log\"")
+    system("grep -v \/\/ #{staged_js_files} | grep -qe \"console\\.log\"")
   end
 
   def instances_of_console_log_violations
-    `grep -nHe \"console\\.log\" #{staged_files}`
+    `grep -nHe \"console\\.log\" #{staged_js_files}`
   end
 
+  def staged_js_files
+    @staged_js_files ||= staged_files.split(" ").select do |file|
+      File.extname(file) == ".js"
+    end.join(" ")
+  end
 end
