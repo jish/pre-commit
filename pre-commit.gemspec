@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = "A slightly better git pre-commit hook"
-  s.description = "A git pre-commit hook written in ruby with a few more tricks up it's sleeve"
+  s.description = "A git pre-commit hook written in ruby with a few more tricks up its sleeve"
 
   s.add_dependency('execjs')
 
