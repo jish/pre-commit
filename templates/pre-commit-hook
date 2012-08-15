@@ -7,9 +7,9 @@ else
 end
 
 if !system("#{cmd} -rpre-commit -e '' 2> /dev/null")
-  $stderr.puts "pre-commit: It looks like you've upgraded your ruby version."
-  $stderr.puts "Please re-install the pre-commit gem: `gem install pre-commit`"
-  exit(1)
+  $stderr.puts "pre-commit: It looks like you've upgraded your Ruby version."
+  $stderr.puts "The pre-commit gem is not installed, skipping checks."
+  exit(0)
 end
 
 cmd << %Q{-e "require 'pre-commit'; PreCommit.run"}
