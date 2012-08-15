@@ -1,4 +1,9 @@
 
+## 0.4.0
+
+* Detecting if the pre-commit gem is no longer installed. This is usually due to a Ruby version upgrade.
+* Only running the ConsoleLog check on javascript files.
+
 ## 0.3.1
 
 * Fix for Mountain Lion's grep.
