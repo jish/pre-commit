@@ -2,6 +2,8 @@
 
 if system("which rvm > /dev/null")
   cmd = "rvm default do ruby -rrubygems "
+elsif system("which rbenv > /dev/null")
+  cmd = "rbenv exec ruby -rrubygems "
 else
   cmd = "ruby -rrubygems "
 end
