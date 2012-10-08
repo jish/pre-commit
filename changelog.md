@@ -1,3 +1,6 @@
+## 0.5.0
+
+* Checking for `rbenv` on boot as well as `rvm`
 
 ## 0.4.0
 
