@@ -27,18 +27,19 @@ class PreCommit
   }
 
   Checks = {
-    :white_space          => WhiteSpace,
-    :console_log          => ConsoleLog,
-    :js_lint_all          => JslintCheck.new(:all),
-    :js_lint_new          => JslintCheck.new(:new),
-    :jshint               => JshintCheck.new,
-    :debugger             => DebuggerCheck,
-    :tabs                 => Tabs,
-    :closure_syntax_check => ClosureSyntaxCheck,
-    :merge_conflict       => MergeConflict,
-    :migrations           => MigrationCheck.new,
-    :ci                   => CiCheck.new,
-    :php                  => PhpCheck.new
+    :white_space             => WhiteSpace,
+    :console_log             => ConsoleLog,
+    :js_lint_all             => JslintCheck.new(:all),
+    :js_lint_new             => JslintCheck.new(:new),
+    :jshint                  => JshintCheck.new,
+    :debugger                => DebuggerCheck,
+    :tabs                    => Tabs,
+    :closure_syntax_check    => ClosureSyntaxCheck,
+    :merge_conflict          => MergeConflict,
+    :migrations              => MigrationCheck.new,
+    :ci                      => CiCheck.new,
+    :php                     => PhpCheck.new,
+    :ruby_symbol_hashrockets => RubySymbolHashrockets
   }
 
   # Can not delete this method with out a deprecation strategy.
