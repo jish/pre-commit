@@ -26,6 +26,7 @@ These are the available checks:
 * js\_lint\_new (Runs JSLint on all new staged JS files)
 * closure\_syntax\_check
 * php (Runs php -l on all staged files)
+* ruby_symbol_hashrockets (1.9 syntax. BAD :foo => "bar". GOOD foo: "bar")
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting. 
 
