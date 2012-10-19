@@ -1,3 +1,7 @@
+## 0.6.0
+
+* Adding a Ruby hashrocket syntax check. If you're into that kind of thing.
+
 ## 0.5.0
 
 * Checking for `rbenv` on boot as well as `rvm`
