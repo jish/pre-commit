@@ -1,7 +1,7 @@
 class RubySymbolHashrockets
   attr_accessor :staged_files, :error_message
 
-  HASHROCKET_PATTERN = ":[@$_A-Za-z][_A-Za-z0-9]*[=!?]? *=> *"
+  HASHROCKET_PATTERN = ':(?:\$|@|@@|[_A-Za-z])?\w*[=!?]?\s*=>\s*'
 
   def self.call
     check = new
@@ -24,7 +24,7 @@ class RubySymbolHashrockets
 
     if detected_bad_code?
       @error_message = "pre-commit: detected :symbol => value hashrocket:\n"
-      @error_message += violations
+      @error_message += violations[:lines]
 
       @passed = false
     else
@@ -35,10 +35,15 @@ class RubySymbolHashrockets
   end
 
   def detected_bad_code?
-    system("#{Utils.grep} -q '#{HASHROCKET_PATTERN}' #{staged_files}")
+    violations[:success]
   end
 
   def violations
-    `#{Utils.grep} '#{HASHROCKET_PATTERN}' #{staged_files}`
+    @violations ||= begin
+      lines = `#{Utils.grep} '#{HASHROCKET_PATTERN}' #{staged_files}`
+      success = $?.exitstatus == 0
+
+      { :lines => lines, :success => success}
+    end
   end
 end
