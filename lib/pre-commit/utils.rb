@@ -16,4 +16,13 @@ class Utils
     dirs.reject { |dir| !File.exist?(dir) }
   end
 
+  def self.grep
+    grep_version = `grep --version | head -n 1 | sed -e 's/^[^0-9.]*\([0-9.]*\)$/\1/'`
+    if grep_version =~ /FreeBSD/
+      "grep -EnIH"
+    else
+      "grep -PnIH"
+    end
+  end
+
 end
