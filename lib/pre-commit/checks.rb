@@ -9,6 +9,7 @@ require 'pre-commit/checks/jshint_check'
 require 'pre-commit/checks/migration_check'
 require 'pre-commit/checks/ci_check'
 require 'pre-commit/checks/php_check'
+require 'pre-commit/checks/ruby_symbol_hashrockets'
 
 class PreCommit
 
