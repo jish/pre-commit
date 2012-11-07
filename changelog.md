@@ -1,3 +1,7 @@
+## 0.6.1
+
+* Properly require `ruby_symbol_hashrockets`.
+
 ## 0.6.0
 
 * Adding a Ruby hashrocket syntax check. If you're into that kind of thing.
