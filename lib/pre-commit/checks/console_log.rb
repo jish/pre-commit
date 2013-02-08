@@ -1,4 +1,4 @@
-class ConsoleLog
+class PreCommit::ConsoleLog
 
   attr_accessor :staged_files, :error_message
 

@@ -1,4 +1,4 @@
-class DebuggerCheck
+class PreCommit::DebuggerCheck
   attr_accessor :staged_files, :error_message, :grep_command
 
   def self.call(quiet=false)

@@ -1,4 +1,4 @@
-class Tabs
+class PreCommit::Tabs
 
   attr_accessor :staged_files, :error_message
 

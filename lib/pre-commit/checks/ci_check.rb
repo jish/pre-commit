@@ -1,4 +1,4 @@
-class CiCheck
+class PreCommit::CiCheck
 
   CI_TASK_NAME = 'pre_commit:ci'
 

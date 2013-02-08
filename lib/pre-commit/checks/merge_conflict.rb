@@ -1,4 +1,4 @@
-class MergeConflict
+class PreCommit::MergeConflict
 
   attr_accessor :staged_files
 
