@@ -1,3 +1,5 @@
+require 'minitest/spec'
+require 'minitest/rg'
 require 'minitest/autorun'
 
 class MiniTest::Unit::TestCase

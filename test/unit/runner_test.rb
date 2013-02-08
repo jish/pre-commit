@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require File.expand_path('../../minitest_helper', __FILE__)
 
 class RunnerTest < MiniTest::Unit::TestCase
 

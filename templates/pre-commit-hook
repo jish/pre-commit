@@ -8,11 +8,11 @@ else
   cmd = "ruby -rrubygems "
 end
 
-if !system("#{cmd} -rpre-commit -e '' 2> /dev/null")
+if !system("#{cmd} -rpre-commit -e '' 2>&1")
   $stderr.puts "pre-commit: WARNING: Skipping checks because the pre-commit gem is not installed. (Did you change your Ruby version?)"
   exit(0)
 end
 
 cmd << %Q{-e "require 'pre-commit'; PreCommit.run"}
 
-exit(system(cmd) ? 0 : 1)
+exec(cmd)

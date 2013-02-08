@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require File.expand_path('../../minitest_helper', __FILE__)
 require 'pre-commit/checks/js_check'
 
 class JslintCheckTest < MiniTest::Unit::TestCase
