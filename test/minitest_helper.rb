@@ -1,6 +1,7 @@
 require 'minitest/spec'
 require 'minitest/rg'
 require 'minitest/autorun'
+$LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 class MiniTest::Unit::TestCase
 

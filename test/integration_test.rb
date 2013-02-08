@@ -1,12 +1,13 @@
 require File.expand_path('../minitest_helper', __FILE__)
 require "tmpdir"
+require "pre-commit/cli"
 
 describe "integration" do
   it "prevents bad commits" do
     in_git_dir do
       result = commit_a_bad_file :fail => true
       assert_includes result, "detected tab before initial"
-      assert_includes result, "xxx.rb:2: new blank line at EOF"
+      assert_includes result, "new blank line at EOF"
       assert_includes result, "You can bypass this check using"
     end
   end
@@ -35,7 +36,7 @@ describe "integration" do
       sh "git config 'pre-commit.checks' 'tabs'"
       result = commit_a_bad_file :fail => true
       assert_includes result, "detected tab before initial"
-      refute_includes result, "xxx.rb:2: new blank line at EOF"
+      refute_includes result, "new blank line at EOF"
       assert_includes result, "You can bypass this check using"
     end
   end
@@ -64,6 +65,16 @@ describe "integration" do
 
   def install
     sh "ruby -I #{Bundler.root}/lib #{Bundler.root}/bin/pre-commit install"
+    make_lib_available_for_hook
+    sh "git commit -m Initial --allow-empty" # or travis fails with: No HEAD commit to compare with
+  end
+
+  def make_lib_available_for_hook
+    hook_file = PreCommit::Cli::PRE_COMMIT_HOOK_PATH
+    anchor = "-r pre-commit"
+    content = read(hook_file)
+    raise unless content.include?(anchor)
+    write(hook_file, content.gsub(anchor, "#{anchor} -I #{Bundler.root.join("lib")}"))
   end
 
   def ensure_folder(folder)
