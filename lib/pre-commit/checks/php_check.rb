@@ -1,7 +1,7 @@
 require 'pre-commit/base'
 require 'pre-commit/utils'
 
-class PreCommit
+module PreCommit
   class PhpCheck
 
     def files_to_check
@@ -71,4 +71,3 @@ class PreCommit
 
   end
 end
-     

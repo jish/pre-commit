@@ -11,7 +11,7 @@ require 'pre-commit/checks/ci_check'
 require 'pre-commit/checks/php_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 
-class PreCommit
+module PreCommit
 
   WhiteSpace = lambda {
     WhiteSpaceChecker.check

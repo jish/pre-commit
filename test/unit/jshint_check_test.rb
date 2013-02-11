@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'minitest_helper'
 require 'pre-commit/checks/jshint_check'
 
 class JshintCheckTest < MiniTest::Unit::TestCase

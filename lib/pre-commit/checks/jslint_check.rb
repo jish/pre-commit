@@ -1,8 +1,6 @@
 require 'pre-commit/checks/js_check'
 
-# This (PreCommit) should be a module
-# ... it should also have a cooler name :P
-class PreCommit
+module PreCommit
   class JslintCheck < JsCheck
 
     attr_accessor :type
