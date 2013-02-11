@@ -1,4 +1,4 @@
-class PreCommit
+module PreCommit
   class MigrationCheck
 
     attr_accessor :error_message

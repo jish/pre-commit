@@ -2,7 +2,7 @@ require 'pre-commit/base'
 require 'pre-commit/utils'
 require 'execjs'
 
-class PreCommit
+module PreCommit
   class JsCheck
 
     def call
