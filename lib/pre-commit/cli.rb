@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'pre-commit/base'
 
-class PreCommit
+module PreCommit
   class Cli
 
     PRE_COMMIT_HOOK_PATH = '.git/hooks/pre-commit'

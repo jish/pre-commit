@@ -1,4 +1,4 @@
-class PreCommit
+module PreCommit
 
   def self.root
     root = File.expand_path('../../..', __FILE__)

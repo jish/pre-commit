@@ -12,7 +12,7 @@ class UtilsTest < MiniTest::Unit::TestCase
       'This tests depends on the non-existence of `/tmp/pre-commit/bar` ' +
       'please ensure it does not contain any important files and delete it.'
 
-    result = Utils.reject_missing(['/tmp/pre-commit/foo', '/tmp/pre-commit/bar'])
+    result = PreCommit::Utils.reject_missing(['/tmp/pre-commit/foo', '/tmp/pre-commit/bar'])
     assert_equal(['/tmp/pre-commit/foo'].first, result.first)
   end
 

@@ -1,6 +1,6 @@
 require 'pre-commit/checks/js_check'
 
-class PreCommit
+module PreCommit
   class JshintCheck < JsCheck
 
     def check_name
@@ -30,5 +30,6 @@ class PreCommit
     def linter_src
       File.join(PreCommit.root, 'lib', 'support', 'jshint', 'jshint.js')
     end
+
   end
 end
