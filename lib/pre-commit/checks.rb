@@ -18,8 +18,6 @@ class PreCommit
   }
 
   ClosureSyntaxCheck = lambda {
-    compiler = "test/javascript/lib/compiler.jar"
-
     if File.exists?('public/javascripts') && (args = Utils.staged_files('public/javascripts')).size > 0
       ClosureChecker.check(args.split(" "))
     else
@@ -67,7 +65,7 @@ class PreCommit
 
   def self.run
     exit_status = self.checks_to_run.inject(true) do |acc, cmd|
-      acc = cmd.call && acc
+      cmd.call && acc
     end
 
     exit(exit_status ? 0 : 1)

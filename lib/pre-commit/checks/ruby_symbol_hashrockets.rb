@@ -1,4 +1,4 @@
-class RubySymbolHashrockets
+class PreCommit::RubySymbolHashrockets
   attr_accessor :staged_files, :error_message
 
   HASHROCKET_PATTERN = ':(?:\$|@|@@|[_A-Za-z])?\w*[=!?]?\s*=>\s*'
