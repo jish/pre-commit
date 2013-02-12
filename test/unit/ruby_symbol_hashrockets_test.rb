@@ -1,4 +1,4 @@
-require File.expand_path('../../minitest_helper', __FILE__)
+require 'minitest_helper'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 
 class RubySymbolHashrocketsTest < MiniTest::Unit::TestCase

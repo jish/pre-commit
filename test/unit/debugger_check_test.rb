@@ -1,4 +1,4 @@
-require File.expand_path('../../minitest_helper', __FILE__)
+require 'minitest_helper'
 require 'pre-commit/checks/debugger_check'
 
 class DebuggerCheckTest < MiniTest::Unit::TestCase

@@ -1,4 +1,4 @@
-require File.expand_path('../minitest_helper', __FILE__)
+require 'minitest_helper'
 require "tmpdir"
 require "pre-commit/cli"
 
