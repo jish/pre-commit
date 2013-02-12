@@ -6,7 +6,8 @@ elsif system("which rbenv > /dev/null")
   "rbenv exec ruby -rrubygems"
 else
   "ruby -r rubygems"
-end + " -r pre-commit"
+end
+cmd << " -r pre-commit"
 
 if !system("#{cmd} -e '' 2>&1")
   $stderr.puts "pre-commit: WARNING: Skipping checks because the pre-commit gem is not installed. (Did you change your Ruby version?)"
