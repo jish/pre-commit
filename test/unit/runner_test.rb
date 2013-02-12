@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'minitest_helper'
 
 class RunnerTest < MiniTest::Unit::TestCase
 

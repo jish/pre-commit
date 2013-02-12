@@ -1,8 +1,9 @@
+require "rake/testtask"
 
-desc 'Run tests'
-task :test do
-  result = system("ruby -Ilib -Itest -e 'ARGV.each { |f| load f }' test/unit/*")
-  exit(result ? 0 : 1)
+Rake::TestTask.new do |test|
+  test.libs << "test"
+  test.pattern = "test/**/*_test.rb"
+  test.verbose = true
 end
 
 task :ci => [:test]

@@ -5,5 +5,6 @@ gem "execjs"
 
 group :test do
   gem "minitest"
+  gem "minitest-rg"
 end
 

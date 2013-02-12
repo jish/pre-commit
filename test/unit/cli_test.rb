@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'minitest_helper'
 require 'pre-commit/cli'
 
 class CliTest < MiniTest::Unit::TestCase
