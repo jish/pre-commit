@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'minitest_helper'
 require 'fileutils'
 
 require 'pre-commit/utils'

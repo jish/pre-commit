@@ -1,4 +1,4 @@
-require 'minitest/autorun'
+require 'minitest_helper'
 require 'pre-commit/checks/migration_check'
 
 class MigrationCheckTest < MiniTest::Unit::TestCase
