@@ -78,7 +78,7 @@ describe "integration" do
   end
 
   def ensure_folder(folder)
-    `mkdir -p #{folder}` unless File.exist?(folder)
+    FileUtils.mkdir_p(folder) unless File.exist?(folder)
   end
 
   def write(file, content)
