@@ -12,7 +12,7 @@ describe "integration" do
     end
   end
 
-  it "does not prevents bad commits when after-commit-hooks are disabled" do
+  it "bypasses pre-commit checks when using the no-verify option" do
     in_git_dir do
       write("xxx.rb", "\t\tMuahaha\n\n\n")
       sh "git add -A"
