@@ -27,6 +27,7 @@ These are the available checks:
 * closure\_syntax\_check
 * php (Runs php -l on all staged files)
 * ruby_symbol_hashrockets (1.9 syntax. BAD :foo => "bar". GOOD foo: "bar")
+* local (executes `config/pre-commit.rb` with list of changed files)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting. 
 
