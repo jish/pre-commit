@@ -1,3 +1,7 @@
+## 0.7.0
+
+* Added a `local` check. Will run `config/pre-commit.rb` and pass or fail accordingly.
+
 ## 0.6.1
 
 * Properly require `ruby_symbol_hashrockets`.
