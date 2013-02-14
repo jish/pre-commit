@@ -5,7 +5,7 @@ require "pre-commit/cli"
 describe "integration" do
   it "prevents bad commits" do
     in_git_dir do
-      result = commit_a_bad_file :fail => true
+      result = commit_a_file :fail => true
       assert_includes result, "detected tab before initial"
       assert_includes result, "new blank line at EOF"
       assert_includes result, "You can bypass this check using"
@@ -14,9 +14,7 @@ describe "integration" do
 
   it "bypasses pre-commit checks when using the no-verify option" do
     in_git_dir do
-      write("xxx.rb", "\t\tMuahaha\n\n\n")
-      sh "git add -A"
-      result = Bundler.with_clean_env { sh("git commit -n -m 'EVIL'") }
+      result = commit_a_file :no_check => true
       refute_includes result, "detected tab before initial"
       assert_includes result, "create mode 100644 xxx.rb"
     end
@@ -25,7 +23,7 @@ describe "integration" do
   it "does not prevent bad commits when checks are disabled" do
     in_git_dir do
       sh "git config 'pre-commit.checks' 'jshint'"
-      result = commit_a_bad_file
+      result = commit_a_file
       refute_includes result, "detected tab before initial"
       assert_includes result, "create mode 100644 xxx.rb"
     end
@@ -34,10 +32,28 @@ describe "integration" do
   it "prevents bad commits when certain checks are enabled" do
     in_git_dir do
       sh "git config 'pre-commit.checks' 'tabs'"
-      result = commit_a_bad_file :fail => true
+      result = commit_a_file :fail => true
       assert_includes result, "detected tab before initial"
       refute_includes result, "new blank line at EOF"
       assert_includes result, "You can bypass this check using"
+    end
+  end
+
+  describe "local checks" do
+    it "prevents bad commits when local checks fail" do
+      in_git_dir do
+        write("config/pre-commit.rb", "raise 'FOOO'")
+        result = commit_a_file :content => "XXX", :fail => true
+        assert_includes result, "FOOO"
+      end
+    end
+
+    it "allows good commits when local checks succeed" do
+      in_git_dir do
+        write("config/pre-commit.rb", "")
+        result = commit_a_file :content => "XXX"
+        assert_includes result, "create mode 100644 xxx.rb"
+      end
     end
   end
 
@@ -51,10 +67,10 @@ describe "integration" do
     end
   end
 
-  def commit_a_bad_file(options={})
-    write("xxx.rb", "\t\tMuahaha\n\n\n")
+  def commit_a_file(options={})
+    write("xxx.rb", options[:content] || "\t\tMuahaha\n\n\n")
     sh "git add -A"
-    Bundler.with_clean_env { sh("git commit -m 'EVIL'", options) }
+    Bundler.with_clean_env { sh("git commit #{options[:no_check] ? "-n" : ""} -m 'EVIL'", options) }
   end
 
   def sh(command, options={})

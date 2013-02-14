@@ -1,0 +1,1 @@
+raise unless ARGV.empty?
