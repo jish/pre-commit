@@ -10,6 +10,7 @@ require 'pre-commit/checks/jshint_check'
 require 'pre-commit/checks/migration_check'
 require 'pre-commit/checks/ci_check'
 require 'pre-commit/checks/php_check'
+require 'pre-commit/checks/pry_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 
 module PreCommit
@@ -35,6 +36,7 @@ module PreCommit
     :js_lint_new             => JslintCheck.new(:new),
     :jshint                  => JshintCheck.new,
     :debugger                => DebuggerCheck,
+    :pry                     => PryCheck,
     :local                   => LocalCheck,
     :tabs                    => Tabs,
     :closure_syntax_check    => ClosureSyntaxCheck,
@@ -60,7 +62,7 @@ module PreCommit
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
     if checks_to_run.empty?
-      Checks.values_at(:white_space, :console_log, :debugger, :tabs, :jshint,
+      Checks.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
         :migrations, :merge_conflict, :local)
     else
       Checks.values_at(*checks_to_run)
