@@ -1,3 +1,5 @@
+* Added a check for `binding.pry`
+
 ## 0.7.0
 
 * Added a `local` check. Will run `config/pre-commit.rb` and pass or fail accordingly.
