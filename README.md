@@ -20,6 +20,7 @@ These are the available checks:
 * white_space
 * console_log
 * debugger
+* pry
 * tabs
 * jshint
 * js\_lint\_all (Runs JSLint on all staged JS files)
@@ -46,4 +47,4 @@ To enable `white_space`, `console_log` and `debugger` checks:
 
 Note: If no checks are configured, a default set of checks is run:
 
-    white_space, console_log, debugger, tabs, jshint, migrations, merge_conflict, local
+    white_space, console_log, debugger, pry, tabs, jshint, migrations, merge_conflict, local
