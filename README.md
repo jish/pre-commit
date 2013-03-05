@@ -29,7 +29,7 @@ These are the available checks:
 * php (Runs php -l on all staged files)
 * ruby_symbol_hashrockets (1.9 syntax. BAD :foo => "bar". GOOD foo: "bar")
 * local (executes `config/pre-commit.rb` with list of changed files)
-* merge conflict (Will check if you are about to check in a merge conflict)
+* merge_conflict (Will check if you are about to check in a merge conflict)
 * migrations (Will make sure you check in the proper files after creating a Rails migration)
 * ci (Will run the `pre_commit:ci` rake task and pass or fail accordingly)
 
