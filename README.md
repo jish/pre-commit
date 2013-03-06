@@ -1,5 +1,8 @@
 A better pre-commit hook for git.
 
+[![Current version](https://badge.fury.io/rb/moneta.png)][1]&nbsp;
+[![Build status](https://secure.travis-ci.org/jish/pre-commit.png?branch=master)][2]
+
 ## Installation
 
 Install the gem
@@ -48,3 +51,6 @@ To enable `white_space`, `console_log` and `debugger` checks:
 Note: If no checks are configured, a default set of checks is run:
 
     white_space, console_log, debugger, pry, tabs, jshint, migrations, merge_conflict, local
+
+[1]: https://rubygems.org/gems/pre-commit
+[2]: https://travis-ci.org/jish/pre-commit
