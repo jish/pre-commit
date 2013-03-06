@@ -1,6 +1,6 @@
 A better pre-commit hook for git.
 
-[![Current version](https://badge.fury.io/rb/moneta.png)][1]&nbsp;
+[![Current version](https://badge.fury.io/rb/pre-commit.png)][1]&nbsp;
 [![Build status](https://secure.travis-ci.org/jish/pre-commit.png?branch=master)][2]
 
 ## Installation
