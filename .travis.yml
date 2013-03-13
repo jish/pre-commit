@@ -2,7 +2,7 @@ before_install:
   - sudo apt-get install -y nodejs
   - rvm default do gem install execjs
   - git.config --global user.email = "james.barnett.jr@gmail.com"
-    git.config --global user.name = "Jim Barnett"
+  - git.config --global user.name = "Jim Barnett"
 language: ruby
 rvm:
   - 1.8.7
