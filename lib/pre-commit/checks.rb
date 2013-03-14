@@ -11,6 +11,7 @@ require 'pre-commit/checks/migration_check'
 require 'pre-commit/checks/ci_check'
 require 'pre-commit/checks/php_check'
 require 'pre-commit/checks/pry_check'
+require 'pre-commit/checks/rspec_focus_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 
 module PreCommit
@@ -44,6 +45,7 @@ module PreCommit
     :migrations              => MigrationCheck.new,
     :ci                      => CiCheck.new,
     :php                     => PhpCheck.new,
+    :rspec_focus             => RSpecFocusCheck,
     :ruby_symbol_hashrockets => RubySymbolHashrockets
   }
 
