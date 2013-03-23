@@ -1,4 +1,5 @@
 * Added a check for `binding.pry`
+* Allowing `mount Application::API => '/api'` syntax in the hashrocket check
 
 ## 0.7.0
 
