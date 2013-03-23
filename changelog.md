@@ -1,6 +1,5 @@
 * Added a check for `binding.pry`
 * Allowing `mount Application::API => '/api'` syntax in the hashrocket check
-* On some systems passing the `-r` option to ruby twice will only require the second library.
 
 ## 0.7.0
 
