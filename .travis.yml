@@ -1,6 +1,8 @@
 before_install:
   - sudo apt-get install -y nodejs
   - rvm default do gem install execjs
+  - git config --global user.name "Pre Commit"
+  - git config --global user.email "pre-commit+travis@example.com"
 language: ruby
 rvm:
   - 1.8.7
