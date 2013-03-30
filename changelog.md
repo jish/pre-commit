@@ -1,5 +1,6 @@
 * Added a check for `binding.pry`
 * Allowing `mount Application::API => '/api'` syntax in the hashrocket check
+* Added a check for `:focus` in rspec tests.
 
 ## 0.7.0
 
