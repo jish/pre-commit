@@ -39,8 +39,6 @@ module PreCommit
       passed = true
 
       spec_files.each do |spec|
-        puts "diff for #{spec}"
-        puts `git diff --cached -G:focus #{spec}`
         diff = `git diff --cached -G:focus #{spec}`
         passed &&= !(diff =~ /[\W\s]:focus[\W\s]/)
       end
