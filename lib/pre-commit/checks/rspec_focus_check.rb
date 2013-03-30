@@ -36,14 +36,8 @@ module PreCommit
 
       return false if spec_files.empty?
 
-      passed = true
-
-      spec_files.each do |spec|
-        diff = `git diff --cached -G:focus #{spec}`
-        passed &&= !(diff =~ /[\W\s]:focus[\W\s]/)
-      end
-
-      return !passed
+      diff = `git diff --cached -G:focus #{spec_files.join(" ")}`
+      !!(diff =~ /[\W\s]:focus[\W\s]/)
     end
 
     def instances_of_rspec_focus_violations
