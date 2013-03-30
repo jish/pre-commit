@@ -30,13 +30,14 @@ These are the available checks:
 * js\_lint\_new (Runs JSLint on all new staged JS files)
 * closure\_syntax\_check
 * php (Runs php -l on all staged files)
+* rspec_focus (Will check if you are about to check in a :focus in a spec file)
 * ruby_symbol_hashrockets (1.9 syntax. BAD :foo => "bar". GOOD foo: "bar")
 * local (executes `config/pre-commit.rb` with list of changed files)
 * merge_conflict (Will check if you are about to check in a merge conflict)
 * migrations (Will make sure you check in the proper files after creating a Rails migration)
 * ci (Will run the `pre_commit:ci` rake task and pass or fail accordingly)
 
-To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting. 
+To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
 
 To enable `white_space` and `tab` checks:
 
