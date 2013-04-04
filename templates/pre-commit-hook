@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-cmd = if system("which rvm > /dev/null")
+cmd = if system("which rvm &> /dev/null")
   "rvm default do ruby -rrubygems"
-elsif system("which rbenv > /dev/null")
+elsif system("which rbenv &> /dev/null")
   "rbenv exec ruby -rrubygems"
 else
   "ruby -r rubygems"
