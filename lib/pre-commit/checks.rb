@@ -15,7 +15,7 @@ require 'pre-commit/checks/rspec_focus_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 begin
   require 'pre-commit/checks/rubocop_check'
-rescue # no rubocop
+rescue LoadError # no rubocop
 end
 
 module PreCommit
