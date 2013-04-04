@@ -31,7 +31,14 @@ module PreCommit
     def call
       rb_files = reject_non_rb(files_to_check)
       return true if rb_files.empty?
-      run(rb_files)
+      config_file = `git config pre-commit.rubocop.config`.chomp
+      puts `pwd`
+      if !config_file.empty?
+        args = ['-c', config_file] + rb_files
+      else
+        args = rb_files
+      end
+      run(args)
     end
 
     def run(rb_files)

@@ -54,5 +54,10 @@ Note: If no checks are configured, a default set of checks is run:
 
     white_space, console_log, debugger, pry, tabs, jshint, migrations, merge_conflict, local
 
+For the rubocop check, you can tell it what config file to use by setting a path relative to the repo:
+
+    # From your git repo
+    $ git config "pre-commit.rubocop.config" "config/rubocop.yml"
+
 [1]: https://rubygems.org/gems/pre-commit
 [2]: https://travis-ci.org/jish/pre-commit
