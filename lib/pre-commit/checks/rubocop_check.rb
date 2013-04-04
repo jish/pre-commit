@@ -33,10 +33,16 @@ module PreCommit
       return true if rb_files.empty?
       config_file = `git config pre-commit.rubocop.config`.chomp
       puts `pwd`
+      args = rb_files
       if !config_file.empty?
-        args = ['-c', config_file] + rb_files
-      else
-        args = rb_files
+        if !File.exist? config_file
+          $stderr.puts "Warning: rubocop config file '" + config_file + "' does not exist"
+          $stderr.puts "Set the path to the config file using:"
+          $stderr.puts "\tgit config pre-commit.rubocop.config 'path/relative/to/git/dir/rubocop.yml'"
+          $stderr.puts "rubocop will use its default configuration or look for a .rubocop.yml file\n\n"
+        else
+          args = ['-c', config_file] + args
+        end
       end
       run(args)
     end
