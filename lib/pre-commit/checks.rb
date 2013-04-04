@@ -13,6 +13,7 @@ require 'pre-commit/checks/php_check'
 require 'pre-commit/checks/pry_check'
 require 'pre-commit/checks/rspec_focus_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
+require 'pre-commit/checks/rubocop_check'
 
 module PreCommit
 
@@ -46,7 +47,9 @@ module PreCommit
     :ci                      => CiCheck.new,
     :php                     => PhpCheck.new,
     :rspec_focus             => RSpecFocusCheck,
-    :ruby_symbol_hashrockets => RubySymbolHashrockets
+    :ruby_symbol_hashrockets => RubySymbolHashrockets,
+    :rubocop_new             => RubocopCheck.new(:new),
+    :rubocop_all             => RubocopCheck.new(:all)
   }
 
   # Can not delete this method with out a deprecation strategy.
