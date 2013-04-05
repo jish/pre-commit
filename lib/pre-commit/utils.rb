@@ -6,8 +6,7 @@ module PreCommit
     end
 
     def self.git_index_list(dirs, filter)
-      dirs = dirs.map
-      files = `git diff --cached --name-only --diff-filter=#{filter} #{quote_array dirs}`.split("\n")
+      files = `git diff --cached --name-only --diff-filter=#{filter} #{dirs.join(' ')}`.split("\n")
       files.join " "
     end
 
@@ -16,12 +15,12 @@ module PreCommit
       dirs = reject_missing(dirs)
 
       @staged_files ||= {}
-      @staged_files[quote_array dirs] ||= git_index_list dirs, 'ACM'
+      @staged_files[dirs.join(' ')] ||= git_index_list dirs, 'ACM'
     end
 
     def self.new_files(*dirs)
       @new_files ||= {}
-      @new_files[quote_array dirs] ||= git_index_list dirs, 'A'
+      @new_files[dirs.join(' ')] ||= git_index_list dirs, 'A'
     end
 
     def self.reject_missing(dirs)
