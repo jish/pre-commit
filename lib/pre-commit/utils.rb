@@ -8,7 +8,7 @@ module PreCommit
     def self.git_index_list(dirs, filter)
       dirs = dirs.map
       files = `git diff --cached --name-only --diff-filter=#{filter} #{quote_array dirs}`.split("\n")
-      quote_array files
+      files.join " "
     end
 
 
