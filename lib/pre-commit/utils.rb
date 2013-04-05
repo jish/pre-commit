@@ -1,16 +1,27 @@
 module PreCommit
   class Utils
 
+    def self.quote_array(arr)
+      arr.map {|i| "'#{i}'"}.join ' '
+    end
+
+    def self.git_index_list(dirs, filter)
+      dirs = dirs.map
+      files = `git diff --cached --name-only --diff-filter=#{filter} #{quote_array dirs}`.split("\n")
+      quote_array files
+    end
+
+
     def self.staged_files(*dirs)
       dirs = reject_missing(dirs)
 
       @staged_files ||= {}
-      @staged_files[dirs.join(' ')] ||= `git diff --cached --name-only --diff-filter=ACM #{dirs.join(' ')} | xargs`.chomp
+      @staged_files[quote_array dirs] ||= git_index_list dirs, 'ACM'
     end
 
     def self.new_files(*dirs)
       @new_files ||= {}
-      @new_files[dirs.join(' ')] ||= `git status --short #{dirs.join(' ')} | grep ^A | xargs`.chomp.split("A ").join(" ")
+      @new_files[quote_array dirs] ||= git_index_list dirs, 'A'
     end
 
     def self.reject_missing(dirs)
