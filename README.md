@@ -36,6 +36,7 @@ These are the available checks:
 * merge_conflict (Will check if you are about to check in a merge conflict)
 * migrations (Will make sure you check in the proper files after creating a Rails migration)
 * ci (Will run the `pre_commit:ci` rake task and pass or fail accordingly)
+* rubocop\_new and rubocop\_all (Check ruby code style using the rubocop gem. Rubocop must be installed)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
 
@@ -52,6 +53,11 @@ To enable `white_space`, `console_log` and `debugger` checks:
 Note: If no checks are configured, a default set of checks is run:
 
     white_space, console_log, debugger, pry, tabs, jshint, migrations, merge_conflict, local
+
+For the rubocop check, you can tell it what config file to use by setting a path relative to the repo:
+
+    # From your git repo
+    $ git config "pre-commit.rubocop.config" "config/rubocop.yml"
 
 [1]: https://rubygems.org/gems/pre-commit
 [2]: https://travis-ci.org/jish/pre-commit

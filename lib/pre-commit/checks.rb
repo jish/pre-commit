@@ -13,6 +13,10 @@ require 'pre-commit/checks/php_check'
 require 'pre-commit/checks/pry_check'
 require 'pre-commit/checks/rspec_focus_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
+begin
+  require 'pre-commit/checks/rubocop_check'
+rescue LoadError # no rubocop
+end
 
 module PreCommit
 
@@ -48,6 +52,13 @@ module PreCommit
     :rspec_focus             => RSpecFocusCheck,
     :ruby_symbol_hashrockets => RubySymbolHashrockets
   }
+
+  if defined?(Rubocop)
+    Checks.merge! ({
+      :rubocop_new           => RubocopCheck.new(:new),
+      :rubocop_all           => RubocopCheck.new(:all)
+    })
+  end
 
   # Can not delete this method with out a deprecation strategy.
   # It is refered to in the generated pre-commit hook in versions 0.0-0.1.1
