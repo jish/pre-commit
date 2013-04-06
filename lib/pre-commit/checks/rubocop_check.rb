@@ -25,7 +25,7 @@ module PreCommit
     end
 
     def reject_non_rb(staged_files)
-      staged_files.select { |f| f =~ /\.e?rb$/ }
+      staged_files.select { |f| f =~ /\.rb$/ }
     end
 
     def call
