@@ -23,11 +23,11 @@ module PreCommit
     end
 
     def detected_bad_code?
-      system("grep '<<<<<<<' #{staged_files} --quiet")
+      system("grep -E '(<|>|=){7}' #{staged_files} --quiet")
     end
 
     def errors
-      `grep -nH '<<<<<<<' #{staged_files}`
+      `grep -nH -E '(<|>|=){7}' #{staged_files}`
     end
 
   end

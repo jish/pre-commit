@@ -3,7 +3,7 @@
 require 'pre-commit/cli'
 
 if ARGV[0] != "install"
-  puts "Usage: pre-commit install"
+  puts "Usage: pre-commit install [-f]"
   exit(1)
 end
 
@@ -13,7 +13,7 @@ if !File.exists?(".git")
 end
 
 cli = PreCommit::Cli.new
-cli.install
+cli.install(ARGV[1] == "-f")
 
 puts "Installed hook: #{PreCommit::Cli::PRE_COMMIT_HOOK_PATH}"
 puts

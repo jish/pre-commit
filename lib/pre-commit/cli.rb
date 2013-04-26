@@ -10,8 +10,8 @@ module PreCommit
       answer =~ /y\n/i || answer == "\n"
     end
 
-    def install
-      if File.exists?(PRE_COMMIT_HOOK_PATH)
+    def install(force)
+      if !force && File.exists?(PRE_COMMIT_HOOK_PATH)
         ask_to_overwrite
       end
 
