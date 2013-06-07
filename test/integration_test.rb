@@ -87,10 +87,19 @@ describe "integration" do
 
   def make_lib_available_for_hook
     hook_file = PreCommit::Cli::PRE_COMMIT_HOOK_PATH
-    anchor = "-r pre-commit"
+    require_library = "require 'pre-commit'"
     content = read(hook_file)
-    raise unless content.include?(anchor)
-    write(hook_file, content.gsub(anchor, "#{anchor} -I #{Bundler.root.join("lib")}"))
+    assert content.include?(require_library),
+      "pre commit hook template must require the pre-commit library."
+
+    template = rewrite_options(content)
+    write(hook_file, template)
+  end
+
+  def rewrite_options(template)
+    assert template.include?("OPTIONS"), "pre commit hook template must include options."
+    additional_options = "-I #{Bundler.root.join('lib')}"
+    template.sub(/^OPTIONS = (["'])(.*)(["'])$/, "OPTIONS = \\1\\2 #{additional_options}\\3")
   end
 
   def ensure_folder(folder)
