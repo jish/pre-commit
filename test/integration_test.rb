@@ -80,7 +80,7 @@ describe "integration" do
   end
 
   def install
-    sh "ruby -I #{PreCommit.root}/lib #{PreCommit.root}/bin/pre-commit install"
+    sh "ruby -I #{Bundler.root}/lib #{Bundler.root}/bin/pre-commit install"
     make_lib_available_for_hook
     sh "git commit -m Initial --allow-empty" # or travis fails with: No HEAD commit to compare with
   end
@@ -98,7 +98,7 @@ describe "integration" do
 
   def rewrite_options(template)
     assert template.include?("OPTIONS"), "pre commit hook template must include options."
-    additional_options = "-I #{PreCommit.root.join('lib')}"
+    additional_options = "-I #{Bundler.root.join('lib')}"
     template.sub(/^OPTIONS = (["'])(.*)(["'])$/, "OPTIONS = \\1\\2 #{additional_options}\\3")
   end
 
