@@ -25,8 +25,6 @@ module PreCommit
   }
 
   ClosureSyntaxCheck = lambda {
-    compiler = "test/javascript/lib/compiler.jar"
-
     if File.exists?('public/javascripts') && (args = Utils.staged_files('public/javascripts')).size > 0
       ClosureChecker.check(args.split(" "))
     else
@@ -54,7 +52,7 @@ module PreCommit
   }
 
   if defined?(Rubocop)
-    Checks.merge! ({
+    Checks.merge!({
       :rubocop_new           => RubocopCheck.new(:new),
       :rubocop_all           => RubocopCheck.new(:all)
     })
