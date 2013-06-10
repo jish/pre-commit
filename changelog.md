@@ -1,3 +1,7 @@
+## 0.8.1
+
+* Better system ruby suppot on Mac OS.
+
 ## 0.8.0
 
 * Added a check for `binding.pry`
