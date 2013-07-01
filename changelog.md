@@ -1,3 +1,6 @@
+
+* adding spec directory to checked dirs of pry and debugger
+
 ## 0.8.1
 
 * Better system ruby suppot on Mac OS.
