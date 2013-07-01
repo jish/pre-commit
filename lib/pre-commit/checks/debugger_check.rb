@@ -4,7 +4,7 @@ module PreCommit
     attr_accessor :staged_files, :error_message, :grep_command
 
     def self.call(quiet=false)
-      dirs = ['app/', 'lib/', 'script/', 'vendor/', 'test/'].reject {|d| !File.exists?(d)}
+      dirs = %w(app/ lib/ script/ vendor/ test/ spec/).reject {|d| !File.exists?(d)}
       check = new
       check.staged_files = Utils.staged_files(*dirs)
 
