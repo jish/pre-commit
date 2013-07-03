@@ -17,6 +17,6 @@ describe PreCommit::ConsoleLogCheck do
   end
 
   it "fails if a js file has a console.log" do
-    check.run([test_filename('console_log.js')]).must_equal "console.log found:\ntest/files/console_log.js:6:    console.log(\"I'm in bar\");\n"
+    check.run([test_filename('console_log.js')]).must_equal "console.log found:\ntest/files/console_log.js:6:    console.log(\"I'm in bar\");"
   end
 end

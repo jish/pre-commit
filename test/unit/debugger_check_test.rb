@@ -1,31 +1,21 @@
 require 'minitest_helper'
 require 'pre-commit/checks/debugger_check'
 
-class DebuggerCheckTest < MiniTest::Unit::TestCase
+require 'minitest_helper'
+require 'pre-commit/checks/nb_space_check'
 
-  def test_should_detect_a_debugger_statement
-    check = PreCommit::DebuggerCheck.new
-    check.grep_command = "grep"
-    check.staged_files = test_filename('debugger_file.rb')
-    assert !check.instances_of_debugger_violations.empty?
+describe PreCommit::DebuggerCheck do
+  let(:check){ PreCommit::DebuggerCheck }
+
+  it "succeeds if nothing changed" do
+    check.run([]).must_equal nil
   end
 
-  def test_should_pass_a_file_with_no_debugger_statement
-    check = PreCommit::DebuggerCheck.new
-    check.grep_command = "grep"
-    check.staged_files = test_filename('valid_file.rb')
-    assert check.instances_of_debugger_violations.empty?
+  it "succeeds if only good changes" do
+    check.run([test_filename('valid_file.rb')]).must_equal nil
   end
 
-  def test_error_message_should_contain_an_error_message_when_a_debugger_statement_is_found
-    check = PreCommit::DebuggerCheck.new
-    def check.detected_bad_code?; true; end
-    check.grep_command = "grep"
-    check.staged_files = test_filename('debugger_file.rb')
-    check.run
-
-    assert_match(/pre-commit: debugger statement\(s\) found:/, check.error_message)
-    assert_match(/debugger_file.rb/, check.error_message)
+  it "fails if file contains debugger" do
+    check.run([test_filename('debugger_file.rb')]).must_equal "debugger statement(s) found:\ntest/files/debugger_file.rb:3:    debugger"
   end
-
 end

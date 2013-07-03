@@ -13,7 +13,7 @@ module PreCommit
     end
 
     def self.instances_of_console_log_violations(staged_files)
-      `grep -nHe \"console\\.log\" #{staged_files.join(" ")}`
+      `grep -nHe \"console\\.log\" #{staged_files.join(" ")}`.strip
     end
   end
 end
