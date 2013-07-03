@@ -5,6 +5,7 @@ require 'pre-commit/checks/tabs'
 require 'pre-commit/checks/console_log'
 require 'pre-commit/checks/debugger_check'
 require 'pre-commit/checks/local_check'
+require 'pre-commit/checks/nb_space_check'
 require 'pre-commit/checks/jslint_check'
 require 'pre-commit/checks/jshint_check'
 require 'pre-commit/checks/migration_check'
@@ -41,6 +42,7 @@ module PreCommit
     :debugger                => DebuggerCheck,
     :pry                     => PryCheck,
     :local                   => LocalCheck,
+    :nb_space                => NbSpaceCheck,
     :tabs                    => Tabs,
     :closure_syntax_check    => ClosureSyntaxCheck,
     :merge_conflict          => MergeConflict,
@@ -74,7 +76,7 @@ module PreCommit
 
     if checks_to_run.empty?
       Checks.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
-        :migrations, :merge_conflict, :local)
+        :migrations, :merge_conflict, :local, :nb_space)
     else
       Checks.values_at(*checks_to_run)
     end.compact
