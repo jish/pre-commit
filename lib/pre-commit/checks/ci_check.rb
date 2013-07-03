@@ -1,19 +1,12 @@
-module PreCommit
-  class CiCheck
+require 'pre-commit/checks/base_check'
 
+module PreCommit
+  class CiCheck < BaseCheck
     CI_TASK_NAME = 'pre_commit:ci'
 
-    def call
-      if system("rake #{CI_TASK_NAME} --silent")
-        true
-      else
-        $stderr.puts 'pre-commit: your test suite has failed'
-        $stderr.puts "for the full output run `#{CI_TASK_NAME}`"
-        $stderr.puts
-
-        false
-      end
+    def self.run(_)
+      return if system("rake #{CI_TASK_NAME} --silent")
+      "your test suite has failed, for the full output run `#{CI_TASK_NAME}`"
     end
-
   end
 end

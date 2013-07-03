@@ -1,28 +1,13 @@
-require 'pre-commit/utils'
+require 'pre-commit/checks/base_check'
 
 module PreCommit
-  class LocalCheck
-
+  class LocalCheck < BaseCheck
     DEFAULT_LOCATION = "config/pre-commit.rb"
-    attr_accessor :error_message
 
-    def self.call(quiet=false)
-      check = new
-      result = check.run(DEFAULT_LOCATION, Utils.staged_files("."))
-      puts check.error_message if !result && !quiet
-      result
+    def self.run(staged_files, script=DEFAULT_LOCATION)
+      return unless File.exist?(script)
+      output = `ruby #{script} #{staged_files.join(" ")} 2>&1`
+      "#{script} failed:\n#{output}" unless $?.success?
     end
-
-    def run(file, staged_files)
-      return true unless File.exist?(file)
-      output = `ruby #{file} #{staged_files} 2>&1`
-      if $?.success?
-        true
-      else
-        self.error_message = "#{file} failed:\n#{output}"
-        false
-      end
-    end
-
   end
 end
