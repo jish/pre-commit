@@ -1,43 +1,19 @@
+require 'pre-commit/checks/base_check'
+
 module PreCommit
-  class ConsoleLogCheck
-
-    attr_accessor :staged_files, :error_message
-
-    def self.call(quiet=false)
-      check = new
-      check.staged_files = Utils.staged_files('public/javascripts')
-
-      result = check.run
-      if !quiet && !result
-        puts check.error_message
-      end
-      result
+  class ConsoleLogCheck < BaseCheck
+    def self.run(staged_files)
+      staged_files.reject! { |f| File.extname(f) != ".js" }
+      return if staged_files.empty? || !detected_bad_code?(staged_files)
+      "console.log found:\n#{instances_of_console_log_violations(staged_files)}"
     end
 
-    def run
-      return true if staged_js_files.empty?
-      if detected_bad_code?
-        @error_message = "pre-commit: console.log found:\n"
-        @error_message += instances_of_console_log_violations
-        false
-      else
-        true
-      end
+    def self.detected_bad_code?(staged_files)
+      system("grep -v \/\/ #{staged_files.join(" ")} | grep -qe \"console\\.log\"")
     end
 
-    def detected_bad_code?
-      system("grep -v \/\/ #{staged_js_files} | grep -qe \"console\\.log\"")
+    def self.instances_of_console_log_violations(staged_files)
+      `grep -nHe \"console\\.log\" #{staged_files.join(" ")}`
     end
-
-    def instances_of_console_log_violations
-      `grep -nHe \"console\\.log\" #{staged_js_files}`
-    end
-
-    def staged_js_files
-      @staged_js_files ||= staged_files.split(" ").select do |file|
-        File.extname(file) == ".js"
-      end.join(" ")
-    end
-
   end
 end
