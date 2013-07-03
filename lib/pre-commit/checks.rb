@@ -1,7 +1,7 @@
 require 'support/all'
 require 'pre-commit/utils'
 require 'pre-commit/checks/merge_conflict'
-require 'pre-commit/checks/tabs'
+require 'pre-commit/checks/tabs_check'
 require 'pre-commit/checks/console_log'
 require 'pre-commit/checks/debugger_check'
 require 'pre-commit/checks/local_check'
@@ -43,7 +43,7 @@ module PreCommit
     :pry                     => PryCheck,
     :local                   => LocalCheck,
     :nb_space                => NbSpaceCheck,
-    :tabs                    => Tabs,
+    :tabs                    => TabsCheck,
     :closure_syntax_check    => ClosureSyntaxCheck,
     :merge_conflict          => MergeConflict,
     :migrations              => MigrationCheck.new,

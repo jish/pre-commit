@@ -1,34 +1,35 @@
 require 'minitest_helper'
-require 'pre-commit/checks/tabs'
+require 'pre-commit/checks/tabs_check'
 
-class TabsTest < MiniTest::Unit::TestCase
+describe PreCommit::TabsCheck do
+  let(:subject) { PreCommit::TabsCheck.new }
 
-  def test_should_detect_a_tab
-    check = PreCommit::Tabs.new
+  it "detect a tab" do
+    check = subject
     check.staged_files = test_filename('tabs.rb')
     assert check.detected_bad_code?, 'should detect tabs'
   end
 
-  def test_should_detect_leading_whitespace_followed_by_a_tab
-    check = PreCommit::Tabs.new
+  it "detects leading whitespace followed by a tab" do
+    check = subject
     check.staged_files = test_filename('bad_tabs2.rb')
     assert check.detected_bad_code?, 'should detect leading whitespace followed by tabs'
   end
 
-  def test_should_pass_a_valid_file
-    check = PreCommit::Tabs.new
+  it "passes with a valid file" do
+    check = subject
     check.staged_files = test_filename('valid_file.rb')
     assert !check.detected_bad_code?, 'should pass valid files'
   end
 
-  def test_should_pass_a_binary_file_with_initial_tab
-    check = PreCommit::Tabs.new
+  it "passes with a binary file with initial tab" do
+    check = subject
     check.staged_files = test_filename('property_sets-0.3.0.gem')
     assert check.run, 'A binary file with initial tab'
   end
 
-  def test_error_message_should_contain_an_error_message_when_an_initial_tab_is_found
-    check = PreCommit::Tabs.new
+  it "shows error message when an initial tab is found" do
+    check = subject
     def check.detected_bad_code?
       true
     end
@@ -40,10 +41,9 @@ class TabsTest < MiniTest::Unit::TestCase
     assert_match(/initial_tab.rb/, check.error_message)
   end
 
-  def test_check_should_pass_if_staged_file_list_is_empty
-    check = PreCommit::Tabs.new
+  it "passes without files" do
+    check = subject
     check.staged_files = []
     assert check.run
   end
-
 end

@@ -1,7 +1,7 @@
 require 'pre-commit/utils'
 
 module PreCommit
-  class Tabs
+  class TabsCheck
 
     attr_accessor :staged_files, :error_message
 
