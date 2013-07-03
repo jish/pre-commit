@@ -8,7 +8,7 @@ class MiniTest::Unit::TestCase
   protected
 
   def test_filename(filename)
-    file_dir = File.expand_path('../files', __FILE__)
+    file_dir = File.expand_path('../files', __FILE__).sub("#{Bundler.root}/", "")
     File.join(file_dir, filename)
   end
 
