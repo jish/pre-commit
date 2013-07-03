@@ -1,19 +1,9 @@
 # encoding: utf-8
-require 'pre-commit/utils'
+require 'pre-commit/checks/base_check'
 
 module PreCommit
-  class NbSpaceCheck
-
-    attr_accessor :error_message
-
-    def self.call(quiet=false)
-      check = new
-      result = check.run(Utils.staged_files(".").split(" "))
-      puts check.error_message if !result && !quiet
-      result
-    end
-
-    def run(staged_files)
+  class NbSpaceCheck < BaseCheck
+    def self.run(staged_files)
       nb_space = " "
       raise "you messed that up" unless nb_space.bytes.to_a == [194, 160]
 
@@ -26,13 +16,8 @@ module PreCommit
         [file, line_no, char_no]
       end
 
-      if bad.empty?
-        true
-      else
-        self.error_message = "Detected non-breaking space in #{bad.map { |f,l,c| "#{f}:#{l+1} character:#{c+1}" }.join(" and")}, remove it!"
-        false
-      end
+      return if bad.empty?
+      "Detected non-breaking space in #{bad.map { |f,l,c| "#{f}:#{l+1} character:#{c+1}" }.join(" and")}, remove it!"
     end
-
   end
 end
