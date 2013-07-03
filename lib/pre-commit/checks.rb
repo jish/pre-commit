@@ -2,7 +2,7 @@ require 'support/all'
 require 'pre-commit/utils'
 require 'pre-commit/checks/merge_conflict'
 require 'pre-commit/checks/tabs_check'
-require 'pre-commit/checks/console_log'
+require 'pre-commit/checks/console_log_check'
 require 'pre-commit/checks/debugger_check'
 require 'pre-commit/checks/local_check'
 require 'pre-commit/checks/nb_space_check'
@@ -35,7 +35,7 @@ module PreCommit
 
   Checks = {
     :white_space             => WhiteSpace,
-    :console_log             => ConsoleLog,
+    :console_log             => ConsoleLogCheck,
     :js_lint_all             => JslintCheck.new(:all),
     :js_lint_new             => JslintCheck.new(:new),
     :jshint                  => JshintCheck.new,

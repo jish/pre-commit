@@ -1,5 +1,5 @@
 module PreCommit
-  class ConsoleLog
+  class ConsoleLogCheck
 
     attr_accessor :staged_files, :error_message
 
