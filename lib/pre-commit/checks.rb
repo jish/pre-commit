@@ -60,9 +60,11 @@ module PreCommit
       CHECKS.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
         :migrations, :merge_conflict, :local, :nb_space)
     else
-      if checks_to_run.delete(:rubocop_all) || checks_to_run.delete(:rubocop_all)
-        $stderr.puts "please use just 'rubocop' as check name"
-        checks_to_run << :rubocop
+      [:js_lint, :rubocop].each do |check|
+        if checks_to_run.delete("#{check}_all".to_sym) || checks_to_run.delete("#{check}_new".to_sym)
+          $stderr.puts "please use just '#{check}' as check name"
+          checks_to_run << check
+        end
       end
 
       CHECKS.values_at(*checks_to_run)
