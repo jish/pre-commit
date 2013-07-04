@@ -17,6 +17,10 @@ describe PreCommit::PhpCheck do
   end
 
   it "fails if script fails" do
-    check.run([test_filename("bad.php")]).must_equal "Parse error: parse error in test/files/bad.php on line 1"
+    possible = [
+      "Parse error: syntax error, unexpected T_STRING in test/files/bad.php on line 1",
+      "Parse error: parse error in test/files/bad.php on line 1"
+    ]
+    possible.must_include check.run([test_filename("bad.php")])
   end
 end
