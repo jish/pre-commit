@@ -1,34 +1,18 @@
+require 'pre-commit/checks/base_check'
+
 module PreCommit
-  class MergeConflict
-
-    attr_accessor :staged_files
-
-    def self.call
-      check = new
-      check.staged_files = Utils.staged_files('.')
-      check.run
+  class MergeConflict < BaseCheck
+    def self.run(staged_files)
+      return if staged_files.empty? || !detected_bad_code?(staged_files)
+      "detected a merge conflict\n#{errors(staged_files)}"
     end
 
-    def run
-      if detected_bad_code?
-        $stderr.puts 'pre-commit: detected a merge conflict'
-        $stderr.puts errors
-        $stderr.puts
-        $stderr.puts 'pre-commit: You can bypass this check using `git commit -n`'
-        $stderr.puts
-        false
-      else
-        true
-      end
+    def self.detected_bad_code?(staged_files)
+      system("grep -q '<<<<<<<' #{staged_files.join(" ")} --quiet")
     end
 
-    def detected_bad_code?
-      system("grep '<<<<<<<' #{staged_files} --quiet")
+    def self.errors(staged_files)
+      `grep -nH '<<<<<<<' #{staged_files.join(" ")}`.strip
     end
-
-    def errors
-      `grep -nH '<<<<<<<' #{staged_files}`
-    end
-
   end
 end

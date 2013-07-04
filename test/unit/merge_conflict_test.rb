@@ -1,18 +1,18 @@
 require 'minitest_helper'
 require 'pre-commit/checks/merge_conflict'
 
-class MergeConflictTest < MiniTest::Unit::TestCase
+describe PreCommit::MergeConflict do
+  let(:check){ PreCommit::MergeConflict }
 
-  def test_should_detect_a_merge_conflict
-    check = PreCommit::MergeConflict.new
-    check.staged_files = test_filename('merge_conflict.rb')
-    assert check.detected_bad_code?, 'We should prevent a merge conflict from being committed'
+  it "succeeds if nothing changed" do
+    check.run([]).must_equal nil
   end
 
-  def test_should_pass_a_file_with_no_merge_conflicts
-    check = PreCommit::MergeConflict.new
-    check.staged_files = test_filename('valid_file.rb')
-    assert !check.detected_bad_code?, 'A file with no merge conflicts should pass'
+  it "succeeds if only good changes" do
+    check.run([test_filename('valid_file.rb')]).must_equal nil
   end
 
+  it "fails if file contains merge conflict" do
+    check.run([test_filename('merge_conflict.rb')]).must_equal "detected a merge conflict\ntest/files/merge_conflict.rb:3:<<<<<<< HEAD"
+  end
 end
