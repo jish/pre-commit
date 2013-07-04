@@ -1,52 +1,30 @@
 require 'minitest_helper'
 require 'pre-commit/checks/migration_check'
 
-class MigrationCheckTest < MiniTest::Unit::TestCase
+describe PreCommit::MigrationCheck do
+  let(:check) { PreCommit::MigrationCheck }
 
-  def test_should_fail_if_a_migration_is_added_but_not_a_schema_change
-    check = PreCommit::MigrationCheck.new
-    assert !check.run(['db/migrate/01_foo.rb'])
-
-    assert !check.passed?
-    assert check.error_message
+  it "succeeds if there is no change" do
+    check.run([]).must_equal nil
   end
 
-  def test_should_fail_if_the_schema_is_changed_and_no_migration_was_added
-    check = PreCommit::MigrationCheck.new
-    assert !check.run(['db/schema.rb'])
-
-    assert !check.passed?
-    assert check.error_message
+  it "succeeds if there is a migration and a schema change" do
+    check.run(['db/migrate/01_foo.rb', 'db/schema.rb']).must_equal nil
   end
 
-  def test_should_pass_if_there_is_a_schema_change_and_a_migration_was_added
-    check = PreCommit::MigrationCheck.new
-    assert check.run(['db/migrate/01_foo.rb', 'db/schema.rb'])
-
-    assert check.passed?
-    assert !check.error_message
+  it "succeeds if there is a migration and a sql schema change" do
+    check.run(['db/migrate/01_foo.rb', 'db/foo_structure.sql']).must_equal nil
   end
 
-  def test_should_pass_if_other_random_files_were_changed
-    check = PreCommit::MigrationCheck.new
-    assert check.run(['public/javascript/foo.js', 'lib/bar.rb'])
-
-    assert check.passed?
-    assert !check.error_message
+  it "succeeds if random files are changed" do
+    check.run(['public/javascript/foo.js', 'lib/bar.rb']).must_equal nil
   end
 
-  def test_should_detect_a_migration_file
-    check = PreCommit::MigrationCheck.new
-    assert !check.migration_file_present?([])
-    assert check.migration_file_present?(['db/migrate/01_foo.rb'])
+  it "fails if schema change is missing" do
+    check.run(['db/migrate/01_foo.rb']).must_equal "It looks like you're adding a migration, but did not update the schema file"
   end
 
-  def test_should_detect_a_schema_file
-    check = PreCommit::MigrationCheck.new
-    assert !check.schema_file_present?([])
-    assert check.schema_file_present?(['db/schema.rb'])
-    assert check.schema_file_present?(['db/foo_structure.sql'])
-    assert check.schema_file_present?(['db/structure_foo.sql'])
+  it "fails if migration is missing" do
+    check.run(['db/schema.rb']).must_equal "You're trying to change the schema without adding a migration file"
   end
-
 end

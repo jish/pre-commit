@@ -46,7 +46,7 @@ module PreCommit
     :tabs                    => TabsCheck,
     :closure_syntax_check    => ClosureSyntaxCheck,
     :merge_conflict          => MergeConflictCheck,
-    :migrations              => MigrationCheck.new,
+    :migrations              => MigrationCheck,
     :ci                      => CiCheck.new,
     :php                     => PhpCheck.new,
     :rspec_focus             => RSpecFocusCheck,
