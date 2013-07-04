@@ -53,12 +53,7 @@ module PreCommit
     :ruby_symbol_hashrockets => RubySymbolHashrockets
   }
 
-  if defined?(Rubocop)
-    Checks.merge!({
-      :rubocop_new           => RubocopCheck.new(:new),
-      :rubocop_all           => RubocopCheck.new(:all)
-    })
-  end
+  Checks[:rubocop] = RubocopCheck if defined?(Rubocop)
 
   # Can not delete this method with out a deprecation strategy.
   # It is refered to in the generated pre-commit hook in versions 0.0-0.1.1
@@ -78,6 +73,11 @@ module PreCommit
       Checks.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
         :migrations, :merge_conflict, :local, :nb_space)
     else
+      if checks_to_run.delete(:rubocop_all) || checks_to_run.delete(:rubocop_all)
+        $stderr.puts "please use just 'rubocop' as check name"
+        checks_to_run << :rubocop
+      end
+
       Checks.values_at(*checks_to_run)
     end.compact
   end

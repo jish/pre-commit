@@ -1,38 +1,17 @@
 require 'pre-commit/base'
 require 'pre-commit/utils'
 require 'rubocop'
+require 'pre-commit/checks/base_check'
+require 'stringio'
 
 module PreCommit
-  class RubocopCheck
-
-    attr_accessor :type
-
-    def check_name
-      "Rubocop"
-    end
-
-    def initialize(type = :all)
-      @type = type
-    end
-
-    def files_to_check
-      case @type
-      when :new
-        Utils.new_files('.').split(" ")
-      else
-        Utils.staged_files('.').split(" ")
-      end
-    end
-
-    def reject_non_rb(staged_files)
-      staged_files.select { |f| f =~ /\.rb$/ }
-    end
-
-    def call
-      rb_files = reject_non_rb(files_to_check)
-      return true if rb_files.empty?
+  class RubocopCheck < BaseCheck
+    def self.run(staged_files)
+      staged_files = staged_files.grep(/\.rb$/)
+      return if staged_files.empty?
       config_file = `git config pre-commit.rubocop.config`.chomp
-      args = rb_files
+
+      args = staged_files
       if !config_file.empty?
         if !File.exist? config_file
           $stderr.puts "Warning: rubocop config file '" + config_file + "' does not exist"
@@ -43,13 +22,19 @@ module PreCommit
           args = ['-c', config_file] + args
         end
       end
-      run(args)
+
+      success, captured = capture { Rubocop::CLI.new.run(args) == 0 }
+      captured unless success
     end
 
-    def run(rb_files)
-      rubocop = Rubocop::CLI.new
-      return rubocop.run(rb_files) == 0
+    def self.capture
+      $stdout, stdout = StringIO.new, $stdout
+      $stderr, stderr = StringIO.new, $stderr
+      result = yield
+      [result, $stdout.string + $stderr.string]
+    ensure
+      $stdout = stdout
+      $stderr = stderr
     end
-
   end
 end
