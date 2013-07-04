@@ -24,9 +24,8 @@ module PreCommit
   CHECKS = {
     :white_space             => WhiteSpaceCheck,
     :console_log             => ConsoleLogCheck,
-    :js_lint_all             => JslintCheck.new(:all),
-    :js_lint_new             => JslintCheck.new(:new),
-    :jshint                  => JshintCheck.new,
+    :js_lint                 => JslintCheck,
+    :jshint                  => JshintCheck,
     :debugger                => DebuggerCheck,
     :pry                     => PryCheck,
     :local                   => LocalCheck,
