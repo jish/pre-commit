@@ -5,6 +5,8 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     minitest (3.0.1)
+    minitest-around (0.0.1)
+      minitest (>= 2.8.0)
     minitest-rg (1.1.0)
     multi_json (1.3.6)
     parser (2.0.0.beta9)
@@ -23,6 +25,7 @@ PLATFORMS
 DEPENDENCIES
   execjs
   minitest
+  minitest-around
   minitest-rg
   rake
   rubocop

@@ -1,5 +1,6 @@
 require 'minitest/spec'
 require 'minitest/rg'
+require 'minitest/around'
 require 'minitest/autorun'
 $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 

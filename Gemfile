@@ -7,5 +7,6 @@ gem "rubocop"
 group :test do
   gem "minitest"
   gem "minitest-rg"
+  gem "minitest-around"
 end
 
