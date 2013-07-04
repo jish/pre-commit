@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'pre-commit/checks/merge_conflict'
+require 'pre-commit/checks/merge_conflict_check'
 
-describe PreCommit::MergeConflict do
-  let(:check){ PreCommit::MergeConflict }
+describe PreCommit::MergeConflictCheck do
+  let(:check){ PreCommit::MergeConflictCheck }
 
   it "succeeds if nothing changed" do
     check.run([]).must_equal nil

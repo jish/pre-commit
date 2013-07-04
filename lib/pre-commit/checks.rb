@@ -1,6 +1,6 @@
 require 'support/all'
 require 'pre-commit/utils'
-require 'pre-commit/checks/merge_conflict'
+require 'pre-commit/checks/merge_conflict_check'
 require 'pre-commit/checks/tabs_check'
 require 'pre-commit/checks/console_log_check'
 require 'pre-commit/checks/debugger_check'
@@ -45,7 +45,7 @@ module PreCommit
     :nb_space                => NbSpaceCheck,
     :tabs                    => TabsCheck,
     :closure_syntax_check    => ClosureSyntaxCheck,
-    :merge_conflict          => MergeConflict,
+    :merge_conflict          => MergeConflictCheck,
     :migrations              => MigrationCheck.new,
     :ci                      => CiCheck.new,
     :php                     => PhpCheck.new,

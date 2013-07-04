@@ -1,7 +1,7 @@
 require 'pre-commit/checks/base_check'
 
 module PreCommit
-  class MergeConflict < BaseCheck
+  class MergeConflictCheck < BaseCheck
     def self.run(staged_files)
       return if staged_files.empty? || !detected_bad_code?(staged_files)
       "detected a merge conflict\n#{errors(staged_files)}"
