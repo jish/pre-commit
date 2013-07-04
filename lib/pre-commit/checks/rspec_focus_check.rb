@@ -5,8 +5,9 @@ module PreCommit
     def self.run(staged_files)
       staged_files = staged_files.grep(/_spec\.rb$/)
       return if staged_files.empty?
-      result = `grep -nH ':focus' #{staged_files.join(" ")}`.strip
-      ":focus found in specs:\n#{result}" if $?.success?
+      result = `#{Utils.grep} ':focus' #{staged_files.join(" ")}`.strip
+      return unless $?.success?
+      ":focus found in specs:\n#{result}"
     end
   end
 end

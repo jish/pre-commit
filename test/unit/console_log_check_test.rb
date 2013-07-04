@@ -8,7 +8,7 @@ describe PreCommit::ConsoleLogCheck do
     check.run([]).must_equal nil
   end
 
-  it "succeeds with valid .js file changd" do
+  it "succeeds with valid .js file changed" do
     check.run([test_filename('valid_file.js')]).must_equal nil
   end
 

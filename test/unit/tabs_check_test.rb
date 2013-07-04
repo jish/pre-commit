@@ -25,6 +25,6 @@ describe PreCommit::TabsCheck do
   end
 
   it "shows error message when an initial tab is found" do
-    check.run([test_filename('initial_tab.rb')]).must_equal "detected tab before initial space:\ntest/files/initial_tab.rb:3:\t 'hello'\n"
+    check.run([test_filename('initial_tab.rb')]).must_equal "detected tab before initial space:\ntest/files/initial_tab.rb:3:\t 'hello'"
   end
 end

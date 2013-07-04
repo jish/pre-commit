@@ -7,7 +7,7 @@ module PreCommit
 
     def self.run(staged_files)
       return if staged_files.empty?
-      lines = `#{Utils.grep} '#{HASHROCKET_PATTERN}' #{staged_files.join(" ")}`
+      lines = `#{Utils.grep} '#{HASHROCKET_PATTERN}' #{staged_files.join(" ")}`.strip
       return unless $?.success?
       "detected :symbol => value hashrocket:\n#{lines}"
     end

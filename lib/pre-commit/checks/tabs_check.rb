@@ -6,7 +6,7 @@ module PreCommit
 
     def self.run(staged_files)
       return if staged_files.empty?
-      errors = `#{Utils.grep} '#{LEADING_TAB_PATTERN}' #{staged_files.join(" ")}`
+      errors = `#{Utils.grep} '#{LEADING_TAB_PATTERN}' #{staged_files.join(" ")}`.strip
       return unless $?.success?
       "detected tab before initial space:\n#{errors}"
     end
