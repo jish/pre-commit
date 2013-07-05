@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "rake"
 gem "execjs"
-gem "rubocop"
+gem "rubocop", :platforms => [:ruby_19, :ruby_20]
 
 group :test do
   gem "minitest"
