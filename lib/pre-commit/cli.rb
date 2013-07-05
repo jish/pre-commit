@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'pre-commit/base'
 
 module PreCommit
   class Cli
@@ -33,7 +32,7 @@ module PreCommit
     end
 
     def install_pre_commit_hook
-      hook = File.join(PreCommit.root, 'templates', 'pre-commit-hook')
+      hook = File.expand_path("../support/templates/pre-commit-hook", __FILE__)
       FileUtils.cp(hook, PRE_COMMIT_HOOK_PATH)
       FileUtils.chmod(0755, PRE_COMMIT_HOOK_PATH)
     end

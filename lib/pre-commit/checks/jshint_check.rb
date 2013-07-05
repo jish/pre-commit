@@ -28,7 +28,7 @@ module PreCommit
     end
 
     def linter_src
-      File.join(PreCommit.root, 'lib', 'support', 'jshint', 'jshint.js')
+      File.expand_path("../../support/jshint/jshint.js", __FILE__)
     end
 
   end

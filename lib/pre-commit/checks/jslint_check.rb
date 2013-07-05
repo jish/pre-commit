@@ -32,7 +32,7 @@ module PreCommit
     end
 
     def linter_src
-      File.join(PreCommit.root, 'lib', 'support', 'jslint', 'lint.js')
+      File.expand_path("../../support/jslint/lint.js", __FILE__)
     end
 
   end

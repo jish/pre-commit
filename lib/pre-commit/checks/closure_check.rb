@@ -2,7 +2,7 @@ require 'pre-commit/checks/base_check'
 
 module PreCommit
   class ClosureCheck < BaseCheck
-    CLOSURE_PATH = File.expand_path("../../../support/closure/compiler.jar", __FILE__)
+    CLOSURE_PATH = File.expand_path("../../support/closure/compiler.jar", __FILE__)
 
     def self.run(staged_files)
       return if staged_files.empty?

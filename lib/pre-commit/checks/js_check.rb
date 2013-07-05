@@ -1,4 +1,3 @@
-require 'pre-commit/base'
 require 'pre-commit/utils'
 require 'execjs'
 

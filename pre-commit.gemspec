@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = %q{dontneedmoreemail@example.com}
   s.executables = ["pre-commit"]
   s.extra_rdoc_files = ["README.md"]
-  s.files = Dir["lib/**/*"] + Dir['templates/*']
+  s.files = Dir["lib/**/*"]
   s.homepage = %q{http://github.com/jish/pre-commit}
   s.rdoc_options = ["--main", "README.md"]
   s.require_paths = ["lib"]

@@ -5,7 +5,7 @@ class JshintCheckTest < MiniTest::Unit::TestCase
 
   def test_should_know_where_the_jshint_source_code_is
     check = PreCommit::JshintCheck.new
-    expected = File.join(PreCommit.root, 'lib/support/jshint/jshint.js')
+    expected = File.expand_path('../../../lib/pre-commit/support/jshint/jshint.js', __FILE__)
     assert_equal(expected, check.linter_src)
   end
 
