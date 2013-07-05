@@ -15,21 +15,13 @@ require 'pre-commit/checks/pry_check'
 require 'pre-commit/checks/rspec_focus_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 require 'pre-commit/checks/whitespace_check'
+require 'pre-commit/checks/closure_check'
 begin
   require 'pre-commit/checks/rubocop_check'
 rescue LoadError # no rubocop
 end
 
 module PreCommit
-
-  ClosureSyntaxCheck = lambda {
-    if File.exists?('public/javascripts') && (args = Utils.staged_files('public/javascripts')).size > 0
-      ClosureChecker.check(args.split(" "))
-    else
-      true
-    end
-  }
-
   Checks = {
     :white_space             => WhiteSpaceCheck,
     :console_log             => ConsoleLogCheck,
@@ -41,7 +33,7 @@ module PreCommit
     :local                   => LocalCheck,
     :nb_space                => NbSpaceCheck,
     :tabs                    => TabsCheck,
-    :closure_syntax_check    => ClosureSyntaxCheck,
+    :closure_syntax_check    => ClosureCheck,
     :merge_conflict          => MergeConflictCheck,
     :migrations              => MigrationCheck,
     :ci                      => CiCheck.new,

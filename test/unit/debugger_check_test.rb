@@ -1,9 +1,6 @@
 require 'minitest_helper'
 require 'pre-commit/checks/debugger_check'
 
-require 'minitest_helper'
-require 'pre-commit/checks/nb_space_check'
-
 describe PreCommit::DebuggerCheck do
   let(:check){ PreCommit::DebuggerCheck }
 
