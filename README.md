@@ -26,8 +26,7 @@ These are the available checks:
 * pry
 * tabs
 * jshint
-* js\_lint\_all (Runs JSLint on all staged JS files)
-* js\_lint\_new (Runs JSLint on all new staged JS files)
+* js_lint
 * closure\_syntax\_check
 * php (Runs php -l on all staged files)
 * rspec_focus (Will check if you are about to check in a :focus in a spec file)
@@ -36,7 +35,7 @@ These are the available checks:
 * merge_conflict (Will check if you are about to check in a merge conflict)
 * migrations (Will make sure you check in the proper files after creating a Rails migration)
 * ci (Will run the `pre_commit:ci` rake task and pass or fail accordingly)
-* rubocop\_new and rubocop\_all (Check ruby code style using the rubocop gem. Rubocop must be installed)
+* rubocop (Check ruby code style using the rubocop gem. Rubocop must be installed)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
 
