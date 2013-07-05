@@ -5,18 +5,18 @@ describe PreCommit::RSpecFocusCheck do
   let(:check){ PreCommit::RSpecFocusCheck }
 
   it "succeeds if nothing changed" do
-    check.run([]).must_equal nil
+    check.call([]).must_equal nil
   end
 
   it "succeeds on non-specs" do
-    check.run([test_filename('bad-spec.rb')]).must_equal nil
+    check.call([test_filename('bad-spec.rb')]).must_equal nil
   end
 
   it "succeeds if only good changes" do
-    check.run([test_filename('good_spec.rb')]).must_equal nil
+    check.call([test_filename('good_spec.rb')]).must_equal nil
   end
 
   it "fails if file contains pry" do
-    check.run([test_filename('bad_spec.rb')]).must_equal ":focus found in specs:\ntest/files/bad_spec.rb:2:  context \"functionality\", :focus do"
+    check.call([test_filename('bad_spec.rb')]).must_equal ":focus found in specs:\ntest/files/bad_spec.rb:2:  context \"functionality\", :focus do"
   end
 end

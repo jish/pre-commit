@@ -21,16 +21,16 @@ describe PreCommit::WhiteSpaceCheck do
   let(:check){ PreCommit::WhiteSpaceCheck }
 
   it "succeeds if nothing changed" do
-    check.run([]).must_equal nil
+    check.call([]).must_equal nil
   end
 
   it "succeeds if only good changes" do
     `echo aaa > b && git add b`
-    check.run([]).must_equal nil
+    check.call([]).must_equal nil
   end
 
   it "fails on bad changes" do
     `echo '   ' > b && git add b`
-    check.run([]).must_equal "b:1: trailing whitespace.\n+   \nb:1: new blank line at EOF.\n"
+    check.call([]).must_equal "b:1: trailing whitespace.\n+   \nb:1: new blank line at EOF.\n"
   end
 end

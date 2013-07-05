@@ -1,8 +1,6 @@
-require 'pre-commit/checks/base_check'
-
 module PreCommit
-  class MigrationCheck < BaseCheck
-    def self.run(staged_files)
+  class MigrationCheck
+    def self.call(staged_files)
       migration_present = migration_file_present?(staged_files)
       schema_change = schema_file_present?(staged_files)
 

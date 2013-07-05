@@ -1,10 +1,9 @@
-require 'pre-commit/checks/base_check'
 require 'pre-commit/utils'
 require 'execjs'
 
 module PreCommit
-  class JsCheck < BaseCheck
-    def self.run(staged_files)
+  class JsCheck
+    def self.call(staged_files)
       staged_files = staged_files.select { |f| File.extname(f) == ".js" }
       return if staged_files.empty?
 

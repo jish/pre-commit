@@ -1,9 +1,8 @@
 require 'pre-commit/utils'
-require 'pre-commit/checks/base_check'
 
 module PreCommit
-  class PhpCheck < BaseCheck
-    def self.run(staged_files)
+  class PhpCheck
+    def self.call(staged_files)
       staged_files = staged_files.grep /\.(php|engine|theme|install|inc|module|test)$/
       return if staged_files.empty?
 

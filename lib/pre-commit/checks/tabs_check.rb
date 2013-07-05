@@ -1,10 +1,8 @@
-require 'pre-commit/checks/base_check'
-
 module PreCommit
-  class TabsCheck < BaseCheck
+  class TabsCheck
     LEADING_TAB_PATTERN = '^ *\t'
 
-    def self.run(staged_files)
+    def self.call(staged_files)
       return if staged_files.empty?
       errors = `#{Utils.grep} '#{LEADING_TAB_PATTERN}' #{staged_files.join(" ")}`.strip
       return unless $?.success?

@@ -1,11 +1,10 @@
 require 'pre-commit/utils'
 require 'rubocop'
-require 'pre-commit/checks/base_check'
 require 'stringio'
 
 module PreCommit
-  class RubocopCheck < BaseCheck
-    def self.run(staged_files)
+  class RubocopCheck
+    def self.call(staged_files)
       staged_files = staged_files.grep(/\.rb$/)
       return if staged_files.empty?
       config_file = `git config pre-commit.rubocop.config`.chomp

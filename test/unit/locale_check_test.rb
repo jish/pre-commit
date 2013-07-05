@@ -6,14 +6,14 @@ describe PreCommit::LocalCheck do
   let(:check) { PreCommit::LocalCheck }
 
   it "succeeds if there is no config" do
-    check.run([]).must_equal nil
+    check.call([]).must_equal nil
   end
 
   it "succeeds if script succeeds" do
-    check.run([], config_file).must_equal nil
+    check.call([], config_file).must_equal nil
   end
 
   it "fails if script fails" do
-    check.run(["xxx"], config_file).must_include "pre-commit.rb failed"
+    check.call(["xxx"], config_file).must_include "pre-commit.rb failed"
   end
 end

@@ -1,8 +1,6 @@
-require 'pre-commit/checks/base_check'
-
 module PreCommit
-  class DebuggerCheck < BaseCheck
-    def self.run(staged_files)
+  class DebuggerCheck
+    def self.call(staged_files)
       return if staged_files.empty?
       errors = `#{Utils.grep} debugger #{staged_files.join(" ")}`.strip
       return unless $?.success?

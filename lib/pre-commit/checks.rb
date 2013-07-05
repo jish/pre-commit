@@ -72,7 +72,15 @@ module PreCommit
   end
 
   def self.run
-    success = checks_to_run.map { |cmd| cmd.call }.all?
-    exit(success ? 0 : 1)
+    staged_files = Utils.staged_files(".").split(" ").select { |f| File.exist?(f) }
+    errors = checks_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
+    if errors.any?
+      puts "pre-commit: Stopping commit because of errors."
+      puts errors.join("\n")
+      puts "pre-commit: You can bypass this check using `git commit -n`"
+      exit 1
+    else
+      exit 0
+    end
   end
 end
