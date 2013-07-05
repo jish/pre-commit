@@ -16,7 +16,11 @@ else
     end
 
     it "fails if file contains pry" do
-      check.run([test_filename('merge_conflict.rb')]).must_include "1 file inspected, \e[31m2 offences detected\e[0m"
+      possible = [
+        "1 file inspected, \e[31m2 offences detected\e[0m", # everything
+        "1 file inspected, \e[31m1 offences detected\e[0m"  # rubinius
+      ]
+      possible.must_include check.run([test_filename('merge_conflict.rb')])
     end
   end
 end
