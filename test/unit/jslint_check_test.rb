@@ -1,16 +1,20 @@
 require 'minitest_helper'
 require 'pre-commit/checks/jslint_check'
 
-class JslintCheckTest < MiniTest::Unit::TestCase
+describe PreCommit::JslintCheck do
+  let(:check){ PreCommit::JslintCheck }
 
-  def test_should_run_all_by_default
-    check = PreCommit::JslintCheck.new
-    assert_equal :all, check.type
+  it "succeeds if nothing changed" do
+    check.run([]).must_equal nil
   end
 
-  def test_should_run_new_if_specified
-    check = PreCommit::JslintCheck.new(:new)
-    assert_equal :new, check.type
+  it "succeeds if only good changes" do
+    check.run([test_filename('valid_file.js')]).must_equal nil
   end
 
+  it "fails if file contains debugger" do
+    skip do
+      check.run([test_filename('bad_file.js')]).must_equal "Missing semicolon.\ntest/files/bad_file.js:5 }"
+    end
+  end
 end
