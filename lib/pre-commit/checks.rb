@@ -1,4 +1,3 @@
-require 'support/all'
 require 'pre-commit/utils'
 require 'pre-commit/checks/merge_conflict_check'
 require 'pre-commit/checks/tabs_check'
