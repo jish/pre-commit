@@ -72,10 +72,7 @@ module PreCommit
   end
 
   def self.run
-    exit_status = self.checks_to_run.inject(true) do |acc, cmd|
-      cmd.call && acc
-    end
-
-    exit(exit_status ? 0 : 1)
+    success = checks_to_run.map { |cmd| cmd.call }.all?
+    exit(success ? 0 : 1)
   end
 end
