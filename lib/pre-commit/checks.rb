@@ -21,7 +21,7 @@ rescue LoadError # no rubocop
 end
 
 module PreCommit
-  Checks = {
+  CHECKS = {
     :white_space             => WhiteSpaceCheck,
     :console_log             => ConsoleLogCheck,
     :js_lint_all             => JslintCheck.new(:all),
@@ -41,7 +41,7 @@ module PreCommit
     :ruby_symbol_hashrockets => RubySymbolHashrockets
   }
 
-  Checks[:rubocop] = RubocopCheck if defined?(Rubocop)
+  CHECKS[:rubocop] = RubocopCheck if defined?(Rubocop)
 
   # Can not delete this method with out a deprecation strategy.
   # It is refered to in the generated pre-commit hook in versions 0.0-0.1.1
@@ -58,7 +58,7 @@ module PreCommit
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
     if checks_to_run.empty?
-      Checks.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
+      CHECKS.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
         :migrations, :merge_conflict, :local, :nb_space)
     else
       if checks_to_run.delete(:rubocop_all) || checks_to_run.delete(:rubocop_all)
@@ -66,7 +66,7 @@ module PreCommit
         checks_to_run << :rubocop
       end
 
-      Checks.values_at(*checks_to_run)
+      CHECKS.values_at(*checks_to_run)
     end.compact
   end
 
