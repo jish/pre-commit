@@ -2,7 +2,7 @@ module PreCommit
   class Utils
 
     def self.staged_files
-      @staged_files ||= `git diff --cached --name-only --diff-filter=ACM | xargs`.chomp
+      @staged_files ||= `git diff --cached --name-only --diff-filter=ACM`.split
     end
 
     def self.new_files(*dirs)
