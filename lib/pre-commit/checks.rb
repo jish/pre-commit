@@ -72,7 +72,7 @@ module PreCommit
   end
 
   def self.run
-    staged_files = Utils.staged_files(".").split(" ").select { |f| File.exist?(f) }
+    staged_files = Utils.staged_files
     errors = checks_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
     if errors.any?
       puts "pre-commit: Stopping commit because of errors."
