@@ -39,6 +39,12 @@ describe "integration" do
     end
   end
 
+  it "can overwrite existing hook" do
+    write ".git/hooks/pre-commit", "XXX"
+    sh "ruby -I #{Bundler.root}/lib #{Bundler.root}/bin/pre-commit install"
+    read(".git/hooks/pre-commit").must_include "pre-commit gem"
+  end
+
   describe "local checks" do
     it "prevents bad commits when local checks fail" do
       in_git_dir do

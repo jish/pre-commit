@@ -12,8 +12,7 @@ if !File.exists?(".git")
   exit(1)
 end
 
-cli = PreCommit::Cli.new
-cli.install
+PreCommit::Cli.new.install
 
 puts "Installed hook: #{PreCommit::Cli::PRE_COMMIT_HOOK_PATH}"
 puts
