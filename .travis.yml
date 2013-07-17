@@ -1,5 +1,6 @@
 before_install:
-  - sudo apt-get install -y nodejs php5 --fix-missing
+  - sudo apt-get update
+  - sudo apt-get install -y nodejs php5
   - rvm default do gem install execjs
   - git config --global user.name "Pre Commit"
   - git config --global user.email "pre-commit+travis@example.com"
