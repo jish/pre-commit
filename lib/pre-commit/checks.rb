@@ -15,6 +15,7 @@ require 'pre-commit/checks/rspec_focus_check'
 require 'pre-commit/checks/ruby_symbol_hashrockets'
 require 'pre-commit/checks/whitespace_check'
 require 'pre-commit/checks/closure_check'
+require 'pre-commit/checks/gemfile_path_check'
 begin
   require 'pre-commit/checks/rubocop_check'
 rescue LoadError # no rubocop
@@ -37,7 +38,8 @@ module PreCommit
     :ci                      => CiCheck.new,
     :php                     => PhpCheck.new,
     :rspec_focus             => RSpecFocusCheck,
-    :ruby_symbol_hashrockets => RubySymbolHashrockets
+    :ruby_symbol_hashrockets => RubySymbolHashrockets,
+    :gemfile_path            => GemfilePathCheck
   }
 
   CHECKS[:rubocop] = RubocopCheck if defined?(Rubocop)

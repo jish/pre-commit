@@ -1,6 +1,5 @@
 require 'minitest_helper'
 require 'pre-commit/checks/whitespace_check'
-require 'tmpdir'
 
 describe PreCommit::WhiteSpaceCheck do
   def cmd(command)
@@ -8,14 +7,9 @@ describe PreCommit::WhiteSpaceCheck do
     raise unless $?.success?
   end
 
-  around do |test|
-    Dir.mktmpdir do |dir|
-      Dir.chdir(dir) do
-        `git init && touch a && git add a && git commit -am 'a'`
-        raise unless $?.success?
-        test.call
-      end
-    end
+  in_temp_dir do
+    `git init && touch a && git add a && git commit -am 'a'`
+    raise unless $?.success?
   end
 
   let(:check){ PreCommit::WhiteSpaceCheck }
