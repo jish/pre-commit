@@ -77,9 +77,11 @@ module PreCommit
     staged_files = Utils.staged_files
     errors = checks_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
     if errors.any?
-      puts "pre-commit: Stopping commit because of errors."
-      puts errors.join("\n")
-      puts "pre-commit: You can bypass this check using `git commit -n`"
+      $stderr.puts "pre-commit: Stopping commit because of errors."
+      $stderr.puts errors.join("\n")
+      $stderr.puts
+      $stderr.puts "pre-commit: You can bypass this check using `git commit -n`"
+      $stderr.puts
       exit 1
     else
       exit 0
