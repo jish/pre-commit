@@ -74,7 +74,7 @@ describe "integration" do
   end
 
   def commit_a_file(options={})
-    write("xxx.rb", options[:content] || "\t\tMuahaha\n\n\n")
+    write("xxx.rb", options[:content] || "# encoding: utf-8\n\t\tMuahaha\n\n\n")
     sh "git add -A"
     Bundler.with_clean_env { sh("git commit #{options[:no_check] ? "-n" : ""} -m 'EVIL'", options) }
   end
