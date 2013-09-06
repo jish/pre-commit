@@ -9,7 +9,7 @@ module PreCommit
       return if staged_files.empty?
       config_file = `git config pre-commit.rubocop.config`.chomp
 
-      args = staged_files
+      args = ['-fs'] + staged_files
       if !config_file.empty?
         if !File.exist? config_file
           $stderr.puts "Warning: rubocop config file '" + config_file + "' does not exist"
