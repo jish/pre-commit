@@ -1,3 +1,8 @@
+## 0.9.2
+
+* Does not run the debugger check on `Gemfile`, `Gemfile.lock`
+
+## 0.9.0
 
 * adding spec directory to checked dirs of pry and debugger
 
