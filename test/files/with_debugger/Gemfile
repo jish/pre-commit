@@ -1,0 +1,4 @@
+# Putting this in a sub directory so it doesn't conflict with other Gemfiles
+# that we may or may not add in the future.
+
+gem "debugger"
