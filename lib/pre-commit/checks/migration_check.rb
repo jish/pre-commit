@@ -1,26 +1,30 @@
 module PreCommit
   class MigrationCheck
-    def self.call(staged_files)
-      migration_present = migration_file_present?(staged_files)
-      schema_change = schema_file_present?(staged_files)
+    class << self
+      def call(staged_files)
+        migration_present = migration_file_present?(staged_files)
+        schema_change = schema_file_present?(staged_files)
 
-      if migration_present && !schema_change
-        "It looks like you're adding a migration, but did not update the schema file"
-      elsif schema_change && !migration_present
-        "You're trying to change the schema without adding a migration file"
+        if migration_present && !schema_change
+          "It looks like you're adding a migration, but did not update the schema file"
+        elsif schema_change && !migration_present
+          "You're trying to change the schema without adding a migration file"
+        end
       end
-    end
 
-    def self.migration_file_present?(staged_files)
-      staged_files.any? { |file| file =~ /db\/migrate\/.*\.rb/ }
-    end
+      private
 
-    def self.schema_file_present?(staged_files)
-      staged_files.any? do |file|
-        basename = File.basename(file)
+      def migration_file_present?(staged_files)
+        staged_files.any? { |file| file =~ /db\/migrate\/.*\.rb/ }
+      end
 
-        [/schema\.rb/i, /structure.*\.sql/].any? do |regex|
-          basename =~ regex
+      def schema_file_present?(staged_files)
+        staged_files.any? do |file|
+          basename = File.basename(file)
+
+          [/schema\.rb/i, /structure.*\.sql/].any? do |regex|
+            basename =~ regex
+          end
         end
       end
     end

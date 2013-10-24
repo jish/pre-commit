@@ -1,4 +1,4 @@
-require 'minitest_helper'
+require File.expand_path('../../minitest_helper', __FILE__)
 require 'pre-commit/checks/migration_check'
 
 describe PreCommit::MigrationCheck do
