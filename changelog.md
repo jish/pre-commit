@@ -1,3 +1,7 @@
+## 0.10.0
+
+* Enhancement: Migration check will ensure the proper versions are in the schema file
+
 ## 0.9.2
 
 * Does not run the debugger check on `Gemfile`, `Gemfile.lock`
