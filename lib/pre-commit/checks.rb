@@ -57,6 +57,7 @@ module PreCommit
   # we want, and nobody is forced to update their pre-commit binary.
   def self.checks_to_run
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
+    warnings_to_run = `git config pre-commit.warnings`.chomp.split(/,\s*/).map(&:to_sym)
 
     if checks_to_run.empty?
       CHECKS.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
@@ -73,8 +74,18 @@ module PreCommit
     end.compact
   end
 
+  def self.warnings_to_run
+    warnings_to_run = `git config pre-commit.warnings`.chomp.split(/,\s*/).map(&:to_sym)
+    CHECKS.values_at(*warnings_to_run).compact
+  end
+
   def self.run
     staged_files = Utils.staged_files
+    warnings = warnings_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
+    if warnings.any?
+       $stderr.puts "pre-commit: Some warnings were raised. These will not stop commit:"
+       $stderr.puts warnings.join("\n")
+    end
     errors = checks_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
     if errors.any?
       $stderr.puts "pre-commit: Stopping commit because of errors."
