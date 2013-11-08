@@ -2,9 +2,7 @@
 
 OPTIONS = "-r rubygems"
 
-cmd = if system("which rvm > /dev/null")
-  "rvm default do ruby"
-elsif system("which rbenv > /dev/null")
+cmd = if system("which rbenv > /dev/null")
   "rbenv exec ruby"
 else
   "ruby"

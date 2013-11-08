@@ -49,15 +49,15 @@ describe "integration" do
     it "prevents bad commits when local checks fail" do
       in_git_dir do
         write("config/pre-commit.rb", "raise 'FOOO'")
-        result = commit_a_file :content => "XXX", :fail => true
+        result = commit_a_file :content => "# encoding: utf-8\nXXX", :fail => true
         assert_includes result, "FOOO"
       end
     end
 
     it "allows good commits when local checks succeed" do
       in_git_dir do
-        write("config/pre-commit.rb", "")
-        result = commit_a_file :content => "XXX"
+        write("config/pre-commit.rb", "# encoding: utf-8\n")
+        result = commit_a_file :content => "# encoding: utf-8\nXXX"
         assert_includes result, "create mode 100644 xxx.rb"
       end
     end

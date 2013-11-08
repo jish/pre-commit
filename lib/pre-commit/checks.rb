@@ -59,8 +59,10 @@ module PreCommit
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
     if checks_to_run.empty?
-      CHECKS.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
-        :migrations, :merge_conflict, :local, :nb_space)
+      checks = [ :white_space, :console_log, :debugger, :pry, :tabs, :jshint,
+        :migrations, :merge_conflict, :local, :nb_space ]
+      checks << :rubocop if defined?(Rubocop)
+      CHECKS.values_at(*checks)
     else
       [:js_lint, :rubocop].each do |check|
         if checks_to_run.delete("#{check}_all".to_sym) || checks_to_run.delete("#{check}_new".to_sym)
