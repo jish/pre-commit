@@ -1,18 +1,11 @@
 #!/usr/bin/env ruby
 
-OPTIONS = "-r rubygems"
-
-cmd = if system("which rvm > /dev/null")
-  "rvm default do ruby"
-elsif system("which rbenv > /dev/null")
-  "rbenv exec ruby"
-else
-  "ruby"
-end
-
-if !system(%Q{#{cmd} #{OPTIONS} -e "require 'pre-commit';" 2>&1})
+begin
+  require 'pre-commit'
+  PreCommit.run
+rescue LoadError
   $stderr.puts "pre-commit: WARNING: Skipping checks because the pre-commit gem is not installed. (Did you change your Ruby version?)"
   exit(0)
+rescue SystemExit => e
+  exit(e.status)
 end
-
-exec(%Q{#{cmd} #{OPTIONS} -e "require 'pre-commit'; PreCommit.run"})
