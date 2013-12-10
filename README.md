@@ -36,6 +36,7 @@ These are the available checks:
 * migrations (Will make sure you check in the proper files after creating a Rails migration)
 * ci (Will run the `pre_commit:ci` rake task and pass or fail accordingly)
 * rubocop (Check ruby code style using the rubocop gem. Rubocop must be installed)
+* before_all (Check your RSpec tests for the use of `before(:all)`)
 
 To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
 
