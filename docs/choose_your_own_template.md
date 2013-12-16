@@ -15,8 +15,8 @@ Everyone does not share this opinion. Some people value speed, others their Ruby
 
 The goal of this template will be to work in as many environments as possible.
 
-    pre-commit install --portable
-    pre-commit install # maybe the default option?
+    $ pre-commit install --portable
+    $ pre-commit install # maybe the default option?
 
 ### Simple (Manual?) template
 
@@ -30,18 +30,18 @@ PreCommit.run
 
 Installation options:
 
-    pre-commit install --simple
-    pre-commit install --manual
-    pre-commit install # maybe the default option?
+    $ pre-commit install --simple
+    $ pre-commit install --manual
+    $ pre-commit install # maybe the default option?
 
 ### RVM template
 
 This template will assume you are using RVM as a Ruby version switcher, and will attempt to setup the RVM environment for you.
 
-    pre-commit install --rvm
+    $ pre-commit install --rvm
 
 ### rbenv template
 
 This template will assume you are using rbenv as a Ruby version switcher, and will attempt to setup the rbenv environment for you.
 
-    pre-commit install --rbenv
+    $ pre-commit install --rbenv
