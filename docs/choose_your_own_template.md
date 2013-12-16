@@ -16,11 +16,13 @@ Everyone does not share this opinion. Some people value speed, others their Ruby
 The goal of this template will be to work in as many environments as possible.
 
     $ pre-commit install --portable
+    $ pre-commit install --simple
+    $ pre-commit install --automatic
     $ pre-commit install # maybe the default option?
 
-### Simple (Manual?) template
+### Fast (Manual? Advanced?) template
 
-This template will assume your environment is set up properly, and will value simplicity:
+This template will assume your environment is set up properly, and will value simplicity and speed
 
 ```ruby
 require 'pre-commit'
@@ -30,8 +32,9 @@ PreCommit.run
 
 Installation options:
 
-    $ pre-commit install --simple
+    $ pre-commit install --advanced
     $ pre-commit install --manual
+    $ pre-commit install --fast
     $ pre-commit install # maybe the default option?
 
 ### RVM template
