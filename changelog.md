@@ -1,3 +1,8 @@
+## 0.11.0
+
+* Converted the hook template to shell (instead of ruby) keep an eye out for problems, and file an issue if anything comes up https://github.com/jish/pre-commit/issues
+* Added a `pre-commit.ruby` git config option. If this option is set, the hook will use that ruby. `git config pre-commit.ruby "ruby"`
+
 ## 0.10.0
 
 * Enhancement: Migration check will ensure the proper versions are in the schema file
