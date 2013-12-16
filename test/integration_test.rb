@@ -64,9 +64,10 @@ describe "integration" do
   end
 
   def in_git_dir(&block)
-    Dir.mktmpdir do |dir|
+    Dir.mktmpdir(nil, ENV['TMPDIR'] || '/tmp') do |dir|
       Dir.chdir(dir) do
         sh "git init"
+        sh "git config pre-commit.ruby 'ruby -I #{Bundler.root}/lib'"
         install
         yield
       end
@@ -76,7 +77,7 @@ describe "integration" do
   def commit_a_file(options={})
     write("xxx.rb", options[:content] || "\t\tMuahaha\n\n\n")
     sh "git add -A"
-    Bundler.with_clean_env { sh("git commit #{options[:no_check] ? "-n" : ""} -m 'EVIL'", options) }
+    sh("git commit #{options[:no_check] ? "-n" : ""} -m 'EVIL'", options)
   end
 
   def sh(command, options={})
@@ -87,24 +88,9 @@ describe "integration" do
 
   def install
     sh "ruby -I #{Bundler.root}/lib #{Bundler.root}/bin/pre-commit install"
-    make_lib_available_for_hook
+    assert File.exist?(".git/hooks/pre-commit"), "The hook file does not exist"
+    assert File.executable?(".git/hooks/pre-commit"), "The hook file is not executable"
     sh "git commit -m Initial --allow-empty" # or travis fails with: No HEAD commit to compare with
-  end
-
-  def make_lib_available_for_hook
-    hook_file = PreCommit::Cli::PRE_COMMIT_HOOK_PATH
-    require_library = /require ['"]pre-commit/
-    content = read(hook_file)
-    assert content =~ require_library,
-      "pre commit hook template must require the pre-commit library."
-
-    template = rewrite_options(content)
-    write(hook_file, template)
-  end
-
-  def rewrite_options(template)
-    additional_options = "-I #{Bundler.root.join('lib')}"
-    template.sub(/(-rrubygems)/, "\\1 #{additional_options}")
   end
 
   def ensure_folder(folder)

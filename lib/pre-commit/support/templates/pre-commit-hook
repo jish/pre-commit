@@ -1,11 +1,13 @@
 #!/usr/bin/env sh
 
-cmd="ruby"
-
-if   which rvm > /dev/null
+cmd=`git config pre-commit.ruby 2>/dev/null`
+if   test -n "${cmd}"
+then true
+elif which rvm > /dev/null
 then cmd="rvm default do ruby"
 elif which rbenv > /dev/null
 then cmd="rbenv exec ruby"
+else cmd="ruby"
 fi
 
 ${cmd} -rrubygems -e '
