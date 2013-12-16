@@ -74,8 +74,10 @@ module PreCommit
   end
 
   def self.run
+    system 'git stash -q --keep-index'
     staged_files = Utils.staged_files
     errors = checks_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
+    system 'git stash pop -q'
     if errors.any?
       $stderr.puts "pre-commit: Stopping commit because of errors."
       $stderr.puts errors.join("\n")
