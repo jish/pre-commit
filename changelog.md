@@ -1,3 +1,5 @@
+* Add a `before_all` check for RSpec `before(:all)` blocks.
+
 ## 0.11.0
 
 * Converted the hook template to shell (instead of ruby) keep an eye out for problems, and file an issue if anything comes up https://github.com/jish/pre-commit/issues
