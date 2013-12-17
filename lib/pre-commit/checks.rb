@@ -56,7 +56,7 @@ module PreCommit
   # logic in it. The we have freedom to change the gem implementation however
   # we want, and nobody is forced to update their pre-commit binary.
   def self.checks_to_run
-    checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
+    checks_to_run = YAML.load_file(Bundler.root.join('config', 'pre_commit.yml'))['checks'].map(&:to_sym)
 
     if checks_to_run.empty?
       CHECKS.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
