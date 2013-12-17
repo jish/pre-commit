@@ -7,7 +7,7 @@ module PreCommit
     def self.call(staged_files)
       staged_files = staged_files.grep(/\.rb$/)
       return if staged_files.empty?
-      config_file = `git config pre-commit.rubocop.config`.chomp
+      config_file = YAML.load_file(Bundler.root.join('config', 'pre_commit.yml'))['rubocop'].chomp
 
       args = staged_files
       if !config_file.empty?
