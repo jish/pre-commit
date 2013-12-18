@@ -17,10 +17,7 @@ require 'pre-commit/checks/whitespace_check'
 require 'pre-commit/checks/closure_check'
 require 'pre-commit/checks/gemfile_path_check'
 require 'pre-commit/checks/before_all_check'
-begin
-  require 'pre-commit/checks/rubocop_check'
-rescue LoadError # no rubocop
-end
+require 'pre-commit/checks/rubocop_check'
 
 module PreCommit
   CHECKS = {

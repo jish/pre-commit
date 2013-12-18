@@ -1,8 +1,13 @@
 require 'pre-commit/utils'
-require 'rubocop'
 require 'stringio'
 
 module PreCommit
+  begin
+    require 'rubocop'
+    rubocop_loaded = true
+  rescue LoadError # no rubocop
+  end
+
   class RubocopCheck
     def self.call(staged_files)
       staged_files = staged_files.grep(/\.rb$/)
@@ -34,5 +39,5 @@ module PreCommit
       $stdout = stdout
       $stderr = stderr
     end
-  end
+  end if rubocop_loaded
 end
