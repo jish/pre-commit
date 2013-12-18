@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/js_check'
+require 'plugins/pre_commit/checks/js_check'
 
-describe PreCommit::JsCheck do
-  let(:check){ PreCommit::JsCheck }
+describe PreCommit::Checks::JsCheck do
+  let(:check){ PreCommit::Checks::JsCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

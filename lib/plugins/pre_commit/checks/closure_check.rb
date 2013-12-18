@@ -1,4 +1,4 @@
-module PreCommit
+module PreCommit::Checks
   class ClosureCheck
     #TODO: add pluginator assets support
     CLOSURE_PATH = File.expand_path("../../../../pre-commit/support/closure/compiler.jar", __FILE__)

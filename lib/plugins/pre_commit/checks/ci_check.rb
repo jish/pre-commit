@@ -1,4 +1,4 @@
-module PreCommit
+module PreCommit::Checks
   class CiCheck
     CI_TASK_NAME = 'pre_commit:ci'
 

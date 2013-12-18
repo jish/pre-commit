@@ -1,10 +1,10 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/rubocop_check'
+require 'plugins/pre_commit/checks/rubocop_check'
 
 
 
-  describe PreCommit::RubocopCheck do
-    let(:check){ PreCommit::RubocopCheck }
+  describe PreCommit::Checks::RubocopCheck do
+    let(:check){ PreCommit::Checks::RubocopCheck }
 
     it "succeeds if nothing changed" do
       check.call([]).must_equal nil

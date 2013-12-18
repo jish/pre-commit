@@ -1,4 +1,4 @@
-module PreCommit
+module PreCommit::Checks
   class LocalCheck
     DEFAULT_LOCATION = "config/pre-commit.rb"
 

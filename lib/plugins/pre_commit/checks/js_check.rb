@@ -1,7 +1,7 @@
 require 'pre-commit/utils'
 require 'execjs'
 
-module PreCommit
+module PreCommit::Checks
   class JsCheck
     def self.supports(name)
       name == :js

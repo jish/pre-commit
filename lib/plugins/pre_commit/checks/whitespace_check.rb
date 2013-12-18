@@ -1,5 +1,5 @@
-module PreCommit
-  class WhiteSpaceCheck
+module PreCommit::Checks
+  class WhitespaceCheck
     def self.supports(name)
       name == :white_space
     end

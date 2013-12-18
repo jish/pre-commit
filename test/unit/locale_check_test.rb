@@ -1,9 +1,9 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/local_check'
+require 'plugins/pre_commit/checks/local_check'
 
-describe PreCommit::LocalCheck do
+describe PreCommit::Checks::LocalCheck do
   let(:config_file) { test_filename("pre-commit.rb") }
-  let(:check) { PreCommit::LocalCheck }
+  let(:check) { PreCommit::Checks::LocalCheck }
 
   it "succeeds if there is no config" do
     check.call([]).must_equal nil

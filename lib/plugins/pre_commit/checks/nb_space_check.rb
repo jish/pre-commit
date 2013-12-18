@@ -1,5 +1,5 @@
 # encoding: utf-8
-module PreCommit
+module PreCommit::Checks
   class NbSpaceCheck
     def self.supports(name)
       name == :nb_space

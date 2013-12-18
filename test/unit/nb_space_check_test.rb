@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/nb_space_check'
+require 'plugins/pre_commit/checks/nb_space_check'
 
-describe PreCommit::NbSpaceCheck do
-  let(:check){ PreCommit::NbSpaceCheck }
+describe PreCommit::Checks::NbSpaceCheck do
+  let(:check){ PreCommit::Checks::NbSpaceCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

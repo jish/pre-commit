@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/tabs_check'
+require 'plugins/pre_commit/checks/tabs_check'
 
-describe PreCommit::TabsCheck do
-  let(:check) { PreCommit::TabsCheck }
+describe PreCommit::Checks::TabsCheck do
+  let(:check) { PreCommit::Checks::TabsCheck }
 
   it "passes without files" do
     check.call([]).must_equal nil

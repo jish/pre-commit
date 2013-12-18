@@ -1,6 +1,6 @@
-require 'plugins/pre-commit/checks/js_check'
+require 'plugins/pre_commit/checks/js_check'
 
-module PreCommit
+module PreCommit::Checks
   class JslintCheck < JsCheck
     def self.supports(name)
       [ :js_lint, :js_lint_all, :js_lint_new ].include?(name)

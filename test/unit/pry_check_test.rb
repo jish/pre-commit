@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/pry_check'
+require 'plugins/pre_commit/checks/pry_check'
 
-describe PreCommit::PryCheck do
-  let(:check){ PreCommit::PryCheck }
+describe PreCommit::Checks::PryCheck do
+  let(:check){ PreCommit::Checks::PryCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

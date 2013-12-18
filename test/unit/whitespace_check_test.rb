@@ -1,7 +1,7 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/whitespace_check'
+require 'plugins/pre_commit/checks/whitespace_check'
 
-describe PreCommit::WhiteSpaceCheck do
+describe PreCommit::Checks::WhitespaceCheck do
   def cmd(command)
     `#{command}`
     raise unless $?.success?
@@ -12,7 +12,7 @@ describe PreCommit::WhiteSpaceCheck do
     raise unless $?.success?
   end
 
-  let(:check){ PreCommit::WhiteSpaceCheck }
+  let(:check){ PreCommit::Checks::WhitespaceCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

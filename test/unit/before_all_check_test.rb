@@ -1,9 +1,9 @@
 require 'minitest_helper'
 require 'pre-commit/utils'
-require 'plugins/pre-commit/checks/before_all_check'
+require 'plugins/pre_commit/checks/before_all_check'
 
-describe PreCommit::BeforeAllCheck do
-  let(:check){ PreCommit::BeforeAllCheck }
+describe PreCommit::Checks::BeforeAllCheck do
+  let(:check){ PreCommit::Checks::BeforeAllCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

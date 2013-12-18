@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/ci_check'
+require 'plugins/pre_commit/checks/ci_check'
 
-describe PreCommit::CiCheck do
-  let(:check) { PreCommit::CiCheck }
+describe PreCommit::Checks::CiCheck do
+  let(:check) { PreCommit::Checks::CiCheck }
 
   it "succeeds if rake succeeds" do
     check.stub :system, true do

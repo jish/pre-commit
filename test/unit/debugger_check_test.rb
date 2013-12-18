@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/debugger_check'
+require 'plugins/pre_commit/checks/debugger_check'
 
-describe PreCommit::DebuggerCheck do
-  let(:check){ PreCommit::DebuggerCheck }
+describe PreCommit::Checks::DebuggerCheck do
+  let(:check){ PreCommit::Checks::DebuggerCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

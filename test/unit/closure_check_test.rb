@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/closure_check'
+require 'plugins/pre_commit/checks/closure_check'
 
-describe PreCommit::ClosureCheck do
-  let(:check){ PreCommit::ClosureCheck }
+describe PreCommit::Checks::ClosureCheck do
+  let(:check){ PreCommit::Checks::ClosureCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

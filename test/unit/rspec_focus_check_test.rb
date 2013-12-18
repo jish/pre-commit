@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/rspec_focus_check'
+require 'plugins/pre_commit/checks/rspec_focus_check'
 
-describe PreCommit::RSpecFocusCheck do
-  let(:check){ PreCommit::RSpecFocusCheck }
+describe PreCommit::Checks::RspecFocusCheck do
+  let(:check){ PreCommit::Checks::RspecFocusCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

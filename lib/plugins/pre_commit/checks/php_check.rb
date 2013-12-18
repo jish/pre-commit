@@ -1,6 +1,6 @@
 require 'pre-commit/utils'
 
-module PreCommit
+module PreCommit::Checks
   class PhpCheck
     def self.supports(name)
       name == :php

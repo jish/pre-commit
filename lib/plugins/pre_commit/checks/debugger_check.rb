@@ -1,6 +1,6 @@
 require 'pre-commit/utils'
 
-module PreCommit
+module PreCommit::Checks
   class DebuggerCheck
     def self.supports(name)
       name == :debugger
@@ -9,7 +9,7 @@ module PreCommit
       files = files_to_check(staged_files)
       return if files.empty?
 
-      errors = `#{Utils.grep} debugger #{files.join(" ")}`.strip
+      errors = `#{PreCommit::Utils.grep} debugger #{files.join(" ")}`.strip
       return unless $?.success?
 
       "debugger statement(s) found:\n#{errors}"

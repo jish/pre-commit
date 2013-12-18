@@ -1,4 +1,5 @@
 require 'pluginator'
+require 'pre-commit/utils'
 
 module PreCommit
 
@@ -32,12 +33,12 @@ module PreCommit
   end
 
   def self.pluginator
-    @pluginator ||= Pluginator.find('pre-commit', extends: %i{first_ask} )
+    @pluginator ||= Pluginator.find('pre_commit', extends: %i{first_ask} )
   end
 
   def self.run
     staged_files = Utils.staged_files
-    errors = checks_to_run.map { |name| cmd.call(staged_files.dup) }.compact
+    errors = checks_to_run.map { |cmd| cmd.call(staged_files.dup) }.compact
     if errors.any?
       $stderr.puts "pre-commit: Stopping commit because of errors."
       $stderr.puts errors.join("\n")

@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'plugins/pre-commit/checks/console_log_check'
+require 'plugins/pre_commit/checks/console_log_check'
 
-describe PreCommit::ConsoleLogCheck do
-  let(:check){ PreCommit::ConsoleLogCheck }
+describe PreCommit::Checks::ConsoleLogCheck do
+  let(:check){ PreCommit::Checks::ConsoleLogCheck }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

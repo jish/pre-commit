@@ -1,18 +1,16 @@
 require 'pre-commit/utils'
 require 'stringio'
 
-module PreCommit
-  begin
-    require 'rubocop'
-    rubocop_loaded = true
-  rescue LoadError # no rubocop
-  end
+module PreCommit::Checks
 
   class RubocopCheck
     def self.supports(name)
       [ :rubocop, :rubocop_all, :rubocop_new ].include?(name)
     end
     def self.call(staged_files)
+      require 'rubocop'
+    rescue LoadError # no rubocop
+    else
       staged_files = staged_files.grep(/\.rb$/)
       return if staged_files.empty?
       config_file = `git config pre-commit.rubocop.config`.chomp
@@ -42,5 +40,5 @@ module PreCommit
       $stdout = stdout
       $stderr = stderr
     end
-  end if rubocop_loaded
+  end
 end

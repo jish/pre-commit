@@ -1,4 +1,4 @@
-module PreCommit
+module PreCommit::Checks
   class MigrationCheck
     def self.supports(name)
       name == :migrations

@@ -1,6 +1,6 @@
-require 'plugins/pre-commit/checks/js_check'
+require 'plugins/pre_commit/checks/js_check'
 
-module PreCommit
+module PreCommit::Checks
   class JshintCheck < JsCheck
     def self.supports(name)
       name == :jshint

@@ -1,6 +1,6 @@
 require 'pre-commit/utils'
 
-module PreCommit
+module PreCommit::Checks
   class RubySymbolHashrockets
     HASHROCKET_PATTERN = '[^:](:{1}(?:\$|@|@@|[_A-Za-z])?\w*[=!?]?\s*=>\s*)'
 
@@ -9,7 +9,7 @@ module PreCommit
     end
     def self.call(staged_files)
       return if staged_files.empty?
-      lines = `#{Utils.grep} '#{HASHROCKET_PATTERN}' #{staged_files.join(" ")}`.strip
+      lines = `#{PreCommit::Utils.grep} '#{HASHROCKET_PATTERN}' #{staged_files.join(" ")}`.strip
       return unless $?.success?
       "detected :symbol => value hashrocket:\n#{lines}"
     end

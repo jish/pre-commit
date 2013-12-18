@@ -1,13 +1,13 @@
 require 'pre-commit/utils'
 
-module PreCommit
+module PreCommit::Checks
   class GemfilePathCheck
     def self.supports(name)
       name == :gemfile_path
     end
     def self.call(staged_files)
       return unless staged_files.include?("Gemfile")
-      errors = `#{Utils.grep} 'path:|:path\\s*=>' Gemfile`.strip
+      errors = `#{PreCommit::Utils.grep} 'path:|:path\\s*=>' Gemfile`.strip
       return unless $?.success?
       "local path found in Gemfile:\n#{errors}"
     end
