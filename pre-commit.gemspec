@@ -18,8 +18,13 @@ Gem::Specification.new do |s|
   s.summary = "A slightly better git pre-commit hook"
   s.description = "A git pre-commit hook written in ruby with a few more tricks up its sleeve"
 
-  s.add_dependency('execjs')
   s.add_dependency('pluginator')
+  s.add_dependency_dependency('rake')
+  s.add_dependency_dependency('guard')
+  s.add_dependency_dependency('guard-minitest')
+  s.add_dependency_dependency('minitest')
+  s.add_dependency_dependency('minitest-rg')
+  s.add_dependency_dependency('minitest-around')
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
