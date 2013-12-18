@@ -2,6 +2,9 @@ require 'pre-commit/utils'
 
 module PreCommit
   class GemfilePathCheck
+    def self.supports(name)
+      name == :gemfile_path
+    end
     def self.call(staged_files)
       return unless staged_files.include?("Gemfile")
       errors = `#{Utils.grep} 'path:|:path\\s*=>' Gemfile`.strip

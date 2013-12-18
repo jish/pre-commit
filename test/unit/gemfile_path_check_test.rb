@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/gemfile_path_check'
+require 'plugins/pre-commit/checks/gemfile_path_check'
 
 describe PreCommit::GemfilePathCheck do
   let(:check){ PreCommit::GemfilePathCheck }

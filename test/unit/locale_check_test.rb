@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/local_check'
+require 'plugins/pre-commit/checks/local_check'
 
 describe PreCommit::LocalCheck do
   let(:config_file) { test_filename("pre-commit.rb") }

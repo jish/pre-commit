@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/rspec_focus_check'
+require 'plugins/pre-commit/checks/rspec_focus_check'
 
 describe PreCommit::RSpecFocusCheck do
   let(:check){ PreCommit::RSpecFocusCheck }

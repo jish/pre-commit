@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/console_log_check'
+require 'plugins/pre-commit/checks/console_log_check'
 
 describe PreCommit::ConsoleLogCheck do
   let(:check){ PreCommit::ConsoleLogCheck }

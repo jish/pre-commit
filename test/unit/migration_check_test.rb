@@ -1,6 +1,6 @@
 require File.expand_path('../../minitest_helper', __FILE__)
 require 'tmpdir'
-require 'pre-commit/checks/migration_check'
+require 'plugins/pre-commit/checks/migration_check'
 
 describe PreCommit::MigrationCheck do
   let(:check) { PreCommit::MigrationCheck }

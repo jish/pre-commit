@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/ruby_symbol_hashrockets'
+require 'plugins/pre-commit/checks/ruby_symbol_hashrockets'
 
 describe PreCommit::RubySymbolHashrockets do
   let(:check){ PreCommit::RubySymbolHashrockets }

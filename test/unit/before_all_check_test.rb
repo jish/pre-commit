@@ -1,6 +1,6 @@
 require 'minitest_helper'
 require 'pre-commit/utils'
-require 'pre-commit/checks/before_all_check'
+require 'plugins/pre-commit/checks/before_all_check'
 
 describe PreCommit::BeforeAllCheck do
   let(:check){ PreCommit::BeforeAllCheck }

@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/nb_space_check'
+require 'plugins/pre-commit/checks/nb_space_check'
 
 describe PreCommit::NbSpaceCheck do
   let(:check){ PreCommit::NbSpaceCheck }

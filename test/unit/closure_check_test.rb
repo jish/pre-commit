@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/closure_check'
+require 'plugins/pre-commit/checks/closure_check'
 
 describe PreCommit::ClosureCheck do
   let(:check){ PreCommit::ClosureCheck }

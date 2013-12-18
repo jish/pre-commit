@@ -1,5 +1,8 @@
 module PreCommit
   class MergeConflictCheck
+    def self.supports(name)
+      name == :merge_conflict
+    end
     def self.call(staged_files)
       return if staged_files.empty?
       errors = `#{Utils.grep} '<<<<<<<' #{staged_files.join(" ")}`.strip

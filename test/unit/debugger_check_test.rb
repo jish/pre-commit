@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/debugger_check'
+require 'plugins/pre-commit/checks/debugger_check'
 
 describe PreCommit::DebuggerCheck do
   let(:check){ PreCommit::DebuggerCheck }

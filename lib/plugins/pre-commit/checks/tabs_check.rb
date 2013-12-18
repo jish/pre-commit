@@ -2,6 +2,9 @@ module PreCommit
   class TabsCheck
     LEADING_TAB_PATTERN = '^ *\t'
 
+    def self.supports(name)
+      name == :tabs
+    end
     def self.call(staged_files)
       return if staged_files.empty?
       errors = `#{Utils.grep} '#{LEADING_TAB_PATTERN}' #{staged_files.join(" ")}`.strip

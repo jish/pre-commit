@@ -3,6 +3,9 @@ require 'execjs'
 
 module PreCommit
   class JsCheck
+    def self.supports(name)
+      name == :js
+    end
     def self.call(staged_files)
       staged_files = staged_files.select { |f| File.extname(f) == ".js" }
       return if staged_files.empty?

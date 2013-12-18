@@ -2,6 +2,9 @@ require 'pre-commit/utils'
 
 module PreCommit
   class DebuggerCheck
+    def self.supports(name)
+      name == :debugger
+    end
     def self.call(staged_files)
       files = files_to_check(staged_files)
       return if files.empty?

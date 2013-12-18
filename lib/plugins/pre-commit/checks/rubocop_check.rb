@@ -9,6 +9,9 @@ module PreCommit
   end
 
   class RubocopCheck
+    def self.supports(name)
+      [ :rubocop, :rubocop_all, :rubocop_new ].include?(name)
+    end
     def self.call(staged_files)
       staged_files = staged_files.grep(/\.rb$/)
       return if staged_files.empty?

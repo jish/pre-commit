@@ -1,5 +1,8 @@
 module PreCommit
   class MigrationCheck
+    def self.supports(name)
+      name == :migrations
+    end
     class << self
       def call(staged_files)
         migration_files = migration_files(staged_files)

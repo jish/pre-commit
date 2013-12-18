@@ -1,7 +1,10 @@
-require 'pre-commit/checks/js_check'
+require 'plugins/pre-commit/checks/js_check'
 
 module PreCommit
   class JshintCheck < JsCheck
+    def self.supports(name)
+      name == :jshint
+    end
     def self.config
       if config_file = [ENV['JSHINT_CONFIG'], ".jshintrc"].compact.detect { |f| File.exist?(f) }
         ExecJS.exec("return (#{File.read(config_file)});")
@@ -20,7 +23,7 @@ module PreCommit
     end
 
     def self.linter_src
-      File.expand_path("../../support/jshint/jshint.js", __FILE__)
+      File.expand_path("../../../../pre-commit/support/jshint/jshint.js", __FILE__)
     end
   end
 end

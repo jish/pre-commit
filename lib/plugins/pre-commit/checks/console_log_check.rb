@@ -1,5 +1,8 @@
 module PreCommit
   class ConsoleLogCheck
+    def self.supports(name)
+      name == :console_log
+    end
     def self.call(staged_files)
       staged_files.reject! { |f| File.extname(f) != ".js" }
       return if staged_files.empty?

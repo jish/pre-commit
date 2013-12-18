@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/tabs_check'
+require 'plugins/pre-commit/checks/tabs_check'
 
 describe PreCommit::TabsCheck do
   let(:check) { PreCommit::TabsCheck }

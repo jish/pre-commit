@@ -1,9 +1,8 @@
 require 'minitest_helper'
-begin
-  require 'pre-commit/checks/rubocop_check'
-rescue LoadError
-  puts "Not running rubocop test"
-else
+require 'plugins/pre-commit/checks/rubocop_check'
+
+
+
   describe PreCommit::RubocopCheck do
     let(:check){ PreCommit::RubocopCheck }
 
@@ -19,5 +18,5 @@ else
       # rubinius finds only 1 offense, all others find 2
       check.call([test_filename('merge_conflict.rb')]).must_match /1 file inspected, \e\[31m[12] offences? detected\e\[0m/
     end
-  end
-end
+  end if PreCommit.const_defined?('RubocopCheck')
+

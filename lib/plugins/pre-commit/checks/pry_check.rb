@@ -1,5 +1,8 @@
 module PreCommit
   class PryCheck
+    def self.supports(name)
+      name == :pry
+    end
     def self.call(staged_files)
       return if staged_files.empty?
       result = `#{Utils.grep} binding.pry #{staged_files.join(" ")}`.strip

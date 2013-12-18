@@ -1,7 +1,11 @@
 module PreCommit
   class ClosureCheck
-    CLOSURE_PATH = File.expand_path("../../support/closure/compiler.jar", __FILE__)
+    #TODO: add pluginator assets support
+    CLOSURE_PATH = File.expand_path("../../../../pre-commit/support/closure/compiler.jar", __FILE__)
 
+    def self.supports(name)
+      name == :closure_syntax_check
+    end
     def self.call(staged_files)
       return if staged_files.empty?
       js_args = staged_files.map {|arg| "--js #{arg}"}.join(' ')

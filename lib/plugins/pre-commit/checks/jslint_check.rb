@@ -1,9 +1,9 @@
-require 'pre-commit/checks/js_check'
+require 'plugins/pre-commit/checks/js_check'
 
 module PreCommit
   class JslintCheck < JsCheck
-    def self.check_name
-      "JSLint"
+    def self.supports(name)
+      [ :js_lint, :js_lint_all, :js_lint_new ].include?(name)
     end
 
     def self.run_check(file)
@@ -16,7 +16,7 @@ module PreCommit
     end
 
     def self.linter_src
-      File.expand_path("../../support/jslint/lint.js", __FILE__)
+      File.expand_path("../../../../pre-commit/support/jslint/lint.js", __FILE__)
     end
   end
 end

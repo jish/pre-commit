@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/merge_conflict_check'
+require 'plugins/pre-commit/checks/merge_conflict_check'
 
 describe PreCommit::MergeConflictCheck do
   let(:check){ PreCommit::MergeConflictCheck }

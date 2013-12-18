@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/whitespace_check'
+require 'plugins/pre-commit/checks/whitespace_check'
 
 describe PreCommit::WhiteSpaceCheck do
   def cmd(command)

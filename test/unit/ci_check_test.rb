@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/ci_check'
+require 'plugins/pre-commit/checks/ci_check'
 
 describe PreCommit::CiCheck do
   let(:check) { PreCommit::CiCheck }

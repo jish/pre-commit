@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/jslint_check'
+require 'plugins/pre-commit/checks/jslint_check'
 
 describe PreCommit::JslintCheck do
   let(:check){ PreCommit::JslintCheck }

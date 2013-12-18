@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/php_check'
+require 'plugins/pre-commit/checks/php_check'
 
 describe PreCommit::PhpCheck do
   let(:check){ PreCommit::PhpCheck }

@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/js_check'
+require 'plugins/pre-commit/checks/js_check'
 
 describe PreCommit::JsCheck do
   let(:check){ PreCommit::JsCheck }

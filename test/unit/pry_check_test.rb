@@ -1,5 +1,5 @@
 require 'minitest_helper'
-require 'pre-commit/checks/pry_check'
+require 'plugins/pre-commit/checks/pry_check'
 
 describe PreCommit::PryCheck do
   let(:check){ PreCommit::PryCheck }

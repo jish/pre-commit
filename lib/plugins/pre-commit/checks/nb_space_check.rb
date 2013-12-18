@@ -1,6 +1,9 @@
 # encoding: utf-8
 module PreCommit
   class NbSpaceCheck
+    def self.supports(name)
+      name == :nb_space
+    end
     def self.call(staged_files)
       nb_space = " "
       raise "you messed that up" unless nb_space.bytes.to_a == [194, 160]

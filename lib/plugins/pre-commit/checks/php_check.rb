@@ -2,6 +2,9 @@ require 'pre-commit/utils'
 
 module PreCommit
   class PhpCheck
+    def self.supports(name)
+      name == :php
+    end
     def self.call(staged_files)
       staged_files = staged_files.grep /\.(php|engine|theme|install|inc|module|test)$/
       return if staged_files.empty?
