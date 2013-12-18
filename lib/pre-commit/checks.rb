@@ -17,6 +17,7 @@ require 'pre-commit/checks/whitespace_check'
 require 'pre-commit/checks/closure_check'
 require 'pre-commit/checks/gemfile_path_check'
 require 'pre-commit/checks/before_all_check'
+require 'pre-commit/checks/coffeelint_check'
 begin
   require 'pre-commit/checks/rubocop_check'
 rescue LoadError # no rubocop
@@ -41,7 +42,8 @@ module PreCommit
     :rspec_focus             => RSpecFocusCheck,
     :ruby_symbol_hashrockets => RubySymbolHashrockets,
     :gemfile_path            => GemfilePathCheck,
-    :before_all              => BeforeAllCheck
+    :before_all              => BeforeAllCheck,
+    :coffeelint              => CoffeelintCheck
   }
 
   CHECKS[:rubocop] = RubocopCheck if defined?(Rubocop)

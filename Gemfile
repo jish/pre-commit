@@ -4,6 +4,7 @@ gem "rake"
 gem "execjs"
 gem "rubocop", :platforms => [:ruby_19, :ruby_20]
 gem "rubysl-singleton", :platforms => [:rbx]
+gem 'coffeelint'
 
 group :development do
   gem "guard"
