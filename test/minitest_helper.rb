@@ -30,7 +30,7 @@ class MiniTest::Unit::TestCase
   end
 
   def ruby_includes
-    "-I #{Gem::Specification.find_by_name('pluginator').full_require_paths} -I #{project_dir}/lib"
+    "-I #{Gem::Specification.find_by_name('pluginator').full_gem_path}/lib -I #{project_dir}/lib"
   end
 
   def project_dir
