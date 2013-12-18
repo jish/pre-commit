@@ -23,6 +23,7 @@ module PreCommit
     ] if checks_to_run.empty?
 
     checks_to_run.map! do |name|
+      pluginator.first_class('checks', name) ||
       pluginator.first_ask('checks', 'supports', name) ||
       begin
         $stderr.puts "Could not find plugin supporting #{name}."
@@ -33,7 +34,7 @@ module PreCommit
   end
 
   def self.pluginator
-    @pluginator ||= Pluginator.find('pre_commit', :extends => [:first_ask] )
+    @pluginator ||= Pluginator.find('pre_commit', :extends => [:first_ask, :first_class] )
   end
 
   def self.run
