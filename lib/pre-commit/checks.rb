@@ -33,7 +33,7 @@ module PreCommit
   end
 
   def self.pluginator
-    @pluginator ||= Pluginator.find('pre_commit', extends: %i{first_ask} )
+    @pluginator ||= Pluginator.find('pre_commit', :extends => [:first_ask] )
   end
 
   def self.run
