@@ -1,4 +1,5 @@
 * Add a `before_all` check for RSpec `before(:all)` blocks.
+* Add a `coffeelint` check.
 
 ## 0.11.0
 
