@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+# This hook has a focus on simplicity.
+# This hook puts the burden on you to set up your environment properly.
+#
+# If you would like `pre-commit` to attempt to setup your environment for you
+# before the checks run, you can install the automatic environment hook using:
+#
+#     pre-commit install --automatic
+#
+
+require 'pre-commit'
+
+PreCommit.run

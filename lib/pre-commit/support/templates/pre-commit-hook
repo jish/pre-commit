@@ -1,5 +1,14 @@
 #!/usr/bin/env sh
 
+# This hook has a focus on portability.
+# This hook will attempt to setup your environment before running checks.
+#
+# If you would like `pre-commit` to get out of your way and you are comfortable
+# setting up your own environment, you can install the manual hook using:
+#
+#     pre-commit install --manual
+#
+
 cmd=`git config pre-commit.ruby 2>/dev/null`
 if   test -n "${cmd}"
 then true
