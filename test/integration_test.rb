@@ -41,8 +41,8 @@ describe "integration" do
 
   it "can overwrite existing hook" do
     write ".git/hooks/pre-commit", "XXX"
-    sh "ruby -I #{Bundler.root}/lib #{Bundler.root}/bin/pre-commit install"
-    read(".git/hooks/pre-commit").must_include "pre-commit gem"
+    sh "ruby -I #{project_dir}/lib #{project_dir}/bin/pre-commit install"
+    read(".git/hooks/pre-commit").must_include "pre-commit"
   end
 
   describe "local checks" do
@@ -67,7 +67,7 @@ describe "integration" do
     Dir.mktmpdir(nil, ENV['TMPDIR'] || '/tmp') do |dir|
       Dir.chdir(dir) do
         sh "git init"
-        sh "git config pre-commit.ruby 'ruby -I #{Bundler.root}/lib'"
+        sh "git config pre-commit.ruby 'ruby #{ruby_includes}'"
         install
         yield
       end
@@ -87,7 +87,7 @@ describe "integration" do
   end
 
   def install
-    sh "ruby -I #{Bundler.root}/lib #{Bundler.root}/bin/pre-commit install"
+    sh "ruby -I #{project_dir}/lib #{project_dir}/bin/pre-commit install"
     assert File.exist?(".git/hooks/pre-commit"), "The hook file does not exist"
     assert File.executable?(".git/hooks/pre-commit"), "The hook file is not executable"
     sh "git commit -m Initial --allow-empty" # or travis fails with: No HEAD commit to compare with

@@ -1,8 +1,8 @@
 require 'minitest_helper'
-require 'pre-commit/checks/ruby_symbol_hashrockets'
+require 'plugins/pre_commit/checks/ruby_symbol_hashrockets'
 
-describe PreCommit::RubySymbolHashrockets do
-  let(:check){ PreCommit::RubySymbolHashrockets }
+describe PreCommit::Checks::RubySymbolHashrockets do
+  let(:check){ PreCommit::Checks::RubySymbolHashrockets }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil
