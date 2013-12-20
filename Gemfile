@@ -1,18 +1,11 @@
 source "https://rubygems.org"
 
-gem "rake"
+gemspec
+
 gem "execjs"
-gem "rubocop", :platforms => [:ruby_19, :ruby_20]
+gem "rubocop",          :platforms => [:ruby_19, :ruby_20]
+gem "rubysl-json",      :platforms => [:rbx]
+gem "rubysl-mutex_m",   :platforms => [:rbx]
+gem "rubysl-open3",     :platforms => [:rbx]
 gem "rubysl-singleton", :platforms => [:rbx]
-gem 'coffeelint'
-
-group :development do
-  gem "guard"
-  gem "guard-minitest"
-end
-
-group :test do
-  gem "minitest"
-  gem "minitest-rg"
-  gem "minitest-around"
-end
+gem "rubysl-stringio",  :platforms => [:rbx]

@@ -1,52 +1,7 @@
+require 'pluginator'
 require 'pre-commit/utils'
-require 'pre-commit/checks/merge_conflict_check'
-require 'pre-commit/checks/tabs_check'
-require 'pre-commit/checks/console_log_check'
-require 'pre-commit/checks/debugger_check'
-require 'pre-commit/checks/local_check'
-require 'pre-commit/checks/nb_space_check'
-require 'pre-commit/checks/jslint_check'
-require 'pre-commit/checks/jshint_check'
-require 'pre-commit/checks/migration_check'
-require 'pre-commit/checks/ci_check'
-require 'pre-commit/checks/php_check'
-require 'pre-commit/checks/pry_check'
-require 'pre-commit/checks/rspec_focus_check'
-require 'pre-commit/checks/ruby_symbol_hashrockets'
-require 'pre-commit/checks/whitespace_check'
-require 'pre-commit/checks/closure_check'
-require 'pre-commit/checks/gemfile_path_check'
-require 'pre-commit/checks/before_all_check'
-require 'pre-commit/checks/coffeelint_check'
-begin
-  require 'pre-commit/checks/rubocop_check'
-rescue LoadError # no rubocop
-end
 
 module PreCommit
-  CHECKS = {
-    :white_space             => WhiteSpaceCheck,
-    :console_log             => ConsoleLogCheck,
-    :js_lint                 => JslintCheck,
-    :jshint                  => JshintCheck,
-    :debugger                => DebuggerCheck,
-    :pry                     => PryCheck,
-    :local                   => LocalCheck,
-    :nb_space                => NbSpaceCheck,
-    :tabs                    => TabsCheck,
-    :closure_syntax_check    => ClosureCheck,
-    :merge_conflict          => MergeConflictCheck,
-    :migrations              => MigrationCheck,
-    :ci                      => CiCheck.new,
-    :php                     => PhpCheck.new,
-    :rspec_focus             => RSpecFocusCheck,
-    :ruby_symbol_hashrockets => RubySymbolHashrockets,
-    :gemfile_path            => GemfilePathCheck,
-    :before_all              => BeforeAllCheck,
-    :coffeelint              => CoffeelintCheck
-  }
-
-  CHECKS[:rubocop] = RubocopCheck if defined?(Rubocop)
 
   # Can not delete this method with out a deprecation strategy.
   # It is refered to in the generated pre-commit hook in versions 0.0-0.1.1
@@ -62,19 +17,24 @@ module PreCommit
   def self.checks_to_run
     checks_to_run = `git config pre-commit.checks`.chomp.split(/,\s*/).map(&:to_sym)
 
-    if checks_to_run.empty?
-      CHECKS.values_at(:white_space, :console_log, :debugger, :pry, :tabs, :jshint,
-        :migrations, :merge_conflict, :local, :nb_space)
-    else
-      [:js_lint, :rubocop].each do |check|
-        if checks_to_run.delete("#{check}_all".to_sym) || checks_to_run.delete("#{check}_new".to_sym)
-          $stderr.puts "please use just '#{check}' as check name"
-          checks_to_run << check
-        end
-      end
+    checks_to_run = [
+      :white_space, :console_log, :debugger, :pry, :tabs, :jshint,
+      :migrations, :merge_conflict, :local, :nb_space
+    ] if checks_to_run.empty?
 
-      CHECKS.values_at(*checks_to_run)
-    end.compact
+    checks_to_run.map! do |name|
+      pluginator.first_class('checks', name) ||
+      pluginator.first_ask('checks', 'supports', name) ||
+      begin
+        $stderr.puts "Could not find plugin supporting #{name}."
+        nil
+      end
+    end
+    checks_to_run.compact
+  end
+
+  def self.pluginator
+    @pluginator ||= Pluginator.find('pre_commit', :extends => [:first_ask, :first_class] )
   end
 
   def self.run

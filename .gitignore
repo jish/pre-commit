@@ -1,2 +1,3 @@
 .bundle
 bin/rake
+Gemfile.lock
