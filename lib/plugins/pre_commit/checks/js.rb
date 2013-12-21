@@ -1,10 +1,13 @@
 require 'pre-commit/utils'
-require 'execjs'
 
 module PreCommit
   module Checks
     class Js
       def self.call(staged_files)
+        require 'execjs'
+      rescue RuntimeError, LoadError => e
+        $stderr.puts "Could not load execjs: #{e}"
+      else
         staged_files = staged_files.select { |f| File.extname(f) == ".js" }
         return if staged_files.empty?
 
