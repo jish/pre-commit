@@ -10,7 +10,11 @@ if !File.exists?(".git")
   abort "No .git directory found."
 end
 
-PreCommit::Cli.new.install(ARGV[1])
+begin
+  PreCommit::Cli.new.install(ARGV[1])
+rescue PreCommit::TemplateNotFound => e
+  abort e.message
+end
 
 puts "Installed hook: #{PreCommit::Cli::PRE_COMMIT_HOOK_PATH}"
 puts

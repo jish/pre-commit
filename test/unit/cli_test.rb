@@ -31,4 +31,9 @@ describe PreCommit::Cli do
     File.read(hook).must_equal File.read(cli.templates["default"])
   end
 
+  it "handles missing templates" do
+    File.exists?(hook).must_equal false
+    -> { cli.install("--not-found") }.must_raise(PreCommit::TemplateNotFound)
+  end
+
 end

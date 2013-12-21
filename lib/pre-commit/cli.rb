@@ -1,6 +1,9 @@
 require 'fileutils'
 
 module PreCommit
+
+  TemplateNotFound = Class.new(StandardError)
+
   class Cli
 
     PRE_COMMIT_HOOK_PATH = '.git/hooks/pre-commit'
@@ -12,14 +15,13 @@ module PreCommit
       @templates = load_templates
     end
 
-    def install(template_key = nil)
-      hook = template_file(template_key.to_s.sub(/^--/, ""))
+    def install(key = "default")
+      hook = templates[key.to_s.sub(/^--/, "")]
+
+      raise TemplateNotFound.new("Could not find template #{key}") unless hook
+
       FileUtils.cp(hook, PRE_COMMIT_HOOK_PATH)
       FileUtils.chmod(0755, PRE_COMMIT_HOOK_PATH)
-    end
-
-    def template_file(key)
-      templates[key] || templates["default"]
     end
 
     private
