@@ -3,16 +3,18 @@
 require 'pre-commit/cli'
 
 if ARGV[0] != "install"
-  puts "Usage: pre-commit install"
-  exit(1)
+  abort "Usage: pre-commit install"
 end
 
 if !File.exists?(".git")
-  puts "No .git directory found."
-  exit(1)
+  abort "No .git directory found."
 end
 
-PreCommit::Cli.new.install
+begin
+  PreCommit::Cli.new.install(ARGV[1])
+rescue PreCommit::TemplateNotFound => e
+  abort e.message
+end
 
 puts "Installed hook: #{PreCommit::Cli::PRE_COMMIT_HOOK_PATH}"
 puts
