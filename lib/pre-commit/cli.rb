@@ -15,8 +15,9 @@ module PreCommit
       @templates = load_templates
     end
 
-    def install(key = "default")
-      hook = templates[key.to_s.sub(/^--/, "")]
+    def install(key = nil)
+      key ||= "default"
+      hook = templates[key.sub(/^--/, "")]
 
       raise TemplateNotFound.new("Could not find template #{key}") unless hook
 
