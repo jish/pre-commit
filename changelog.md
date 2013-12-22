@@ -1,6 +1,8 @@
 * Add a `before_all` check for RSpec `before(:all)` blocks.
 * Add a `coffeelint` check.
 * Do not load `execjs` unless JavaScript checks are enabled
+* Load checks with [pluginator](https://github.com/rvm/pluginator)
+* Allow configuration of warnings (log to `stderr`, but do not abort the commit) in `git config pre-commit.warnings`
 
 ## 0.11.0
 
