@@ -1,5 +1,6 @@
 * Add a `before_all` check for RSpec `before(:all)` blocks.
 * Add a `coffeelint` check.
+* Do not load `execjs` unless JavaScript checks are enabled
 
 ## 0.11.0
 
