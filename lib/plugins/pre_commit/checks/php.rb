@@ -16,7 +16,7 @@ module PreCommit
       def self.run_check(file)
         # We force PHP to display errors otherwise they will likely end up in the
         # error_log and not in stdout.
-        result = `php -d display_errors=1 -l #{file}`
+        result = `php -d display_errors=1 -l #{file} 2>&1`
         # Filter out the obvious note from PHP.
         result = result.split($/).find_all {|line| line !~ /Errors/}.join($/)
         # If PHP exited non-zero then there was a parse error.
