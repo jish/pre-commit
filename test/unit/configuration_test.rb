@@ -4,8 +4,9 @@ require 'pre-commit/configuration'
 describe PreCommit::Configuration do
   subject do
     PreCommit::Configuration.new(nil, {
-      :value => 'simple',
-      :test         => %w{5 6 7},
+      :value       => 'simple',
+      :symbol      => ':simple',
+      :test        => %w{5 6 7},
       :test_add    => %w{8},
       :test_remove => "6",
     })
@@ -15,12 +16,20 @@ describe PreCommit::Configuration do
     subject.get(:value).must_equal('simple')
   end
 
+  it "reads symbol values" do
+    subject.get(:symbol).must_equal(:simple)
+  end
+
   it "reads array values" do
     subject.get_arr(:value).must_equal(%w{simple})
   end
 
   it "converts strings to arrays" do
     subject.send(:str2arr, "test, some,string").must_equal(%w{test some string})
+  end
+
+  it "symbolizes array values" do
+    subject.send(:str2arr, ":test, :some,string").must_equal([:test, :some, "string"])
   end
 
   it "reads arrays directly" do

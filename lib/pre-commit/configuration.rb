@@ -8,7 +8,7 @@ module PreCommit
     end
 
     def get(name)
-      @providers[name]
+      symbolize(@providers[name])
     end
 
     def get_arr(name)
@@ -35,7 +35,14 @@ module PreCommit
     end
 
     def str2arr(string)
-      string.split(/, ?/).map{|string| string.chomp.strip}
+      string.split(/, ?/).map{|string| symbolize(string.chomp.strip) }
+    end
+
+    def symbolize(string)
+      if string =~ /:(.*)/
+      then $1.to_sym
+      else string
+      end
     end
 
   end
