@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('guard')
   s.add_development_dependency('guard-minitest')
   s.add_development_dependency('minitest')
-  s.add_development_dependency('minitest-rg')
+  s.add_development_dependency('minitest-reporters')
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
