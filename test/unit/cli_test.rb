@@ -3,9 +3,11 @@ require 'pre-commit/cli'
 
 describe PreCommit::Cli do
 
-  in_temp_dir do
+  before do
+    create_temp_dir
     FileUtils.mkdir_p(".git/hooks")
   end
+  after(&:destroy_temp_dir)
 
   let(:cli) { PreCommit::Cli.new }
   let(:hook) { PreCommit::Cli::PRE_COMMIT_HOOK_PATH }
