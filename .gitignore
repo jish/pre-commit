@@ -1,3 +1,4 @@
 .bundle
 bin/rake
 Gemfile.lock
+coverage/
