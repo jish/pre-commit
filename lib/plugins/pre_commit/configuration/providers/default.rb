@@ -5,11 +5,11 @@ module PreCommit
       class Default
         DEFAULTS =
         {
-          :warnings => [
+          :warnings => [],
+          :checks => [
             :white_space, :console_log, :debugger, :pry, :tabs, :jshint,
             :migrations, :merge_conflict, :local, :nb_space
           ],
-          :checks => [],
         }
 
         def self.priority
