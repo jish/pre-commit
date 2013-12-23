@@ -1,9 +1,11 @@
 require 'minitest/autorun'
-require 'minitest/rg'
+require "minitest/reporters"
 require 'tmpdir'
 require 'pluginator'
 
-class MiniTest::Unit::TestCase
+Minitest::Reporters.use!
+
+class MiniTest::Test
   protected
 
   def test_filename(filename)
