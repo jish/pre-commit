@@ -1,14 +1,8 @@
 require 'pluginator'
 require 'pre-commit/utils'
+require 'pre-commit/configuration'
 
 module PreCommit
-
-  DEFAULT_CHECKS = [
-    :white_space, :console_log, :debugger, :pry, :tabs, :jshint,
-    :migrations, :merge_conflict, :local, :nb_space
-  ]
-
-  DEFAULT_WARNINGS = []
 
   # Can not delete this method with out a deprecation strategy.
   # It is refered to in the generated pre-commit hook in versions 0.0-0.1.1
@@ -22,31 +16,15 @@ module PreCommit
   # logic in it. The we have freedom to change the gem implementation however
   # we want, and nobody is forced to update their pre-commit binary.
   def self.checks_to_run
-    @checks_to_run ||= find_plugins(configured_checks)
+    @checks_to_run ||= find_plugins(config.get_combined_arr(:checks))
   end
 
   def self.warnings_to_run
-    @warnings_to_run ||= find_plugins(configured_warnings)
+    @warnings_to_run ||= find_plugins(config.get_combined_arr(:warnings))
   end
 
-  def self.configured_checks
-    @configured_checks   ||= get_git_config('checks',   DEFAULT_CHECKS)
-  end
-
-  def self.configured_warnings
-    @configured_warnings ||= get_git_config('warnings', DEFAULT_WARNINGS)
-  end
-
-  def self.get_git_config(name, default)
-    array_or_default(
-      `git config pre-commit.#{name}`.chomp.split(/,\s*/).map(&:to_sym),
-      default
-    )
-  end
-
-  def self.array_or_default(list, default)
-    list = default if list.nil? || list.empty?
-    list
+  def self.config
+    @config ||= PreCommit::Configuration.new(pluginator)
   end
 
   def self.find_plugins(names)
