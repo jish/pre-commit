@@ -4,7 +4,11 @@ require 'plugins/pre_commit/checks/gemfile_path'
 describe PreCommit::Checks::GemfilePath do
   let(:check){ PreCommit::Checks::GemfilePath }
 
-  in_temp_dir
+  before do
+    create_temp_dir
+    start_git
+  end
+  after(&:destroy_temp_dir)
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil
