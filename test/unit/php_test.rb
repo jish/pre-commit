@@ -17,10 +17,6 @@ describe PreCommit::Checks::Php do
   end
 
   it "fails if script fails" do
-    possible = [
-      "Parse error: syntax error, unexpected T_STRING in test/files/bad.php on line 1",
-      "Parse error: parse error in test/files/bad.php on line 1"
-    ]
-    possible.must_include check.call([test_filename("bad.php")])
+    check.call([test_filename("bad.php")]).must_match(/Parse error/i)
   end
 end
