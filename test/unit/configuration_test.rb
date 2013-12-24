@@ -5,10 +5,9 @@ describe PreCommit::Configuration do
   subject do
     PreCommit::Configuration.new(nil, {
       :value       => 'simple',
-      :symbol      => ':simple',
       :test        => %w{5 6 7},
       :test_add    => %w{8},
-      :test_remove => "6",
+      :test_remove => %w{6},
     })
   end
 
@@ -16,40 +15,12 @@ describe PreCommit::Configuration do
     subject.get(:value).must_equal('simple')
   end
 
-  it "reads symbol values" do
-    subject.get(:symbol).must_equal(:simple)
-  end
-
-  it "reads array values" do
-    subject.get_arr(:value).must_equal(%w{simple})
-  end
-
-  it "converts strings to arrays" do
-    subject.send(:str2arr, "test, some,string").must_equal(%w{test some string})
-  end
-
-  it "symbolizes array values" do
-    subject.send(:str2arr, ":test, :some,string").must_equal([:test, :some, "string"])
-  end
-
-  it "reads arrays directly" do
-    subject.send(:ensure_arr, [1,2,3]).must_equal([1,2,3])
-  end
-
-  it "reads strings as array" do
-    subject.send(:ensure_arr, '1, 2').must_equal(%w{1 2})
-  end
-
-  it "reads nil as array" do
-    subject.send(:ensure_arr, nil).must_equal([])
-  end
-
-  it "reads empty string array" do
-    subject.send(:ensure_arr, '').must_equal([])
+  it "reads using string" do
+    subject.get("value").must_equal('simple')
   end
 
   it "calculates checks" do
-    subject.get_combined_arr(:test).must_equal(%w{5 7 8})
+    subject.get_combined(:test).must_equal(%w{5 7 8})
   end
 
 end

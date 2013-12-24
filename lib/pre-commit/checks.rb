@@ -16,11 +16,11 @@ module PreCommit
   # logic in it. The we have freedom to change the gem implementation however
   # we want, and nobody is forced to update their pre-commit binary.
   def self.checks_to_run
-    @checks_to_run ||= find_plugins(config.get_combined_arr(:checks))
+    @checks_to_run ||= find_plugins(config.get_combined(:checks))
   end
 
   def self.warnings_to_run
-    @warnings_to_run ||= find_plugins(config.get_combined_arr(:warnings))
+    @warnings_to_run ||= find_plugins(config.get_combined(:warnings))
   end
 
   def self.config
