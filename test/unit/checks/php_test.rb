@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/php'
 
 describe PreCommit::Checks::Php do
-  let(:check){ PreCommit::Checks::Php }
+  let(:check){ PreCommit::Checks::Php.new }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

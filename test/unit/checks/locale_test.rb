@@ -3,7 +3,7 @@ require 'plugins/pre_commit/checks/local'
 
 describe PreCommit::Checks::Local do
   let(:config_file) { test_filename("pre-commit.rb") }
-  let(:check) { PreCommit::Checks::Local }
+  let(:check) { PreCommit::Checks::Local.new }
 
   it "succeeds if there is no config" do
     check.call([]).must_equal nil

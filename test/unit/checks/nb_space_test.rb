@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/nb_space'
 
 describe PreCommit::Checks::NbSpace do
-  let(:check){ PreCommit::Checks::NbSpace }
+  let(:check){ PreCommit::Checks::NbSpace.new }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

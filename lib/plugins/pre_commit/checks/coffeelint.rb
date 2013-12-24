@@ -3,7 +3,7 @@ require 'open3'
 module PreCommit
   module Checks
     class Coffeelint
-      def self.call(staged_files)
+      def call(staged_files)
         staged_files = staged_files.grep(/\.coffee$/)
         return if staged_files.empty?
 

@@ -4,7 +4,7 @@ require 'plugins/pre_commit/checks/rubocop'
 
 
   describe PreCommit::Checks::Rubocop do
-    let(:check){ PreCommit::Checks::Rubocop }
+    let(:check){ PreCommit::Checks::Rubocop.new }
 
     it "succeeds if nothing changed" do
       check.call([]).must_equal nil

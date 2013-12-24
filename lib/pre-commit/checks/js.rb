@@ -1,7 +1,7 @@
 module PreCommit
   module Checks
     class Js
-      def self.call(staged_files)
+      def call(staged_files)
         require 'execjs'
       rescue RuntimeError, LoadError => e
         $stderr.puts "Could not load execjs: #{e}"
@@ -19,15 +19,15 @@ module PreCommit
         errors.join("\n")
       end
 
-      def self.check_name
+      def check_name
         raise "Must be defined by subclass"
       end
 
-      def self.linter_src
+      def linter_src
         raise "Must be defined by subclass"
       end
 
-      def self.display_error(error_object, file)
+      def display_error(error_object, file)
         return "" unless error_object
 
         line = error_object['line'].to_i + 1

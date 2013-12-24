@@ -12,6 +12,9 @@ class FakeAll
   def find_check(name)
     @value[name]
   end
+  def new
+    self
+  end
   def call(list)
     @value
   end
@@ -90,7 +93,6 @@ result 1
 pre-commit: Stopping commit because of errors.
 result 2
 result 3
-
 pre-commit: You can bypass this check using `git commit -n`
 
 EXPECTED

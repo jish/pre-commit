@@ -2,7 +2,7 @@
 module PreCommit
   module Checks
     class NbSpace
-      def self.call(staged_files)
+      def call(staged_files)
         nb_space = " "
         raise "you messed that up" unless nb_space.bytes.to_a == [194, 160]
 

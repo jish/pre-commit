@@ -34,7 +34,7 @@ module PreCommit
     end
 
     def execute(list)
-      list.map{|cmd| cmd.call(staged_files.dup) }.compact
+      list.map{|cmd| cmd.new.call(staged_files.dup) }.compact
     end
 
     def list_to_run(name)
@@ -52,7 +52,6 @@ WARNINGS
       <<-ERRORS
 pre-commit: Stopping commit because of errors.
 #{list.join("\n")}
-
 pre-commit: You can bypass this check using `git commit -n`
 
 ERRORS

@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/gemfile_path'
 
 describe PreCommit::Checks::GemfilePath do
-  let(:check){ PreCommit::Checks::GemfilePath }
+  let(:check){ PreCommit::Checks::GemfilePath.new }
 
   before do
     create_temp_dir
@@ -39,13 +39,19 @@ describe PreCommit::Checks::GemfilePath do
     write "Gemfile", <<-RUBY
       gem "foo", :path => "xxxx"
     RUBY
-    check.call(["Gemfile"]).must_equal "local path found in Gemfile:\nGemfile:1:      gem \"foo\", :path => \"xxxx\""
+    check.call(["Gemfile"]).must_equal(<<-EXPECTED)
+local path found in Gemfile:
+Gemfile:1:      gem "foo", :path => "xxxx"
+EXPECTED
   end
 
   it "fails if Gemfile contains path:" do
     write "Gemfile", <<-RUBY
       gem "foo", path: "xxxx"
     RUBY
-    check.call(["Gemfile"]).must_equal "local path found in Gemfile:\nGemfile:1:      gem \"foo\", path: \"xxxx\""
+    check.call(["Gemfile"]).must_equal(<<-EXPECTED)
+local path found in Gemfile:
+Gemfile:1:      gem "foo", path: "xxxx"
+EXPECTED
   end
 end

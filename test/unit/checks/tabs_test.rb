@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/tabs'
 
 describe PreCommit::Checks::Tabs do
-  let(:check) { PreCommit::Checks::Tabs }
+  let(:check) { PreCommit::Checks::Tabs.new }
 
   it "passes without files" do
     check.call([]).must_equal nil
@@ -25,6 +25,9 @@ describe PreCommit::Checks::Tabs do
   end
 
   it "shows error message when an initial tab is found" do
-    check.call([test_filename('initial_tab.rb')]).must_equal "detected tab before initial space:\ntest/files/initial_tab.rb:3:\t 'hello'"
+    check.call([test_filename('initial_tab.rb')]).must_equal(<<-EXPECTED)
+detected tab before initial space:
+test/files/initial_tab.rb:3:\t 'hello'
+EXPECTED
   end
 end

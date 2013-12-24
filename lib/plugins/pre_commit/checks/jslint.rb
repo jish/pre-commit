@@ -1,4 +1,4 @@
-require 'plugins/pre_commit/checks/js'
+require 'pre-commit/checks/js'
 
 module PreCommit
   module Checks
@@ -7,7 +7,7 @@ module PreCommit
         [ :js_lint, :js_lint_all, :js_lint_new ]
       end
 
-      def self.run_check(file)
+      def run_check(file)
         context = ExecJS.compile(File.read(linter_src))
         if !(context.call('JSLINT', File.read(file)))
           context.exec('return JSLINT.errors;')
@@ -16,7 +16,7 @@ module PreCommit
         end
       end
 
-      def self.linter_src
+      def linter_src
         File.expand_path("../../../../pre-commit/support/jslint/lint.js", __FILE__)
       end
     end

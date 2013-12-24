@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/rspec_focus'
 
 describe PreCommit::Checks::RspecFocus do
-  let(:check){ PreCommit::Checks::RspecFocus }
+  let(:check){ PreCommit::Checks::RspecFocus.new }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil
@@ -17,6 +17,9 @@ describe PreCommit::Checks::RspecFocus do
   end
 
   it "fails if file contains pry" do
-    check.call([test_filename('bad_spec.rb')]).must_equal ":focus found in specs:\ntest/files/bad_spec.rb:2:  context \"functionality\", :focus do"
+    check.call([test_filename('bad_spec.rb')]).must_equal(<<-EXPECTED)
+:focus found in specs:
+test/files/bad_spec.rb:2:  context \"functionality\", :focus do
+EXPECTED
   end
 end

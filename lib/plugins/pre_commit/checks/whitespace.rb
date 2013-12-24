@@ -4,7 +4,7 @@ module PreCommit
       def self.aliases
         [:white_space]
       end
-      def self.call(_)
+      def call(_)
         errors = `git diff-index --check --cached HEAD -- 2>&1`
         return if $?.success?
 

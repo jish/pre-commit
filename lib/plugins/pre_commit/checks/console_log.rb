@@ -1,17 +1,25 @@
-require 'pre-commit/utils/grep'
+require 'pre-commit/checks/grep'
 
 module PreCommit
   module Checks
-    class ConsoleLog
-      extend PreCommit::Utils::Grep
+    class ConsoleLog < Grep
 
-      def self.call(staged_files)
-        staged_files.reject! { |f| File.extname(f) != ".js" }
-        return if staged_files.empty?
-        errors = `#{grep} -e "console\\.log" #{staged_files.join(" ")} | grep -v \/\/`.strip
-        return unless $?.success?
-        "console.log found:\n#{errors}"
+      def files_filter(staged_files)
+        staged_files.grep(/\.js$/)
       end
+
+      def extra_grep
+        " | grep -v \/\/"
+      end
+
+      def message
+        "console.log found:\n"
+      end
+
+      def pattern
+        '-e "console\\.log"'
+      end
+
     end
   end
 end

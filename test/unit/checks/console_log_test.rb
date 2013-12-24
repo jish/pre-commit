@@ -2,21 +2,34 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/console_log'
 
 describe PreCommit::Checks::ConsoleLog do
-  let(:check){ PreCommit::Checks::ConsoleLog }
+  subject do
+    PreCommit::Checks::ConsoleLog.new
+  end
+
+  it "filters out js files" do
+    subject.files_filter([
+      test_filename('valid_file.js'),test_filename('changelog.md'),test_filename('console_log.js')
+    ]).must_equal([
+      test_filename('valid_file.js'),test_filename('console_log.js')
+    ])
+  end
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    subject.call([]).must_equal nil
   end
 
   it "succeeds with valid .js file changed" do
-    check.call([test_filename('valid_file.js')]).must_equal nil
+    subject.call([test_filename('valid_file.js')]).must_equal nil
   end
 
   it "succeeds if non js files has console.log" do
-    check.call([test_filename('changelog.md')]).must_equal nil
+    subject.call([test_filename('changelog.md')]).must_equal nil
   end
 
   it "fails if a js file has a console.log" do
-    check.call([test_filename('console_log.js')]).must_equal "console.log found:\ntest/files/console_log.js:6:    console.log(\"I'm in bar\");"
+    subject.call([test_filename('console_log.js')]).must_equal(<<-EXPECTED)
+console.log found:
+test/files/console_log.js:6:    console.log(\"I'm in bar\");
+EXPECTED
   end
 end

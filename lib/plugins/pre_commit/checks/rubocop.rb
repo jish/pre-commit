@@ -6,7 +6,7 @@ module PreCommit
       def self.aliases
         [ :rubocop_all, :rubocop_new ]
       end
-      def self.call(staged_files)
+      def call(staged_files)
         require 'rubocop'
       rescue LoadError => e
         $stderr.puts "Could not find rubocop: #{e}"
@@ -31,7 +31,7 @@ module PreCommit
         captured unless success
       end
 
-      def self.capture
+      def capture
         $stdout, stdout = StringIO.new, $stdout
         $stderr, stderr = StringIO.new, $stderr
         result = yield

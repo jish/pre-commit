@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/ruby_symbol_hashrockets'
 
 describe PreCommit::Checks::RubySymbolHashrockets do
-  let(:check){ PreCommit::Checks::RubySymbolHashrockets }
+  let(:check){ PreCommit::Checks::RubySymbolHashrockets.new }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil
@@ -13,9 +13,16 @@ describe PreCommit::Checks::RubySymbolHashrockets do
   end
 
   it "fails with invalid" do
-    result = check.call([test_filename('wrong_hashrockets.rb')])
-    result.must_include "detected :symbol => value hashrocket:\n"
-    result.must_include "test/files/wrong_hashrockets.rb:3:gem 'foo', :ref => 'v2.6.0'"
-    result.lines.to_a.size.must_equal 9
+    result = check.call([test_filename('wrong_hashrockets.rb')]).must_equal(<<-EXPECTED)
+detected :symbol => value hashrocket:
+test/files/wrong_hashrockets.rb:3:gem 'foo', :ref => 'v2.6.0'
+test/files/wrong_hashrockets.rb:5:{ :@test => \"foo_bar\" }
+test/files/wrong_hashrockets.rb:6:{ :_test => \"foo_bar\" }
+test/files/wrong_hashrockets.rb:7:{ :$test => \"foo_bar\" }
+test/files/wrong_hashrockets.rb:8:{ :test! => \"foo_bar\" }
+test/files/wrong_hashrockets.rb:9:{ :test? => \"foo_bar\" }
+test/files/wrong_hashrockets.rb:10:{ :test= => \"foo_bar\" }
+test/files/wrong_hashrockets.rb:11:{ :@@test => \"foo_bar\" }
+EXPECTED
   end
 end
