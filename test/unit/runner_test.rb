@@ -1,6 +1,5 @@
 require 'minitest_helper'
 require 'pre-commit/runner'
-require 'pre-commit/utils'
 require 'stringio'
 
 class FakeAll

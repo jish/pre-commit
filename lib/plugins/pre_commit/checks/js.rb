@@ -1,5 +1,3 @@
-require 'pre-commit/utils'
-
 module PreCommit
   module Checks
     class Js

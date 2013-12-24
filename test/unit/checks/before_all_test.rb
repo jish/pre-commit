@@ -1,5 +1,4 @@
 require 'minitest_helper'
-require 'pre-commit/utils'
 require 'plugins/pre_commit/checks/before_all'
 
 describe PreCommit::Checks::BeforeAll do

@@ -1,4 +1,3 @@
-require 'pre-commit/utils'
 require 'stringio'
 
 module PreCommit

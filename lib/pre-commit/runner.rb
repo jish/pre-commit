@@ -1,17 +1,18 @@
 require 'pluginator'
-require 'pre-commit/utils'
+require 'pre-commit/utils/staged_files'
 require 'pre-commit/configuration'
 
 module PreCommit
   class Runner
+    include PreCommit::Utils::StagedFiles
 
-    attr_reader :pluginator, :config, :staged_files
+    attr_reader :pluginator, :config
 
     def initialize(stderr = nil, staged_files = nil, config = nil, pluginator = nil)
       @stderr       = (stderr       or $stderr)
       @pluginator   = (pluginator   or Pluginator.find('pre_commit', :extends => [:find_check] ))
       @config       = (config       or PreCommit::Configuration.new(@pluginator))
-      @staged_files = (staged_files or Utils.staged_files)
+      @staged_files = staged_files
     end
 
     def run

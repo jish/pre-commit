@@ -1,5 +1,3 @@
-require 'pre-commit/utils'
-require 'stringio'
 require 'open3'
 
 module PreCommit

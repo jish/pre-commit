@@ -1,5 +1,5 @@
 module PreCommit
-  class Utils
+  module Utils
     module StringToRuby
 
       def string_to_ruby(value)
