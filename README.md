@@ -1,7 +1,11 @@
 A better pre-commit hook for git.
 
-[![Current version](https://badge.fury.io/rb/pre-commit.png)][1]&nbsp;
-[![Build status](https://secure.travis-ci.org/jish/pre-commit.png?branch=master)][2]
+[![Current version](https://badge.fury.io/rb/pre-commit.png)](https://rubygems.org/gems/pre-commit)
+[![Code Climate](https://codeclimate.com/github/jish/pre-commit.png)](https://codeclimate.com/github/jish/pre-commit)
+[![Coverage Status](https://coveralls.io/repos/jish/pre-commit/badge.png?branch=master)](https://coveralls.io/r/jish/pre-commit?branch=master)
+[![Build status](https://secure.travis-ci.org/jish/pre-commit.png?branch=master)](https://travis-ci.org/jish/pre-commit)
+[![Dependency Status](https://gemnasium.com/jish/pre-commit.png)](https://gemnasium.com/jish/pre-commit)
+[![Documentation](http://b.repl.ca/v1/yard-docs-blue.png)](http://rubydoc.info/gems/pre-commit/frames)
 
 ## Installation
 
@@ -65,6 +69,3 @@ For the rubocop check, you can tell it what config file to use by setting a path
 
     # From your git repo
     $ git config "pre-commit.rubocop.config" "config/rubocop.yml"
-
-[1]: https://rubygems.org/gems/pre-commit
-[2]: https://travis-ci.org/jish/pre-commit
