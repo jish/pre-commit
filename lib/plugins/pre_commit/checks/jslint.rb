@@ -3,8 +3,8 @@ require 'plugins/pre_commit/checks/js'
 module PreCommit
   module Checks
     class Jslint < Js
-      def self.supports(name)
-        [ :js_lint, :js_lint_all, :js_lint_new ].include?(name)
+      def self.aliases
+        [ :js_lint, :js_lint_all, :js_lint_new ]
       end
 
       def self.run_check(file)

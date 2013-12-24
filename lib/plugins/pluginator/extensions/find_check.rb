@@ -8,13 +8,22 @@ module Pluginator::Extensions
     def find_check(name)
       klass = string2class(name)
       @plugins["checks"].detect do |plugin|
-        plugin.name.split('::').last == klass ||
-        plugin.respond_to?(:suports) && plugin.public_send(:suports, name)
+        plugin_short_name(plugin) == klass ||
+        plugin.respond_to?(:aliases) && plugin.public_send(:aliases).include?(name.to_sym)
       end ||
       begin
-        $stderr.puts "Could not find plugin supporting #{name}."
+        $stderr.puts "Could not find plugin supporting #{name} / #{klass},
+available plugins: #{available_plugins}"
         nil
       end
+    end
+
+    def plugin_short_name(plugin)
+      plugin.name.split('::').last
+    end
+
+    def available_plugins
+      @plugins["checks"].map{|plugin| plugin_short_name(plugin)}.join(", ")
     end
 
   end

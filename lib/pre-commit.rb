@@ -18,7 +18,7 @@ module PreCommit
   end
 
   def self.run
-    runner.run || exit 1
+    runner.run or exit 1
   end
 
   def self.runner

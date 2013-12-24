@@ -4,8 +4,8 @@ require 'stringio'
 module PreCommit
   module Checks
     class Rubocop
-      def self.supports(name)
-        [ :rubocop_all, :rubocop_new ].include?(name)
+      def self.aliases
+        [ :rubocop_all, :rubocop_new ]
       end
       def self.call(staged_files)
         require 'rubocop'

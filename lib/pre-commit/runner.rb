@@ -7,23 +7,29 @@ module PreCommit
 
     attr_reader :pluginator, :config, :staged_files
 
-    def initialize(staged_files = nil, config = nil, pluginator = nil, stderr = nil)
-      @staged_files = staged_files || Utils.staged_files
-      @config       = config       || PreCommit::Configuration.new(pluginator)
-      @pluginator   = pluginator   || Pluginator.find('pre_commit', :extends => [:find_check] )
-      @stderr       = stderr       || $stderr
+    def initialize(stderr = nil, staged_files = nil, config = nil, pluginator = nil)
+      @stderr       = (stderr       or $stderr)
+      @pluginator   = (pluginator   or Pluginator.find('pre_commit', :extends => [:find_check] ))
+      @config       = (config       or PreCommit::Configuration.new(@pluginator))
+      @staged_files = (staged_files or Utils.staged_files)
     end
 
     def run
-      show_output(:warnings, execute(list_to_run(:warnings)))
-      show_output(:checks,   execute(list_to_run(:checks  ))){ false }
+      run_single(:warnings)
+      run_single(:checks  ) or return false
+      true
+    end
+
+    def run_single(name)
+      show_output(name, execute(list_to_run(name)))
     end
 
     def show_output(name, list)
       if list.any?
         @stderr.puts send(name, list)
-        yield if block_given?
+        return false
       end
+      true
     end
 
     def execute(list)

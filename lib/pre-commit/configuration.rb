@@ -5,7 +5,7 @@ module PreCommit
   class Configuration
 
     def initialize(pluginator, providers = nil)
-      @providers = providers || Providers.new(pluginator)
+      @providers = (providers or Providers.new(pluginator))
     end
 
     def get(name)
@@ -13,7 +13,7 @@ module PreCommit
     end
 
     def get_arr(name)
-      get(name) || []
+      get(name) or []
     end
 
     def get_combined(name)

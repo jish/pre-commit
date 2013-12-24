@@ -1,8 +1,8 @@
 module PreCommit
   module Checks
     class Whitespace
-      def self.supports(name)
-        name == :white_space
+      def self.aliases
+        [:white_space]
       end
       def self.call(_)
         errors = `git diff-index --check --cached HEAD -- 2>&1`
