@@ -12,7 +12,7 @@ module PreCommit
         end
 
         def [](name)
-          string_to_ruby(`git config pre-commit.#{name} 2>/dev/null`)
+          string_to_ruby(`git config pre-commit.#{name.to_s.gsub(/_/,".")} 2>/dev/null`)
         end
       end
 

@@ -55,21 +55,21 @@ To configure which checks you would like to run, simply set the `pre-commit.chec
 
 To add extra check to the list:
 
-    $ git config "pre-commit.checks_add" "[rubocop]"
+    $ git config "pre-commit.checks.add" "[:rubocop]"
 
 To remove checks from the default list:
 
-    $ git config "pre-commit.checks_remove" "[jshint, pry]"
+    $ git config "pre-commit.checks.remove" "[:jshint, :pry]"
 
 To enable `white_space` and `tab` checks only:
 
     # From your git repo
-    $ git config "pre-commit.checks" "[white_space, tabs]"
+    $ git config "pre-commit.checks" "[:white_space, :tabs]"
 
 You may also enable checks that will produce warnings if detected but NOT stop the commit:
 
     # From your git repo
-    $ git config "pre-commit.warnings" "[jshint, ruby_symbol_hashrockets]"
+    $ git config "pre-commit.warnings" "[:jshint, :ruby_symbol_hashrockets]"
 
 
 For the rubocop check, you can tell it what config file to use by setting a path relative to the repo:
@@ -79,8 +79,8 @@ For the rubocop check, you can tell it what config file to use by setting a path
 
 Example to move `white_space` and `tabs` from checks to warnings run:
 
-    $ git config "pre-commit.checks_remove" "[white_space, tabs]"
-    $ git config "pre-commit.warnings_add"  "[white_space, tabs]"
+    $ git config "pre-commit.checks.remove" "[:white_space, :tabs]"
+    $ git config "pre-commit.warnings.add"  "[:white_space, :tabs]"
 
 ## Configuring checks to run (yaml)
 
