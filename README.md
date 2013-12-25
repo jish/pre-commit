@@ -45,7 +45,7 @@ These are the available checks:
 
 ## Default checks
 
-- `pre-commit list` - to see the list of default and enabled checks and warnings.
+Use `pre-commit list` to see the list of default and enabled checks and warnings.
 
 ### Adding extra check plugins
 

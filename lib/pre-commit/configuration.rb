@@ -5,7 +5,8 @@ module PreCommit
   class Configuration
 
     def initialize(pluginator, providers = nil)
-      @providers = (providers or Providers.new(pluginator))
+      @pluginator = (pluginator or Pluginator.find('pre_commit'))
+      @providers  = (providers  or Providers.new(@pluginator))
     end
 
     def get(name)
@@ -27,28 +28,41 @@ module PreCommit
 
     def list
       <<-DATA
-Default checks: #{get_arr(:checks).join(" ")}
-Enabled checks: #{get_combined(:checks).join(" ")}
-Default warnings: #{get_arr(:warnings).join(" ")}
-Enabled warnings: #{get_combined(:warnings).join(" ")}
+Available providers: #{plugin_names("configuration/providers")}
+Available checks   : #{plugin_names("checks")}
+Default   checks   : #{get_arr(:checks).join(" ")}
+Enabled   checks   : #{get_combined(:checks).join(" ")}
+Default   warnings : #{get_arr(:warnings).join(" ")}
+Enabled   warnings : #{get_combined(:warnings).join(" ")}
 DATA
     end
 
-    def enable(plugin_name, type, *checks)
+    def enable(plugin_name, type, check1, *checks)
+      checks.unshift(check1) # check1 is ArgumentError triger
       checks.map!(&:to_sym)
       @providers.update_remove( plugin_name, "#{type}_remove", checks )
       @providers.update_add(    plugin_name, "#{type}_add",    checks )
       true
+    rescue PreCommit::PluginNotFound => e
+      $stderr.puts e
+      false
     end
 
-    def disable(plugin_name, type, *checks)
+    def disable(plugin_name, type, check1, *checks)
+      checks.unshift(check1) # check1 is ArgumentError triger
       checks.map!(&:to_sym)
       @providers.update_remove( plugin_name, "#{type}_add",    checks )
       @providers.update_add(    plugin_name, "#{type}_remove", checks )
       true
+    rescue PreCommit::PluginNotFound => e
+      warn e
+      false
     end
 
   private
+    def plugin_names(type)
+      @pluginator[type].map{|plugin| plugin.name.split(/::/).last.downcase }.join(" ")
+    end
 
   end
 end

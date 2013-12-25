@@ -45,10 +45,12 @@ describe PreCommit::Cli do
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Default checks: white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Enabled checks: white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Default warnings:
-Enabled warnings:
+Available providers: yaml default git
+Available checks   : jshint nbspace debugger beforeall ci local migration pry tabs closure gemfilepath mergeconflict consolelog jslint whitespace php rubysymbolhashrockets coffeelint rspecfocus rubocop
+Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Default   warnings :
+Enabled   warnings :
 EXPECTED
   end
 
@@ -63,10 +65,12 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Default checks: white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Enabled checks: console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Default warnings:
-Enabled warnings:
+Available providers: yaml default git
+Available checks   : jshint nbspace debugger beforeall ci local migration pry tabs closure gemfilepath mergeconflict consolelog jslint whitespace php rubysymbolhashrockets coffeelint rspecfocus rubocop
+Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Enabled   checks   : console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Default   warnings :
+Enabled   warnings :
 EXPECTED
   end
 
@@ -81,11 +85,75 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Default checks: white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Enabled checks: white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Default warnings:
-Enabled warnings: gemfile_path
+Available providers: yaml default git
+Available checks   : jshint nbspace debugger beforeall ci local migration pry tabs closure gemfilepath mergeconflict consolelog jslint whitespace php rubysymbolhashrockets coffeelint rspecfocus rubocop
+Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Default   warnings :
+Enabled   warnings : gemfile_path
 EXPECTED
+  end
+
+  it "does fail on unknown provider" do
+    cli = subject.new('enable', 'unknown', 'warnings', 'gemfile_path')
+    status = cli.execute
+    $stderr.string.must_equal(<<-EXPECTED)
+Plugin not found for unknown.
+EXPECTED
+    $stdout.string.must_equal('')
+    status.must_equal(false)
+  end
+
+  it "shows help on missing enable params" do
+    cli = subject.new('enable')
+    status = cli.execute
+    $stderr.string.must_equal(<<-EXPECTED)
+Unknown parameters: enable
+Usage: pre-commit install
+Usage: pre-commit list
+Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+EXPECTED
+    $stdout.string.must_equal('')
+    status.must_equal(false)
+  end
+
+  it "shows help on missing enable git params" do
+    cli = subject.new('enable', 'git')
+    status = cli.execute
+    $stderr.string.must_equal(<<-EXPECTED)
+Unknown parameters: enable git
+Usage: pre-commit install
+Usage: pre-commit list
+Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+EXPECTED
+    $stdout.string.must_equal('')
+    status.must_equal(false)
+  end
+
+  it "shows help on missing enable git checks params" do
+    cli = subject.new('enable', 'git', 'checks')
+    status = cli.execute
+    $stderr.string.must_equal(<<-EXPECTED)
+Unknown parameters: enable git checks
+Usage: pre-commit install
+Usage: pre-commit list
+Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+EXPECTED
+    $stdout.string.must_equal('')
+    status.must_equal(false)
+  end
+
+  it "shows help on missing disable params" do
+    cli = subject.new('disable')
+    status = cli.execute
+    $stderr.string.must_equal(<<-EXPECTED)
+Unknown parameters: disable
+Usage: pre-commit install
+Usage: pre-commit list
+Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+EXPECTED
+    $stdout.string.must_equal('')
+    status.must_equal(false)
   end
 
 end

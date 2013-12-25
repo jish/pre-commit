@@ -2,6 +2,9 @@ module PreCommit
   class NotAnArray < StandardError
   end
 
+  class PluginNotFound < StandardError
+  end
+
   class Configuration
     class Providers
 
@@ -44,7 +47,7 @@ module PreCommit
 
       def find_update_plugin(plugin_name)
         plugin = plugins.detect{|plugin| plugin.class.name.split(/::/).last.downcase == plugin_name.to_s}
-        raise "Plugin not found for #{plugin_name}." unless plugin
+        raise PluginNotFound.new("Plugin not found for #{plugin_name}.") unless plugin
         plugin
       end
 

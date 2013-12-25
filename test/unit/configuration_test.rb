@@ -37,8 +37,14 @@ describe PreCommit::Configuration do
       start_git
       sh "git config pre-commit.test.add    '[:one, :two]'"
       sh "git config pre-commit.test.remove '[:three, :four]'"
+      $stderr = StringIO.new
+      $stdout = StringIO.new
     end
-    after(&:destroy_temp_dir)
+    after do
+      destroy_temp_dir
+      $stderr = STDERR
+      $stdout = STDOUT
+    end
     subject do
       PreCommit::Configuration.new(nil, PreCommit::Configuration::Providers.new(nil, [
         PreCommit::Configuration::Providers::Default.new({}),
@@ -47,15 +53,38 @@ describe PreCommit::Configuration do
     end
 
     it "enables list configuration" do
-      subject.enable('git', 'test', 'three')
+      subject.enable('git', 'test', 'three').must_equal(true)
       sh("git config pre-commit.test.add").strip.must_equal("[:one, :two, :three]")
       sh("git config pre-commit.test.remove").strip.must_equal("[:four]")
     end
 
     it "disables list configuration" do
-      subject.disable('git', 'test', 'two')
+      subject.disable('git', 'test', 'two').must_equal(true)
       sh("git config pre-commit.test.add").strip.must_equal("[:one]")
       sh("git config pre-commit.test.remove").strip.must_equal("[:three, :four, :two]")
+    end
+
+    it "handles missing enable plugin" do
+      subject.enable('unknown', 'test', 'two').must_equal(false)
+      $stderr.string.strip.must_match('Plugin not found for unknown.')
+      $stdout.string.must_equal('')
+    end
+
+    it "handles missing disable plugin" do
+      subject.disable('another', 'test', 'two').must_equal(false)
+      $stderr.string.strip.must_match('Plugin not found for another.')
+      $stdout.string.must_equal('')
+    end
+
+    it :list do
+      subject.list.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
+Available providers: yaml default git
+Available checks   : jshint nbspace debugger beforeall ci local migration pry tabs closure gemfilepath mergeconflict consolelog jslint whitespace php rubysymbolhashrockets coffeelint rspecfocus rubocop
+Default   checks   :
+Enabled   checks   :
+Default   warnings :
+Enabled   warnings :
+EXPECTED
     end
 
   end

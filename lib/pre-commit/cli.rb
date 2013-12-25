@@ -42,14 +42,14 @@ module PreCommit
 
     def execute_enable(*args)
       config.enable(*args)
-      #rescue ArgumentsError
-      #execute_help('enable', *args)
+    rescue ArgumentError
+      execute_help('enable', *args)
     end
 
     def execute_disable(*args)
       config.disable(*args)
-      #rescue ArgumentsError
-      #execute_help('disable', *args)
+    rescue ArgumentError
+      execute_help('disable', *args)
     end
 
   private
