@@ -13,20 +13,32 @@ module PreCommit
           config[name]
         end
 
+        def update(name, value)
+          content = read_config(local_file)
+          content[name] = value
+          save_config(local_file, content)
+        end
+
       private
 
         def config
           return @config if @config
           @config = {}
-          read_config(system_file)
-          read_config(global_file)
-          read_config(local_file)
+          @config.merge!(read_config(system_file))
+          @config.merge!(read_config(global_file))
+          @config.merge!(read_config(local_file))
           @config
         end
 
         def read_config(path)
           content = YAML.load_file(path) if File.exist?(path)
-          @config.merge!(content) if content
+          content || {}
+        end
+
+        def save_config(path, content)
+          File.open(path, "w") do |file|
+            file.write(YAML.dump(content))
+          end
         end
 
         def system_file

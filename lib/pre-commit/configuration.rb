@@ -4,9 +4,6 @@ require 'pre-commit/configuration/providers'
 module PreCommit
   class Configuration
 
-    class NotAnArray < StandardError
-    end
-
     def initialize(pluginator, providers = nil)
       @providers = (providers or Providers.new(pluginator))
     end
@@ -20,7 +17,7 @@ module PreCommit
       case value
       when nil   then []
       when Array then value
-      else raise NotAnArray.new
+      else raise PreCommit::NotAnArray.new
       end
     end
 
@@ -37,11 +34,21 @@ Enabled warnings: #{get_combined(:warnings).join(" ")}
 DATA
     end
 
-    def enable(*args)
+    def enable(plugin_name, type, *checks)
+      checks.map!(&:to_sym)
+      @providers.update_remove( plugin_name, "#{type}_remove", checks )
+      @providers.update_add(    plugin_name, "#{type}_add",    checks )
+      true
     end
 
-    def disable(*args)
+    def disable(plugin_name, type, *checks)
+      checks.map!(&:to_sym)
+      @providers.update_remove( plugin_name, "#{type}_add",    checks )
+      @providers.update_add(    plugin_name, "#{type}_remove", checks )
+      true
     end
+
+  private
 
   end
 end

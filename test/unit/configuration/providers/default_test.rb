@@ -27,4 +27,10 @@ describe PreCommit::Configuration::Providers::Default do
     example[:test2].must_equal(2)
     example[:test3].must_equal(nil)
   end
+
+  it "does not allow update" do
+    example = subject.new({:test1 => 1, :test2 => 2})
+    ->() { example.update("", "") }.must_raise PreCommit::CanNotUpdateDefauls
+  end
+
 end

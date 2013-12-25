@@ -15,11 +15,11 @@ module PreCommit
     end
 
     def execute()
-      action = @args.shift or 'help'
-      action = "execute_#{action}".to_sym
+      action_name = @args.shift or 'help'
+      action = "execute_#{action_name}".to_sym
       if respond_to?(action)
       then send(action, *@args)
-      else execute_help(action, *@args)
+      else execute_help(action_name, *@args)
       end
     end
 
@@ -27,7 +27,7 @@ module PreCommit
       warn "Unknown parameters: #{args * " "}" unless args.empty?
       warn "Usage: pre-commit install"
       warn "Usage: pre-commit list"
-      warn "Usage: pre-commit [enable|disbale] [check|warning] <coma,separated,list>"
+      warn "Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2]"
       args.empty? # return status, it's ok if user requested help
     end
 
@@ -42,10 +42,14 @@ module PreCommit
 
     def execute_enable(*args)
       config.enable(*args)
+      #rescue ArgumentsError
+      #execute_help('enable', *args)
     end
 
     def execute_disable(*args)
       config.disable(*args)
+      #rescue ArgumentsError
+      #execute_help('disable', *args)
     end
 
   private

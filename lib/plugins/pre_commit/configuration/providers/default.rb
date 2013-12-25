@@ -1,8 +1,11 @@
 module PreCommit
+  class CanNotUpdateDefauls < StandardError
+  end
+
   class Configuration
     class Providers
-
       class Default
+
         DEFAULTS =
         {
           :warnings => [],
@@ -23,8 +26,12 @@ module PreCommit
         def [](name)
           @defaults[name]
         end
-      end
 
+        def update(name, value)
+          raise PreCommit::CanNotUpdateDefauls.new("Can not update default settings")
+        end
+
+      end
     end
   end
 end

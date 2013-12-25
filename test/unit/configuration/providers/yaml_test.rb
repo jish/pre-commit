@@ -52,6 +52,7 @@ describe PreCommit::Configuration::Providers::Yaml do
       example[:test3].must_equal(3)
       example[:test4].must_equal(nil)
     end
+
     it "reads system and local values" do
       preprare_file(@global_file, GLOBAL_DATA)
       Dir.mkdir("config")
@@ -63,6 +64,22 @@ describe PreCommit::Configuration::Providers::Yaml do
       example[:test2].must_equal(5)
       example[:test3].must_equal(3)
       example[:test4].must_equal(nil)
+    end
+
+    it "saves values" do
+      Dir.mkdir("config")
+      preprare_file("config/pre_commit.yml", LOCAL_DATA)
+      example = subject.new
+      example.instance_variable_set(:@system_file, @system_file)
+      example.instance_variable_set(:@global_file, @global_file)
+      example.update(:test2, 7)
+      File.open("config/pre_commit.yml") do |file|
+        file.read.must_equal(<<-EXPECTED)
+---
+:test1: 6
+:test2: 7
+EXPECTED
+      end
     end
   end
 
