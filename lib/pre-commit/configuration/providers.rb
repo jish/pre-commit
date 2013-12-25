@@ -47,6 +47,10 @@ module PreCommit
         end
       end
 
+      def list
+        plugins.map{|plugin| class2string(class2name(plugin.class)) }
+      end
+
     private
       def plugins
         @plugins ||= @pluginator['configuration/providers'].sort_by(&:priority).map(&:new)

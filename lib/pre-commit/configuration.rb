@@ -30,8 +30,8 @@ module PreCommit
 
     def list
       <<-DATA
-Available providers: #{plugin_names("configuration/providers").join(" ")}
-Available checks   : #{plugin_names("checks").join(" ")}
+Available providers: #{@providers.list.join(" ")}
+Available checks   : #{plugin_names.join(" ")}
 Default   checks   : #{get_arr(:checks).join(" ")}
 Enabled   checks   : #{get_combined(:checks).join(" ")}
 Default   warnings : #{get_arr(:warnings).join(" ")}
@@ -68,8 +68,8 @@ DATA
     end
 
   private
-    def plugin_names(type)
-      @pluginator[type].map{|plugin| class2string(class2name(plugin)) }.sort
+    def plugin_names
+      @pluginator['checks'].map{|plugin| class2string(class2name(plugin)) }.sort
     end
 
   end

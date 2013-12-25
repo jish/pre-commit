@@ -58,7 +58,7 @@ EXPECTED
     cli = subject.new('plugins')
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
-    cli.config.send(:plugin_names, 'checks').each {|name|
+    cli.config.send(:plugin_names).each {|name|
       $stdout.string.must_match("#{name} : ")
     }
   end
