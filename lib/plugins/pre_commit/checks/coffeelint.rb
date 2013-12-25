@@ -1,8 +1,9 @@
 require 'open3'
+require 'pre-commit/checks/plugin'
 
 module PreCommit
   module Checks
-    class Coffeelint
+    class Coffeelint < Plugin
       def call(staged_files)
         staged_files = staged_files.grep(/\.coffee$/)
         return if staged_files.empty?

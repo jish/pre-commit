@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Php
+    class Php < Plugin
       def call(staged_files)
         staged_files = staged_files.grep /\.(php|engine|theme|install|inc|module|test)$/
         return if staged_files.empty?

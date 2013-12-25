@@ -1,7 +1,9 @@
 # encoding: utf-8
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class NbSpace
+    class NbSpace < Plugin
       def call(staged_files)
         nb_space = " "
         raise "you messed that up" unless nb_space.bytes.to_a == [194, 160]

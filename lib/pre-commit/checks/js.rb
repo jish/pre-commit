@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Js
+    class Js < Plugin
       def call(staged_files)
         require 'execjs'
       rescue RuntimeError, LoadError => e

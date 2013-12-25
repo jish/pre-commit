@@ -3,7 +3,7 @@ require 'plugins/pre_commit/checks/console_log'
 
 describe PreCommit::Checks::ConsoleLog do
   subject do
-    PreCommit::Checks::ConsoleLog.new
+    PreCommit::Checks::ConsoleLog.new(nil, nil)
   end
 
   it "filters out js files" do

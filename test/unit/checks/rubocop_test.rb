@@ -1,10 +1,8 @@
 require 'minitest_helper'
 require 'plugins/pre_commit/checks/rubocop'
 
-
-
   describe PreCommit::Checks::Rubocop do
-    let(:check){ PreCommit::Checks::Rubocop.new }
+    let(:check){ PreCommit::Checks::Rubocop.new(nil, nil) }
 
     it "succeeds if nothing changed" do
       check.call([]).must_equal nil

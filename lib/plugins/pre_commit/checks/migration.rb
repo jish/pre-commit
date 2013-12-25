@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Migration
+    class Migration < Plugin
       def self.aliases
         [:migrations]
       end

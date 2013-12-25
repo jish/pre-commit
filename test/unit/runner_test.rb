@@ -6,13 +6,16 @@ class FakeAll
   def initialize(value)
     @value = value
   end
+  # Configurations
   def get_combined(name)
     @value[name]
   end
+  # Pluginator
   def find_check(name)
     @value[name]
   end
-  def new
+  # Plugin
+  def new(pluginator, config)
     self
   end
   def call(list)

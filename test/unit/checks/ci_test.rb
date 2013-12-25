@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/ci'
 
 describe PreCommit::Checks::Ci do
-  let(:check) { PreCommit::Checks::Ci.new }
+  let(:check) { PreCommit::Checks::Ci.new(nil, nil) }
 
   it "succeeds if rake succeeds" do
     check.stub :system, true do

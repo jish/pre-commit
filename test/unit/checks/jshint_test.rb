@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/jshint'
 
 describe PreCommit::Checks::Jshint do
-  let(:check){ PreCommit::Checks::Jshint.new }
+  let(:check){ PreCommit::Checks::Jshint.new(nil, nil) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

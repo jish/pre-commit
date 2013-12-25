@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/before_all'
 
 describe PreCommit::Checks::BeforeAll do
-  subject { PreCommit::Checks::BeforeAll.new }
+  subject { PreCommit::Checks::BeforeAll.new(nil, nil) }
 
   it "succeeds if nothing changed" do
     subject.call([]).must_equal nil

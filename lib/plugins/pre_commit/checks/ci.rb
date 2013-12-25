@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Ci
+    class Ci < Plugin
       CI_TASK_NAME = 'pre_commit:ci'
 
       def call(_)

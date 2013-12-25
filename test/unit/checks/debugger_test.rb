@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/debugger'
 
 describe PreCommit::Checks::Debugger do
-  subject{ PreCommit::Checks::Debugger.new }
+  subject{ PreCommit::Checks::Debugger.new(nil, nil) }
 
   it "succeeds if nothing changed" do
     subject.call([]).must_equal nil

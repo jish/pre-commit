@@ -3,7 +3,7 @@ require 'pre-commit/checks/grep'
 
 describe PreCommit::Checks::Grep do
   subject do
-    PreCommit::Checks::Grep.new
+    PreCommit::Checks::Grep.new(nil, nil)
   end
 
   it "succeeds if nothing changed" do

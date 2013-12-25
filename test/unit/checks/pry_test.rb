@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/pry'
 
 describe PreCommit::Checks::Pry do
-  let(:check){ PreCommit::Checks::Pry.new }
+  let(:check){ PreCommit::Checks::Pry.new(nil, nil) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

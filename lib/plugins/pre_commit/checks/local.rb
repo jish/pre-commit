@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Local
+    class Local < Plugin
       DEFAULT_LOCATION = "config/pre-commit.rb"
 
       def call(staged_files, script=Local::DEFAULT_LOCATION)

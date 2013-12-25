@@ -3,7 +3,7 @@ require 'tmpdir'
 require 'plugins/pre_commit/checks/migration'
 
 describe PreCommit::Checks::Migration do
-  let(:check) { PreCommit::Checks::Migration.new }
+  let(:check) { PreCommit::Checks::Migration.new(nil, nil) }
 
   def in_new_directory(&block)
     Dir.mktmpdir do |dir|

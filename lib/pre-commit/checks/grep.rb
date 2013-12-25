@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Grep
+    class Grep < Plugin
       class PaternNotSet < StandardError
         def message
           "Please define 'pattern' method."

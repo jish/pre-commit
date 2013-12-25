@@ -1,6 +1,8 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Whitespace
+    class Whitespace < Plugin
       def self.aliases
         [:white_space]
       end

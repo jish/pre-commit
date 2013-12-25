@@ -1,8 +1,9 @@
 require 'stringio'
+require 'pre-commit/checks/plugin'
 
 module PreCommit
   module Checks
-    class Rubocop
+    class Rubocop < Plugin
       def self.aliases
         [ :rubocop_all, :rubocop_new ]
       end
@@ -13,7 +14,7 @@ module PreCommit
       else
         staged_files = staged_files.grep(/\.rb$/)
         return if staged_files.empty?
-        config_file = `git config pre-commit.rubocop.config`.chomp
+        config_file = config.get_combined('rubocop.config')
 
         args = staged_files
         if !config_file.empty?
@@ -21,6 +22,8 @@ module PreCommit
             $stderr.puts "Warning: rubocop config file '" + config_file + "' does not exist"
             $stderr.puts "Set the path to the config file using:"
             $stderr.puts "\tgit config pre-commit.rubocop.config 'path/relative/to/git/dir/rubocop.yml'"
+            $stderr.puts "Or in 'config/pre-commit.yml':"
+            $stderr.puts "\trubocop.config: path/relative/to/git/dir/rubocop.yml"
             $stderr.puts "rubocop will use its default configuration or look for a .rubocop.yml file\n\n"
           else
             args = ['-c', config_file] + args
