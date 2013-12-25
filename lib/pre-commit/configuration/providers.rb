@@ -17,6 +17,10 @@ module PreCommit
         plugins.map{|plugin| plugin[name] }.compact.last
       end
 
+      def default(name)
+        plugins[0][name]
+      end
+
       def update(plugin_name, name, value = nil)
         plugin = find_update_plugin(plugin_name)
         name   = name.to_sym
