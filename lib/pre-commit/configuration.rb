@@ -63,7 +63,7 @@ DATA
 
   private
     def plugin_names(type)
-      @pluginator[type].map{|plugin| class2string(plugin.name.split(/::/).last) }.sort.join(" ")
+      @pluginator[type].map{|plugin| class2string(class2name(plugin)) }.sort.join(" ")
     end
 
   end

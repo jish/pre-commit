@@ -53,7 +53,7 @@ module PreCommit
       end
 
       def find_update_plugin(plugin_name)
-        plugin = plugins.detect{|plugin| class2string(plugin.class.name.split(/::/).last) == plugin_name.to_s}
+        plugin = plugins.detect{|plugin| class2string(class2name(plugin.class)) == plugin_name.to_s}
         raise PluginNotFound.new("Plugin not found for #{plugin_name}.") unless plugin
         plugin
       end

@@ -8,7 +8,7 @@ module Pluginator::Extensions
     def find_check(name)
       klass = string2class(name)
       @plugins["checks"].detect do |plugin|
-        plugin_short_name(plugin) == klass ||
+        class2name(plugin) == klass ||
         plugin.respond_to?(:aliases) && plugin.public_send(:aliases).include?(name.to_sym)
       end ||
       begin
@@ -18,12 +18,8 @@ available plugins: #{available_plugins}"
       end
     end
 
-    def plugin_short_name(plugin)
-      plugin.name.split('::').last
-    end
-
     def available_plugins
-      @plugins["checks"].map{|plugin| plugin_short_name(plugin)}.join(", ")
+      @plugins["checks"].map{|plugin| class2name(plugin) }.join(", ")
     end
 
   end
