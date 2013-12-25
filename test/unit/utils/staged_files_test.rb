@@ -17,6 +17,13 @@ describe PreCommit::Utils::StagedFiles do
     subject.staged_files.must_equal(['test.rb'])
   end
 
+  it "filters out binary files" do
+    write("test.rb", (1..50).map(&:chr).join)
+    sh "git add -A"
+    subject.staged_files.must_equal([])
+  end
+
+
   it "has empty list for no changes" do
     subject.staged_files.must_equal([])
   end
