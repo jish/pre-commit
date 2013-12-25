@@ -20,7 +20,7 @@ Use the pre-commit command to generate a stub pre-commit hook
 
 This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled.
 
-## Configuration
+## Available checks
 
 These are the available checks:
 
@@ -43,29 +43,59 @@ These are the available checks:
 * before_all (Check your RSpec tests for the use of `before(:all)`)
 * coffeelint (Check your coffeescript files using the [coffeelint gem.](https://github.com/clutchski/coffeelint))
 
-To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
+## Default checks
 
-To enable `white_space` and `tab` checks:
-
-    # From your git repo
-    $ git config "pre-commit.checks" "white_space, tabs"
-
-To enable `white_space`, `console_log` and `debugger` checks:
-
-    # From your git repo
-    $ git config "pre-commit.checks" "white_space, console_log, debugger"
-
-Note: If no checks are configured, a default set of checks is run:
+If no checks are configured, a default set of checks is run:
 
     white_space, console_log, debugger, pry, tabs, jshint, migrations, merge_conflict, local
+
+## Configuring checks to run (git)
+
+To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
+
+To add extra check to the list:
+
+    $ git config "pre-commit.checks_add" "[rubocop]"
+
+To remove checks from the default list:
+
+    $ git config "pre-commit.checks_remove" "[jshint, pry]"
+
+To enable `white_space` and `tab` checks only:
+
+    # From your git repo
+    $ git config "pre-commit.checks" "[white_space, tabs]"
 
 You may also enable checks that will produce warnings if detected but NOT stop the commit:
 
     # From your git repo
-    $ git config "pre-commit.warnings" "jshint, ruby_symbol_hashrockets"
+    $ git config "pre-commit.warnings" "[jshint, ruby_symbol_hashrockets]"
 
 
 For the rubocop check, you can tell it what config file to use by setting a path relative to the repo:
 
     # From your git repo
     $ git config "pre-commit.rubocop.config" "config/rubocop.yml"
+
+Example to move `white_space` and `tabs` from checks to warnings run:
+
+    $ git config "pre-commit.checks_remove" "[white_space, tabs]"
+    $ git config "pre-commit.warnings_add"  "[white_space, tabs]"
+
+## Configuring checks to run (yaml)
+
+File `config/pre_commit.yml` is read when available, similarly to git configuration you can redefine
+`checks` and `warnings`:
+
+    ---
+    :checks_remove:
+      - :white_space
+      - :tabs
+    :warnings_add:
+      - :white_space
+      - :tabs
+
+## Adding extra check plugins
+
+You can add extra providers by creating gem with a new provider in `lib/plugins/pre_commit/checks/`,
+check this project directory for examples: [lib/plugins/pre_commit/checks](lib/plugins/pre_commit/checks).
