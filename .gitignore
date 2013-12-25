@@ -2,3 +2,4 @@
 bin/rake
 Gemfile.lock
 coverage/
+*.gem
