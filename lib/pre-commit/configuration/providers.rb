@@ -48,7 +48,7 @@ module PreCommit
       end
 
       def list
-        plugins.map{|plugin| class2string(class2name(plugin.class)) }
+        plugins.map{|plugin| "#{class2string(class2name(plugin.class))}(#{plugin.class.priority})" }
       end
 
     private

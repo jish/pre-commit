@@ -78,7 +78,7 @@ describe PreCommit::Configuration do
 
     it :list do
       subject.list.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default git
+Available providers: default(0) git(10)
 Available checks   : before_all ci closure coffeelint console_log debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   :
 Enabled   checks   :
