@@ -78,8 +78,8 @@ describe PreCommit::Configuration do
 
     it :list do
       subject.list.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: yaml default git
-Available checks   : jshint nbspace debugger beforeall ci local migration pry tabs closure gemfilepath mergeconflict consolelog jslint whitespace php rubysymbolhashrockets coffeelint rspecfocus rubocop
+Available providers: default git yaml
+Available checks   : before_all ci closure coffeelint console_log debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   :
 Enabled   checks   :
 Default   warnings :

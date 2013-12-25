@@ -1,8 +1,10 @@
 require 'pluginator'
 require 'pre-commit/configuration/providers'
+require 'plugins/pluginator/extensions/conversions'
 
 module PreCommit
   class Configuration
+    include Pluginator::Extensions::Conversions
 
     def initialize(pluginator, providers = nil)
       @pluginator = (pluginator or Pluginator.find('pre_commit'))
@@ -61,7 +63,7 @@ DATA
 
   private
     def plugin_names(type)
-      @pluginator[type].map{|plugin| plugin.name.split(/::/).last.downcase }.join(" ")
+      @pluginator[type].map{|plugin| class2string(plugin.name.split(/::/).last) }.sort.join(" ")
     end
 
   end
