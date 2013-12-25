@@ -1,3 +1,5 @@
+require 'plugins/pluginator/extensions/conversions'
+
 module PreCommit
   class NotAnArray < StandardError
   end
@@ -7,6 +9,7 @@ module PreCommit
 
   class Configuration
     class Providers
+      include Pluginator::Extensions::Conversions
 
       def initialize(pluginator, plugins = nil)
         @pluginator = pluginator
@@ -50,7 +53,7 @@ module PreCommit
       end
 
       def find_update_plugin(plugin_name)
-        plugin = plugins.detect{|plugin| plugin.class.name.split(/::/).last.downcase == plugin_name.to_s}
+        plugin = plugins.detect{|plugin| class2string(plugin.class.name.split(/::/).last) == plugin_name.to_s}
         raise PluginNotFound.new("Plugin not found for #{plugin_name}.") unless plugin
         plugin
       end
