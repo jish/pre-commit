@@ -12,6 +12,10 @@ module PreCommit
         "'<<<<<<<'"
       end
 
+      def self.description
+        "Finds files with unresolved merge conflicts."
+      end
+
     end
   end
 end

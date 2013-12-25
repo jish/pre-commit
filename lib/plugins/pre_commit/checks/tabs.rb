@@ -12,6 +12,10 @@ module PreCommit
         "'^ *\t'"
       end
 
+      def self.description
+        "Finds ruby files with tabulation character before text in line."
+      end
+
     end
   end
 end

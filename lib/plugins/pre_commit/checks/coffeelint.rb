@@ -4,6 +4,7 @@ require 'pre-commit/checks/plugin'
 module PreCommit
   module Checks
     class Coffeelint < Plugin
+
       def call(staged_files)
         staged_files = staged_files.grep(/\.coffee$/)
         return if staged_files.empty?
@@ -13,6 +14,11 @@ module PreCommit
         stdout, stderr, result = Open3.capture3("coffeelint #{args}")
         stdout + stderr unless result.success?
       end
+
+      def self.description
+        "Runs coffeelint to detect errors"
+      end
+
     end
   end
 end

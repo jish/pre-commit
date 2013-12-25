@@ -20,6 +20,10 @@ module PreCommit
         '-e "before.*:all"'
       end
 
+      def self.description
+        "Find ruby files with 'before :all' pattern"
+      end
+
     end
   end
 end

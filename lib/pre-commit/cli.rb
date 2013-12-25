@@ -27,6 +27,7 @@ module PreCommit
       warn "Unknown parameters: #{args * " "}" unless args.empty?
       warn "Usage: pre-commit install"
       warn "Usage: pre-commit list"
+      warn "Usage: pre-commit plugins"
       warn "Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]"
       args.empty? # return status, it's ok if user requested help
     end
@@ -37,6 +38,11 @@ module PreCommit
 
     def execute_list(*args)
       puts config.list
+      true
+    end
+
+    def execute_plugins(*args)
+      puts config.plugins
       true
     end
 
@@ -51,8 +57,6 @@ module PreCommit
     rescue ArgumentError
       execute_help('disable', *args)
     end
-
-  private
 
     def config
       @config ||= PreCommit::Configuration.new(Pluginator.find('pre_commit'))

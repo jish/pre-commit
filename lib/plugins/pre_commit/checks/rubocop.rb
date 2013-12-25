@@ -4,9 +4,11 @@ require 'pre-commit/checks/plugin'
 module PreCommit
   module Checks
     class Rubocop < Plugin
+
       def self.aliases
         [ :rubocop_all, :rubocop_new ]
       end
+
       def call(staged_files)
         require 'rubocop'
       rescue LoadError => e
@@ -43,6 +45,11 @@ module PreCommit
         $stdout = stdout
         $stderr = stderr
       end
+
+      def self.description
+        "Runs rubocop to detect errors."
+      end
+
     end
   end
 end

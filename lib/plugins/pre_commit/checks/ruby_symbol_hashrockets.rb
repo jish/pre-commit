@@ -12,6 +12,10 @@ module PreCommit
         '\'[^:](:{1}(?:\$|@|@@|[_A-Za-z])?\w*[=!?]?\s*=>\s*)\''
       end
 
+      def self.description
+        "Finds ruby 1.8 '=>' hash definitions."
+      end
+
     end
   end
 end

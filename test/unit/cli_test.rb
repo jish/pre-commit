@@ -54,6 +54,15 @@ Enabled   warnings :
 EXPECTED
   end
 
+  it "lists plugins" do
+    cli = subject.new('plugins')
+    cli.execute.must_equal(true)
+    $stderr.string.must_equal('')
+    cli.config.send(:plugin_names, 'checks').each {|name|
+      $stdout.string.must_match("#{name} : ")
+    }
+  end
+
   it "disable checks" do
     cli = subject.new('disable', 'git', 'checks', 'white_space')
     status = cli.execute
@@ -111,6 +120,7 @@ EXPECTED
 Unknown parameters: enable
 Usage: pre-commit install
 Usage: pre-commit list
+Usage: pre-commit plugins
 Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
@@ -124,6 +134,7 @@ EXPECTED
 Unknown parameters: enable git
 Usage: pre-commit install
 Usage: pre-commit list
+Usage: pre-commit plugins
 Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
@@ -137,6 +148,7 @@ EXPECTED
 Unknown parameters: enable git checks
 Usage: pre-commit install
 Usage: pre-commit list
+Usage: pre-commit plugins
 Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
@@ -150,6 +162,7 @@ EXPECTED
 Unknown parameters: disable
 Usage: pre-commit install
 Usage: pre-commit list
+Usage: pre-commit plugins
 Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')

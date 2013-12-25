@@ -16,6 +16,10 @@ module PreCommit
         "':focus'"
       end
 
+      def self.description
+        "Finds ruby specs with ':focus'."
+      end
+
     end
   end
 end

@@ -16,6 +16,10 @@ module PreCommit
         'debugger'
       end
 
+      def self.description
+        "Finds files with 'debuger'."
+      end
+
     end
   end
 end

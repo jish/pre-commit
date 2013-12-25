@@ -20,6 +20,10 @@ module PreCommit
         '-e "console\\.log"'
       end
 
+      def self.description
+        "Finds javascript files with 'console.log'."
+      end
+
     end
   end
 end

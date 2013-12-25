@@ -12,6 +12,10 @@ module PreCommit
         "binding\.pry"
       end
 
+      def self.description
+        "Finds files with 'binding.pry'."
+      end
+
     end
   end
 end

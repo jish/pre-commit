@@ -16,6 +16,10 @@ module PreCommit
         "'path:|:path\\s*=>'"
       end
 
+      def self.description
+        "Checks 'Gemfile' for local paths."
+      end
+
     end
   end
 end

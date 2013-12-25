@@ -35,6 +35,10 @@ module PreCommit
         staged_files.select { |f| File.basename(f) =~ /schema\.rb|structure.*\.sql/ }
       end
 
+      def self.description
+        "Detects rails database migrations and scheme incompatibilities."
+      end
+
     end
   end
 end

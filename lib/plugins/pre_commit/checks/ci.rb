@@ -9,6 +9,11 @@ module PreCommit
         return if system("rake #{Ci::CI_TASK_NAME} --silent")
         "your test suite has failed, for the full output run `#{CI_TASK_NAME}`"
       end
+
+      def self.description
+        "Runs 'rake #{CI_TASK_NAME} --silent'"
+      end
+
     end
   end
 end

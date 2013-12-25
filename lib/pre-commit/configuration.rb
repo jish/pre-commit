@@ -30,13 +30,19 @@ module PreCommit
 
     def list
       <<-DATA
-Available providers: #{plugin_names("configuration/providers")}
-Available checks   : #{plugin_names("checks")}
+Available providers: #{plugin_names("configuration/providers").join(" ")}
+Available checks   : #{plugin_names("checks").join(" ")}
 Default   checks   : #{get_arr(:checks).join(" ")}
 Enabled   checks   : #{get_combined(:checks).join(" ")}
 Default   warnings : #{get_arr(:warnings).join(" ")}
 Enabled   warnings : #{get_combined(:warnings).join(" ")}
 DATA
+    end
+
+    def plugins
+      list = @pluginator['checks'].map{|plugin| [class2string(class2name(plugin)), plugin.description] }.sort
+      separator = list.map{|name, description| name.length }.max
+      list.map{|name, description| sprintf("%#{separator}s : %s", name, description) }
     end
 
     def enable(plugin_name, type, check1, *checks)
@@ -63,7 +69,7 @@ DATA
 
   private
     def plugin_names(type)
-      @pluginator[type].map{|plugin| class2string(class2name(plugin)) }.sort.join(" ")
+      @pluginator[type].map{|plugin| class2string(class2name(plugin)) }.sort
     end
 
   end
