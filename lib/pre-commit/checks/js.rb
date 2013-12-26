@@ -21,10 +21,6 @@ module PreCommit
         errors.join("\n")
       end
 
-      def check_name
-        raise "Must be defined by subclass"
-      end
-
       def linter_src
         raise "Must be defined by subclass"
       end
