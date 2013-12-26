@@ -14,7 +14,7 @@ module PreCommit
 
       def run_check(file)
         context = ExecJS.compile(File.read(linter_src))
-        context.call("JSHINT", File.read(file), config)
+        context.call("JSHINT", File.read(file), config, config["globals"])
       end
 
       def linter_src
