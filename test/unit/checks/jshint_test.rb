@@ -47,6 +47,53 @@ CONFIG
       check.run_check(@example).must_equal []
     end
 
+    it "uses extended config file" do
+      File.open(".jshintrc", "w") do |file|
+        file.write <<-CONFIG
+{
+    "node": true,
+    "browser": true,
+    "esnext": true,
+    "bitwise": true,
+    "camelcase": false,
+    "curly": true,
+    "eqeqeq": true,
+    "indent": 2,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "quotmark": "single",
+    "regexp": true,
+    "undef": true,
+    "unused": true,
+    "strict": true,
+    "trailing": true,
+    "smarttabs": true,
+    "globals" : {
+        "angular": false,
+        "chrome": false
+    }
+}
+CONFIG
+      end
+      File.open("test.js", "w") do |file|
+        file.write <<-TEST
+(function() {
+  'use strict';
+  angular.module('app').controller('TestCtrl', function($scope) {
+    $scope.test = function() {
+      return chrome.app.window.create('test.html', {
+        id: 'mocha'
+      });
+    };
+  });
+}).call(this);
+TEST
+      end
+      check.run_check("test.js").must_equal []
+    end
+
+
     it "does not use broken config file" do
       File.open(".jshintrc", "w") do |file|
         file.write <<-CONFIG
