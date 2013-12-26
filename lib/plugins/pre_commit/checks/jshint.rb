@@ -11,13 +11,9 @@ module PreCommit
         end
       end
 
-      def self.check_name
-        "JSHint"
-      end
-
       def self.run_check(file)
         context = ExecJS.compile(File.read(linter_src))
-        context.call('JSHINT', File.read(file), config)
+        context.call("JSHINT", File.read(file), config)
       end
 
       def self.linter_src
