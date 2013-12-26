@@ -6,7 +6,7 @@ module PreCommit
   class Installer
 
     TARGET_HOOK_PATH = '.git/hooks/pre-commit'
-    TEMPLATE_DIR = File.expand_path("../support/templates/", __FILE__)
+    TEMPLATE_DIR = File.expand_path("../../../templates/hooks/", __FILE__)
 
     attr_reader :key
 
@@ -40,11 +40,11 @@ module PreCommit
 
     def templates
       return @templates if @templates
-      pattern = File.join(TEMPLATE_DIR, "*_hook")
+      pattern = File.join(TEMPLATE_DIR, "*")
 
       @templates =
       Dir.glob(pattern).inject({}) do |hash, file|
-        key = file.match(/\/([^\/]+?)_hook$/)[1]
+        key = file.match(/\/([^\/]+?)$/)[1]
         hash[key] = file
         hash
       end

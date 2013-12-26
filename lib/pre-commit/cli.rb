@@ -8,8 +8,6 @@ module PreCommit
 
   class Cli
 
-    TEMPLATE_DIR = File.expand_path("../support/templates/", __FILE__)
-
     def initialize(*args)
       @args = args
     end

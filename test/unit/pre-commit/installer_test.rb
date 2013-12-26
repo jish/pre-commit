@@ -26,7 +26,7 @@ describe PreCommit::Installer do
     File.exists?(installer.target).must_equal true
     File.read(installer.target).must_equal File.read(installer.send(:templates)["default"])
     $stderr.string.must_equal('')
-    $stdout.string.must_match(/Installed .*lib\/pre-commit\/support\/templates\/default_hook to #{installer.target}\n/)
+    $stdout.string.must_match(/Installed .*\/templates\/hooks\/default to #{installer.target}\n/)
   end
 
   it "installs other hook templates" do
@@ -36,7 +36,7 @@ describe PreCommit::Installer do
     File.exists?(installer.target).must_equal true
     File.read(installer.target).must_equal File.read(installer.send(:templates)["manual"])
     $stderr.string.must_equal('')
-    $stdout.string.must_match(/Installed .*lib\/pre-commit\/support\/templates\/manual_hook to #{installer.target}\n/)
+    $stdout.string.must_match(/Installed .*\/templates\/hooks\/manual to #{installer.target}\n/)
   end
 
   it "installs the default hook when passed --automatic" do
@@ -46,7 +46,7 @@ describe PreCommit::Installer do
     File.exists?(installer.target).must_equal true
     File.read(installer.target).must_equal File.read(installer.send(:templates)["default"])
     $stderr.string.must_equal('')
-    $stdout.string.must_match(/Installed .*lib\/pre-commit\/support\/templates\/automatic_hook to #{installer.target}\n/)
+    $stdout.string.must_match(/Installed .*\/templates\/hooks\/automatic to #{installer.target}\n/)
   end
 
   it "handles missing templates" do
