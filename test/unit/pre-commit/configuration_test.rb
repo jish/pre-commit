@@ -2,6 +2,8 @@ require 'minitest_helper'
 require 'pre-commit/configuration'
 require 'plugins/pre_commit/configuration/providers/default'
 require 'plugins/pre_commit/configuration/providers/git'
+require 'plugins/pre_commit/checks/before_all'
+require 'plugins/pre_commit/checks/console_log'
 
 describe PreCommit::Configuration do
   describe "fake" do
@@ -46,10 +48,16 @@ describe PreCommit::Configuration do
       $stdout = STDOUT
     end
     subject do
-      PreCommit::Configuration.new(nil, PreCommit::Configuration::Providers.new(nil, [
-        PreCommit::Configuration::Providers::Default.new({}),
-        PreCommit::Configuration::Providers::Git.new,
-      ]))
+      PreCommit::Configuration.new(
+        {'checks' => [
+          PreCommit::Checks::BeforeAll,
+          PreCommit::Checks::ConsoleLog
+        ]},
+        PreCommit::Configuration::Providers.new(nil, [
+          PreCommit::Configuration::Providers::Default.new({}),
+          PreCommit::Configuration::Providers::Git.new,
+        ])
+      )
     end
 
     it "enables list configuration" do
@@ -79,7 +87,7 @@ describe PreCommit::Configuration do
     it :list do
       subject.list.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10)
-Available checks   : before_all ci closure coffeelint console_log debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
+Available checks   : before_all console_log
 Default   checks   :
 Enabled   checks   :
 Default   warnings :
