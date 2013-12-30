@@ -6,7 +6,7 @@ module PreCommit
         nb_space = " "
         raise "you messed that up" unless nb_space.bytes.to_a == [194, 160]
 
-        staged_files.reject! { |f| f =~ /^vendor\// || !File.read(f).include?(nb_space) }
+        staged_files.reject! { |f| f =~ /^vendor\// || !File.read(f, encoding: 'utf-8').include?(nb_space) }
 
         bad = staged_files.map do |file|
           content = File.read(file).lines.to_a
