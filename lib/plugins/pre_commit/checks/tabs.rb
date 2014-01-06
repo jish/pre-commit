@@ -1,14 +1,21 @@
+require 'pre-commit/checks/grep'
+
 module PreCommit
   module Checks
-    class Tabs
-      LEADING_TAB_PATTERN = '^ *\t'
+    class Tabs < Grep
 
-      def self.call(staged_files)
-        return if staged_files.empty?
-        errors = `#{PreCommit::Utils.grep} '#{LEADING_TAB_PATTERN}' #{staged_files.join(" ")}`.strip
-        return unless $?.success?
-        "detected tab before initial space:\n#{errors}"
+      def message
+        "detected tab before initial space:\n"
       end
+
+      def pattern
+        "'^ *\t'"
+      end
+
+      def self.description
+        "Finds ruby files with tabulation character before text in line."
+      end
+
     end
   end
 end

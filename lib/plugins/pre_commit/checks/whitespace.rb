@@ -1,10 +1,14 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class Whitespace
-      def self.supports(name)
-        name == :white_space
+    class Whitespace < Plugin
+
+      def self.aliases
+        [:white_space]
       end
-      def self.call(_)
+
+      def call(_)
         errors = `git diff-index --check --cached HEAD -- 2>&1`
         return if $?.success?
 
@@ -16,6 +20,11 @@ module PreCommit
 
         errors
       end
+
+      def self.description
+        "Finds white space." # TODO: really??? how?
+      end
+
     end
   end
 end

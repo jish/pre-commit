@@ -1,8 +1,11 @@
 # encoding: utf-8
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
-    class NbSpace
-      def self.call(staged_files)
+    class NbSpace < Plugin
+
+      def call(staged_files)
         nb_space = " "
         raise "you messed that up" unless nb_space.bytes.to_a == [194, 160]
 
@@ -18,6 +21,11 @@ module PreCommit
         return if bad.empty?
         "Detected non-breaking space in #{bad.map { |f,l,c| "#{f}:#{l+1} character:#{c+1}" }.join(" and")}, remove it!"
       end
+
+      def self.description
+        "Detected non-breaking spaces 194, 160."
+      end
+
     end
   end
 end

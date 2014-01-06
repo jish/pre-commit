@@ -1,13 +1,25 @@
+require 'pre-commit/checks/grep'
+
 module PreCommit
   module Checks
-    class RspecFocus
-      def self.call(staged_files)
-        staged_files = staged_files.grep(/_spec\.rb$/)
-        return if staged_files.empty?
-        result = `#{PreCommit::Utils.grep} ':focus' #{staged_files.join(" ")}`.strip
-        return unless $?.success?
-        ":focus found in specs:\n#{result}"
+    class RspecFocus < Grep
+
+      def files_filter(staged_files)
+        staged_files.grep(/_spec\.rb$/)
       end
+
+      def message
+        ":focus found in specs:\n"
+      end
+
+      def pattern
+        "':focus'"
+      end
+
+      def self.description
+        "Finds ruby specs with ':focus'."
+      end
+
     end
   end
 end

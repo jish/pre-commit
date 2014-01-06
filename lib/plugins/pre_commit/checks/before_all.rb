@@ -1,13 +1,29 @@
+require 'pre-commit/checks/grep'
+
 module PreCommit
   module Checks
-    class BeforeAll
-      def self.call(staged_files)
-        staged_files.reject! { |f| File.extname(f) != ".rb" }
-        return if staged_files.empty?
-        errors = `#{PreCommit::Utils.grep} -e "before.*:all" #{staged_files.join(" ")} | grep -v \/\/`.strip
-        return unless $?.success?
-        "before(:all) found:\n#{errors}"
+    class BeforeAll < Grep
+
+      def files_filter(staged_files)
+        staged_files.grep(/\.rb$/)
       end
+
+      def extra_grep
+        " | grep -v \/\/"
+      end
+
+      def message
+        "before(:all) found:\n"
+      end
+
+      def pattern
+        '-e "before.*:all"'
+      end
+
+      def self.description
+        "Find ruby files with 'before :all' pattern"
+      end
+
     end
   end
 end

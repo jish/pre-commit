@@ -1,20 +1,60 @@
+require 'pluginator'
+require 'pre-commit/utils/staged_files'
+require 'pre-commit/configuration'
+
 module PreCommit
   class Runner
+    include PreCommit::Utils::StagedFiles
+
+    attr_reader :pluginator, :config
+
+    def initialize(stderr = nil, staged_files = nil, config = nil, pluginator = nil)
+      @stderr       = (stderr       or $stderr)
+      @pluginator   = (pluginator   or Pluginator.find('pre_commit', :extends => [:find_check] ))
+      @config       = (config       or PreCommit::Configuration.new(@pluginator))
+      @staged_files = staged_files
+    end
 
     def run
-      checks_to_run = PreCommit.checks_to_run
+      run_single(:warnings)
+      run_single(:checks  ) or return false
+      true
+    end
 
-      all_passed = checks_to_run.inject(true) do |current_status, check|
-        passed = check.call
+    def run_single(name)
+      show_output(name, execute(list_to_run(name)))
+    end
 
-        if !passed && check.respond_to?(:error_message)
-          puts check.error_message
-        end
-
-        check && current_status
+    def show_output(name, list)
+      if list.any?
+        @stderr.puts send(name, list)
+        return false
       end
+      true
+    end
 
-      exit(all_passed ? 0 : 1)
+    def execute(list)
+      list.map{|cmd| cmd.new(pluginator, config).call(staged_files.dup) }.compact
+    end
+
+    def list_to_run(name)
+      config.get_combined(name).map{|name| pluginator.find_check(name) }.compact
+    end
+
+    def warnings(list)
+      <<-WARNINGS
+pre-commit: Some warnings were raised. These will not stop commit:
+#{list.join("\n")}
+WARNINGS
+    end
+
+    def checks(list)
+      <<-ERRORS
+pre-commit: Stopping commit because of errors.
+#{list.join("\n")}
+pre-commit: You can bypass this check using `git commit -n`
+
+ERRORS
     end
 
   end

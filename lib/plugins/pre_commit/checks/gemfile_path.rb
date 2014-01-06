@@ -1,14 +1,25 @@
-require 'pre-commit/utils'
+require 'pre-commit/checks/grep'
 
 module PreCommit
   module Checks
-    class GemfilePath
-      def self.call(staged_files)
-        return unless staged_files.include?("Gemfile")
-        errors = `#{PreCommit::Utils.grep} 'path:|:path\\s*=>' Gemfile`.strip
-        return unless $?.success?
-        "local path found in Gemfile:\n#{errors}"
+    class GemfilePath < Grep
+
+      def files_filter(staged_files)
+        staged_files.grep(/^Gemfile$/)
       end
+
+      def message
+        "local path found in Gemfile:\n"
+      end
+
+      def pattern
+        "'path:|:path\\s*=>'"
+      end
+
+      def self.description
+        "Checks 'Gemfile' for local paths."
+      end
+
     end
   end
 end

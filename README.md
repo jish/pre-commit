@@ -20,7 +20,7 @@ Use the pre-commit command to generate a stub pre-commit hook
 
 This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled.
 
-## Configuration
+## Available checks
 
 These are the available checks:
 
@@ -43,29 +43,42 @@ These are the available checks:
 * before_all (Check your RSpec tests for the use of `before(:all)`)
 * coffeelint (Check your coffeescript files using the [coffeelint gem.](https://github.com/clutchski/coffeelint))
 
-To configure which checks you would like to run, simply set the `pre-commit.checks` git configuration setting.
+## Default checks
 
-To enable `white_space` and `tab` checks:
+Use `pre-commit list` to see the list of default and enabled checks and warnings.
 
-    # From your git repo
-    $ git config "pre-commit.checks" "white_space, tabs"
+### Adding extra check plugins
 
-To enable `white_space`, `console_log` and `debugger` checks:
+You can add extra checks by creating gem with a new check in `lib/plugins/pre_commit/checks/`,
+check this project directory for examples: [lib/plugins/pre_commit/checks](lib/plugins/pre_commit/checks).
 
-    # From your git repo
-    $ git config "pre-commit.checks" "white_space, console_log, debugger"
+## Enabling / Disabling Checks / Warnings
 
-Note: If no checks are configured, a default set of checks is run:
+Usage:
+```ssh
+pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+```
 
-    white_space, console_log, debugger, pry, tabs, jshint, migrations, merge_conflict, local
+The `git` provider can be used for local machine configuration, the `yaml` can be used for shared
+project configuration.
 
-You may also enable checks that will produce warnings if detected but NOT stop the commit:
+Example move `jshint` from `checks` to `warnings` in `yaml` provider and save configuration to git:
+```bash
+pre-commit disbale yaml checks   jshint
+pre-commit enable  yaml warnings jshint
+git add config/pre-commit.yml
+git commit -m "pre-commit: move jshint from checks to warnings"
+```
 
-    # From your git repo
-    $ git config "pre-commit.warnings" "jshint, ruby_symbol_hashrockets"
+## Configuration providers
 
+`pre-commit` comes with 3 configuration providers:
 
-For the rubocop check, you can tell it what config file to use by setting a path relative to the repo:
+- `default` - basic settings, read only
+- `git` - reads configuration from `git config pre-commit.*`, allow local update
+- `yaml` - reads configuration from `/etc/pre-commit.yml`, `$HOME/.pre-commit.yml` and `config/pre-commit.yml`, allows `config/pre-commit.yml` updates
 
-    # From your git repo
-    $ git config "pre-commit.rubocop.config" "config/rubocop.yml"
+### Adding extra configuration provider plugins
+
+You can add extra providers by creating gem with a new provider in `lib/plugins/pre_commit/configuration/providers/`,
+check this project directory for examples: [lib/plugins/pre_commit/configuration/providers](lib/plugins/pre_commit/configuration/providers).

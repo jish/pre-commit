@@ -1,9 +1,10 @@
-require 'pre-commit/utils'
+require 'pre-commit/checks/plugin'
 
 module PreCommit
   module Checks
-    class Php
-      def self.call(staged_files)
+    class Php < Plugin
+
+      def call(staged_files)
         staged_files = staged_files.grep /\.(php|engine|theme|install|inc|module|test)$/
         return if staged_files.empty?
 
@@ -13,7 +14,7 @@ module PreCommit
         errors.join("\n")
       end
 
-      def self.run_check(file)
+      def run_check(file)
         # We force PHP to display errors otherwise they will likely end up in the
         # error_log and not in stdout.
         result = `php -d display_errors=1 -l #{file} 2>&1`
@@ -22,6 +23,11 @@ module PreCommit
         # If PHP exited non-zero then there was a parse error.
         result.strip unless $? == 0
       end
+
+      def self.description
+        "Detects PHP errors."
+      end
+
     end
   end
 end

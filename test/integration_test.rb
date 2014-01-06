@@ -24,14 +24,14 @@ describe "integration" do
   end
 
   it "does not prevent bad commits when checks are disabled" do
-    sh "git config 'pre-commit.checks' 'jshint'"
+    sh "git config 'pre-commit.checks' '[jshint]'"
     result = commit_a_file
     refute_includes result, "detected tab before initial"
     assert_includes result, "create mode 100644 xxx.rb"
   end
 
   it "prevents bad commits when certain checks are enabled" do
-    sh "git config 'pre-commit.checks' 'tabs'"
+    sh "git config 'pre-commit.checks' '[:tabs]'"
     result = commit_a_file :fail => true
     assert_includes result, "detected tab before initial"
     refute_includes result, "new blank line at EOF"

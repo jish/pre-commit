@@ -1,12 +1,21 @@
+require 'pre-commit/checks/grep'
+
 module PreCommit
   module Checks
-    class MergeConflict
-      def self.call(staged_files)
-        return if staged_files.empty?
-        errors = `#{PreCommit::Utils.grep} '<<<<<<<' #{staged_files.join(" ")}`.strip
-        return unless $?.success?
-        "detected a merge conflict\n#{errors}"
+    class MergeConflict < Grep
+
+      def message
+        "detected a merge conflict\n"
       end
+
+      def pattern
+        "'<<<<<<<'"
+      end
+
+      def self.description
+        "Finds files with unresolved merge conflicts."
+      end
+
     end
   end
 end

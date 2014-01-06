@@ -1,4 +1,6 @@
 require 'fileutils'
+require 'pre-commit/configuration'
+require 'pre-commit/installer'
 
 module PreCommit
 
@@ -6,36 +8,56 @@ module PreCommit
 
   class Cli
 
-    PRE_COMMIT_HOOK_PATH = '.git/hooks/pre-commit'
-    TEMPLATE_DIR = File.expand_path("../support/templates/", __FILE__)
-
-    attr_reader :templates
-
-    def initialize
-      @templates = load_templates
+    def initialize(*args)
+      @args = args
     end
 
-    def install(key = nil)
-      key ||= "default"
-      hook = templates[key.sub(/^--/, "")]
-
-      raise TemplateNotFound.new("Could not find template #{key}") unless hook
-
-      FileUtils.cp(hook, PRE_COMMIT_HOOK_PATH)
-      FileUtils.chmod(0755, PRE_COMMIT_HOOK_PATH)
-    end
-
-    private
-
-    def load_templates
-      pattern = File.join(TEMPLATE_DIR, "*_hook")
-
-      Dir.glob(pattern).inject({}) do |hash, file|
-        key = file.match(/\/([^\/]+?)_hook$/)[1]
-        hash[key] = file
-
-        hash
+    def execute()
+      action_name = @args.shift or 'help'
+      action = "execute_#{action_name}".to_sym
+      if respond_to?(action)
+      then send(action, *@args)
+      else execute_help(action_name, *@args)
       end
+    end
+
+    def execute_help(*args)
+      warn "Unknown parameters: #{args * " "}" unless args.empty?
+      warn "Usage: pre-commit install"
+      warn "Usage: pre-commit list"
+      warn "Usage: pre-commit plugins"
+      warn "Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]"
+      args.empty? # return status, it's ok if user requested help
+    end
+
+    def execute_install(key = nil, *args)
+      PreCommit::Installer.new(key).install
+    end
+
+    def execute_list(*args)
+      puts config.list
+      true
+    end
+
+    def execute_plugins(*args)
+      puts config.plugins
+      true
+    end
+
+    def execute_enable(*args)
+      config.enable(*args)
+    rescue ArgumentError
+      execute_help('enable', *args)
+    end
+
+    def execute_disable(*args)
+      config.disable(*args)
+    rescue ArgumentError
+      execute_help('disable', *args)
+    end
+
+    def config
+      @config ||= PreCommit::Configuration.new(Pluginator.find('pre_commit'))
     end
 
   end

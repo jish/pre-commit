@@ -1,21 +1,25 @@
-require 'pre-commit/utils'
+require 'pre-commit/checks/grep'
 
 module PreCommit
   module Checks
-    class Debugger
-      def self.call(staged_files)
-        files = files_to_check(staged_files)
-        return if files.empty?
+    class Debugger < Grep
 
-        errors = `#{PreCommit::Utils.grep} debugger #{files.join(" ")}`.strip
-        return unless $?.success?
-
-        "debugger statement(s) found:\n#{errors}"
+      def files_filter(staged_files)
+        staged_files.reject { |file| File.basename(file) =~ /^Gemfile/ }
       end
 
-      def self.files_to_check(files)
-        files.reject { |file| File.basename(file) =~ /^Gemfile/ }
+      def message
+        "debugger statement(s) found:\n"
       end
+
+      def pattern
+        'debugger'
+      end
+
+      def self.description
+        "Finds files with 'debuger'."
+      end
+
     end
   end
 end
