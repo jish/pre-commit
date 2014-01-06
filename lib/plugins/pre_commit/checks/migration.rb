@@ -36,7 +36,7 @@ module PreCommit
       end
 
       def self.description
-        "Detects rails database migrations and scheme incompatibilities."
+        "Detects rails database migrations and schema incompatibilities."
       end
 
     end
