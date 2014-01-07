@@ -27,7 +27,7 @@ module PreCommit
       end
 
       def self.description
-        "Checks CSS files with CSSHint."
+        "Checks CSS files with CSSLint."
       end
 
     end
