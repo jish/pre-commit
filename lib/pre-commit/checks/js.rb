@@ -8,7 +8,7 @@ module PreCommit
       rescue RuntimeError, LoadError => e
         $stderr.puts "Could not load execjs: #{e}"
       else
-        staged_files = staged_files.select { |f| File.extname(f) == ".js" }
+        staged_files = files_filter(staged_files)
         return if staged_files.empty?
 
         errors = []
@@ -23,6 +23,10 @@ module PreCommit
 
       def linter_src
         raise "Must be defined by subclass"
+      end
+
+      def files_filter(staged_files)
+        staged_files.grep(/\.js$/)
       end
 
       def display_error(error_object, file)
