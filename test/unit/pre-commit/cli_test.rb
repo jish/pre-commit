@@ -45,7 +45,7 @@ describe PreCommit::Cli do
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20)
 Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
@@ -74,7 +74,7 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20)
 Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Enabled   checks   : console_log debugger pry tabs jshint migrations merge_conflict local nb_space
@@ -94,7 +94,7 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20)
 Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space

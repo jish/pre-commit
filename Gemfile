@@ -11,11 +11,4 @@ group :development do
   gem "redcarpet", :platforms => [:mri_20]
   gem "simplecov", :platforms => [:mri_20]
   gem "coveralls", :platforms => [:mri_20]
-
-  # rubinius support
-  gem "rubysl-json",      :platforms => [:rbx]
-  gem "rubysl-mutex_m",   :platforms => [:rbx]
-  gem "rubysl-open3",     :platforms => [:rbx]
-  gem "rubysl-singleton", :platforms => [:rbx]
-  gem "rubysl-stringio",  :platforms => [:rbx]
 end

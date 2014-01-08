@@ -10,8 +10,5 @@ rvm:
   - 1.9.3
   - 2.0.0
   - jruby-19mode
-  - rbx
 matrix:
-  allow_failures:
-    - rvm: rbx
   fast_finish: true
