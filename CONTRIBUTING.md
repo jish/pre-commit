@@ -2,7 +2,7 @@
 
 ## Reporting issues
 
-Please provide as much details as possible.
+We would love to help if you are having a problem. Feel free to open an issue. We ask that you please provide as much detail as possible.
 
 ### Closing old issues
 
