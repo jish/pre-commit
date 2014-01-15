@@ -32,7 +32,7 @@ module PreCommit
           end
         end
 
-        success, captured = capture { Rubocop::CLI.new.run(args) == 0 }
+        success, captured = capture { ::Rubocop::CLI.new.run(args) == 0 }
         captured unless success
       end
 
@@ -49,7 +49,6 @@ module PreCommit
       def self.description
         "Runs rubocop to detect errors."
       end
-
     end
   end
 end
