@@ -47,11 +47,6 @@ These are the available checks:
 
 Use `pre-commit list` to see the list of default and enabled checks and warnings.
 
-### Adding extra check plugins
-
-You can add extra checks by creating gem with a new check in `lib/plugins/pre_commit/checks/`,
-check this project directory for examples: [lib/plugins/pre_commit/checks](lib/plugins/pre_commit/checks).
-
 ## Enabling / Disabling Checks / Warnings
 
 Usage:
@@ -78,7 +73,4 @@ git commit -m "pre-commit: move jshint from checks to warnings"
 - `git` - reads configuration from `git config pre-commit.*`, allow local update
 - `yaml` - reads configuration from `/etc/pre-commit.yml`, `$HOME/.pre-commit.yml` and `config/pre-commit.yml`, allows `config/pre-commit.yml` updates
 
-### Adding extra configuration provider plugins
-
-You can add extra providers by creating gem with a new provider in `lib/plugins/pre_commit/configuration/providers/`,
-check this project directory for examples: [lib/plugins/pre_commit/configuration/providers](lib/plugins/pre_commit/configuration/providers).
+## [Contributing](CONTRIBUTING.md)
