@@ -49,6 +49,14 @@ Use `pre-commit list` to see the list of default and enabled checks and warnings
 
 ## Enabling / Disabling Checks / Warnings
 
+0.12.0 and lower:
+
+    git config pre-commit.checks "whitespace, jshint, debugger"
+
+To disable, simply leave one off the list
+
+    git config pre-commit.checks "whitespace, jshint"
+
 Usage:
 ```ssh
 pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
