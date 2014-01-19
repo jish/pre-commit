@@ -1,6 +1,7 @@
 require 'pluginator'
 require 'pre-commit/utils/staged_files'
 require 'pre-commit/configuration'
+require 'pre-commit/plugins_list'
 
 module PreCommit
   class Runner
@@ -38,7 +39,9 @@ module PreCommit
     end
 
     def list_to_run(name)
-      config.get_combined(name).map{|name| pluginator.find_check(name) }.compact
+      PreCommit::PluginsList.new(config.get_combined(name)) do |name|
+        pluginator.find_check(name)
+      end.list_to_run
     end
 
     def warnings(list)
