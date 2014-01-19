@@ -4,6 +4,10 @@ module PreCommit
   module Checks
     class RubySymbolHashrockets < Grep
 
+      def files_filter(staged_files)
+        staged_files.grep(/\.rb$/)
+      end
+
       def message
         "detected :symbol => value hashrocket:\n"
       end
