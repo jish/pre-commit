@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/merge_conflict'
 
 describe PreCommit::Checks::MergeConflict do
-  let(:check){ PreCommit::Checks::MergeConflict.new(nil, nil) }
+  let(:check){ PreCommit::Checks::MergeConflict.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

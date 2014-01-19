@@ -3,7 +3,7 @@ require 'plugins/pre_commit/checks/csslint'
 require 'execjs'
 
 describe PreCommit::Checks::Csslint do
-  let(:check){ PreCommit::Checks::Csslint.new(nil, nil) }
+  let(:check){ PreCommit::Checks::Csslint.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

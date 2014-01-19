@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/closure'
 
 describe PreCommit::Checks::Closure do
-  let(:check){ PreCommit::Checks::Closure.new(nil, nil) }
+  let(:check){ PreCommit::Checks::Closure.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

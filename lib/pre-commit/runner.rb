@@ -34,7 +34,7 @@ module PreCommit
     end
 
     def execute(list)
-      list.map{|cmd| cmd.new(pluginator, config).call(staged_files.dup) }.compact
+      list.map{|cmd| cmd.new(pluginator, config, list).call(staged_files.dup) }.compact
     end
 
     def list_to_run(name)

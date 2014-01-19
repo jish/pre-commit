@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/tabs'
 
 describe PreCommit::Checks::Tabs do
-  let(:check) { PreCommit::Checks::Tabs.new(nil, nil) }
+  let(:check) { PreCommit::Checks::Tabs.new(nil, nil, []) }
 
   it "passes without files" do
     check.call([]).must_equal nil

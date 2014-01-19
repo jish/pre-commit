@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/gemfile_path'
 
 describe PreCommit::Checks::GemfilePath do
-  let(:check){ PreCommit::Checks::GemfilePath.new(nil, nil) }
+  let(:check){ PreCommit::Checks::GemfilePath.new(nil, nil, []) }
 
   before do
     create_temp_dir

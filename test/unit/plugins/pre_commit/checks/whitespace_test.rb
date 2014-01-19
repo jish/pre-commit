@@ -9,7 +9,7 @@ describe PreCommit::Checks::Whitespace do
   end
   after(&:destroy_temp_dir)
 
-  let(:check){ PreCommit::Checks::Whitespace.new(nil, nil) }
+  let(:check){ PreCommit::Checks::Whitespace.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

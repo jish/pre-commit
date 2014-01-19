@@ -8,8 +8,22 @@ module PreCommit
         [:white_space]
       end
 
-      def call(_)
-        errors = `git diff-index --check --cached HEAD -- 2>&1`
+      def files_filter(staged_files)
+        if
+          @list.map(&:name).include?("PreCommit::Checks::Rubocop")
+        then
+          staged_files.reject{|name| name =~ /\.rb$/ }
+        else
+          staged_files
+        end
+      end
+
+      def files_string(staged_files)
+        files_filter(staged_files).map{|file| "'#{file}'" }.join(" ")
+      end
+
+      def call(staged_files)
+        errors = `git diff-index --check --cached HEAD -- #{files_string(staged_files)} 2>&1`
         return if $?.success?
 
         # Initial commit: diff against the empty tree object
@@ -22,7 +36,7 @@ module PreCommit
       end
 
       def self.description
-        "Finds white space." # TODO: really??? how?
+        "Finds white space."
       end
 
     end

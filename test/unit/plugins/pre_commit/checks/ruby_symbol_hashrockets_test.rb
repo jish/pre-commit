@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/ruby_symbol_hashrockets'
 
 describe PreCommit::Checks::RubySymbolHashrockets do
-  let(:check){ PreCommit::Checks::RubySymbolHashrockets.new(nil, nil) }
+  let(:check){ PreCommit::Checks::RubySymbolHashrockets.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

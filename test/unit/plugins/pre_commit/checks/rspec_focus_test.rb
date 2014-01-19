@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/rspec_focus'
 
 describe PreCommit::Checks::RspecFocus do
-  let(:check){ PreCommit::Checks::RspecFocus.new(nil, nil) }
+  let(:check){ PreCommit::Checks::RspecFocus.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

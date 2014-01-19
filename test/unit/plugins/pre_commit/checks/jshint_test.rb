@@ -3,7 +3,7 @@ require 'plugins/pre_commit/checks/jshint'
 require 'execjs'
 
 describe PreCommit::Checks::Jshint do
-  let(:check){ PreCommit::Checks::Jshint.new(nil, nil) }
+  let(:check){ PreCommit::Checks::Jshint.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

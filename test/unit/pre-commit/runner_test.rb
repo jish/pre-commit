@@ -15,7 +15,7 @@ class FakeAll
     @value[name]
   end
   # Plugin
-  def new(pluginator, config)
+  def new(pluginator, config, list)
     self
   end
   def call(list)
