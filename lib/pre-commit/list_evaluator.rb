@@ -29,12 +29,7 @@ DATA
     def plugins
       list = config.pluginator['checks'].map{|plugin| [class2string(class2name(plugin)), plugin] }.sort
       separator = list.map{|name, plugin| name.length }.max
-      list.map do |name, plugin|
-        line = sprintf("%#{separator}s : %s", name, plugin.description)
-        line +=  sprintf("\n%#{separator}s   - includes: %s", "", plugin.includes.join(" ")) if plugin.respond_to?(:includes)
-        line +=  sprintf("\n%#{separator}s   - excludes: %s", "", plugin.excludes.join(" ")) if plugin.respond_to?(:excludes)
-        line
-      end
+      list.map{ |name, plugin| format_plugin(name, separator, plugin) }.flatten
     end
 
     def checks_config
@@ -59,6 +54,17 @@ DATA
 
   private
 
+    def plugin_names
+      config.pluginator['checks'].map{|plugin| class2string(class2name(plugin)) }.sort
+    end
+
+    def format_plugin(name, separator, plugin)
+      line = [sprintf("%#{separator}s : %s", name, plugin.description)]
+      line << sprintf("%#{separator}s - includes: %s", "", plugin.includes.join(" ")) if plugin.respond_to?(:includes)
+      line << sprintf("%#{separator}s - excludes: %s", "", plugin.excludes.join(" ")) if plugin.respond_to?(:excludes)
+      line
+    end
+
     def get_combined_checks
       @get_combined_checks     ||= config.get_combined(:checks)
     end
@@ -73,10 +79,6 @@ DATA
 
     def get_arr_warnings_remove
       @get_arr_warnings_remove ||= config.get_arr("warnings_remove")
-    end
-
-    def plugin_names
-      config.pluginator['checks'].map{|plugin| class2string(class2name(plugin)) }.sort
     end
 
   end
