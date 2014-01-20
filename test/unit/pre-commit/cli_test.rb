@@ -46,10 +46,10 @@ describe PreCommit::Cli do
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20)
-Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
-Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Evaluated checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
+Default   checks   : common rails
+Enabled   checks   : common rails
+Evaluated checks   : tabs nb_space whitespace merge_conflict debugger pry local jshint console_log migration
 Default   warnings :
 Enabled   warnings :
 Evaluated warnings :
@@ -66,21 +66,43 @@ EXPECTED
   end
 
   it "disable checks" do
-    cli = subject.new('disable', 'git', 'checks', 'white_space')
+    cli = subject.new('disable', 'git', 'checks', 'whitespace')
     status = cli.execute
     $stderr.string.must_equal('')
     $stdout.string.must_equal('')
     status.must_equal(true)
-    sh("git config pre-commit.checks.remove").strip.must_equal("[:white_space]")
+    sh("git config pre-commit.checks.remove").strip.must_equal("[:whitespace]")
     cli = subject.new('list')
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20)
-Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
-Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Enabled   checks   : console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Evaluated checks   : console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
+Default   checks   : common rails
+Enabled   checks   : common rails
+Evaluated checks   : tabs nb_space merge_conflict debugger pry local jshint console_log migration
+Default   warnings :
+Enabled   warnings :
+Evaluated warnings :
+EXPECTED
+  end
+
+  it "disable checks by alias" do
+    cli = subject.new('disable', 'git', 'checks', 'whitespace')
+    status = cli.execute
+    $stderr.string.must_equal('')
+    $stdout.string.must_equal('')
+    status.must_equal(true)
+    sh("git config pre-commit.checks.remove").strip.must_equal("[:whitespace]")
+    cli = subject.new('list')
+    cli.execute.must_equal(true)
+    $stderr.string.must_equal('')
+    $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
+Available providers: default(0) git(10) git_old(11) yaml(20)
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
+Default   checks   : common rails
+Enabled   checks   : common rails
+Evaluated checks   : tabs nb_space merge_conflict debugger pry local jshint console_log migration
 Default   warnings :
 Enabled   warnings :
 Evaluated warnings :
@@ -99,10 +121,10 @@ EXPECTED
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20)
-Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
-Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
-Evaluated checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
+Default   checks   : common rails
+Enabled   checks   : common rails
+Evaluated checks   : tabs nb_space whitespace merge_conflict debugger pry local jshint console_log migration
 Default   warnings :
 Enabled   warnings : gemfile_path
 Evaluated warnings : gemfile_path

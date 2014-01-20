@@ -6,10 +6,6 @@ class FakeAll
   def initialize(value)
     @value = value
   end
-  # Configurations
-  def get_combined(name)
-    @value[name]
-  end
   # Pluginator
   def find_check(name)
     @value[name]
@@ -18,6 +14,9 @@ class FakeAll
   def new(pluginator, config, list)
     @pluginator = pluginator
     self
+  end
+  def instance_methods
+    methods
   end
   def call(list)
     @value
@@ -45,8 +44,10 @@ describe PreCommit::Runner do
     end
     let :configuration do
       configuration = PreCommit::Configuration.new(pluginator)
-      configuration.instance_variable_set(:@warnings_config, [:plugin1])
-      configuration.instance_variable_set(:@checks_config, [:plugin2, :plugin3])
+      configuration.instance_variable_set(:@get_combined_warnings,   [:plugin1])
+      configuration.instance_variable_set(:@get_arr_warnings_remove, [])
+      configuration.instance_variable_set(:@get_combined_checks,     [:plugin2, :plugin3])
+      configuration.instance_variable_set(:@get_arr_checks_remove,   [])
       configuration
     end
     subject do
@@ -124,8 +125,10 @@ EXPECTED
     end
     let :configuration do
       configuration = PreCommit::Configuration.new(pluginator)
-      configuration.instance_variable_set(:@warnings_config, [:plugin1])
-      configuration.instance_variable_set(:@checks_config, [:plugin2, :plugin3])
+      configuration.instance_variable_set(:@get_combined_warnings,   [:plugin1])
+      configuration.instance_variable_set(:@get_arr_warnings_remove, [])
+      configuration.instance_variable_set(:@get_combined_checks,     [:plugin2, :plugin3])
+      configuration.instance_variable_set(:@get_arr_checks_remove,   [])
       configuration
     end
     subject do
@@ -153,10 +156,10 @@ EXPECTED
       status = PreCommit::Runner.new(@output, ["test.rb"]).run
       @output.string.must_equal(<<-EXPECTED)
 pre-commit: Stopping commit because of errors.
-test.rb:2: new blank line at EOF.
-
 detected tab before initial space:
 test.rb:1:\t\t Muahaha
+
+test.rb:2: new blank line at EOF.
 
 pre-commit: You can bypass this check using `git commit -n`
 

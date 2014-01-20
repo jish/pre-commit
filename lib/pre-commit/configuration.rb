@@ -26,7 +26,7 @@ module PreCommit
     end
 
     def get_combined(name)
-      get_arr(name) + get_arr("#{name}_add") - get_arr("#{name}_remove")
+      get_arr(name) + get_arr("#{name}_add")
     end
 
     def list
@@ -71,26 +71,43 @@ DATA
     end
 
     def checks_config
-      @checks_config ||= get_combined(:checks)
+      get_combined_checks - get_arr_checks_remove
     end
 
     def checks_evaluated(type = :evaluated_names)
-      PreCommit::PluginsList.new(checks_config) do |name|
+      PreCommit::PluginsList.new(get_combined_checks, get_arr_checks_remove) do |name|
         @pluginator.find_check(name)
       end.send(type)
     end
 
     def warnings_config
-      @warnings_config ||= get_combined(:warnings)
+      get_combined_warnings - get_arr_warnings_remove
     end
 
     def warnings_evaluated(type = :evaluated_names)
-      PreCommit::PluginsList.new(warnings_config) do |name|
+      PreCommit::PluginsList.new(get_combined_warnings, get_arr_warnings_remove) do |name|
         @pluginator.find_check(name)
       end.send(type)
     end
 
   private
+
+    def get_combined_checks
+      @get_combined_checks     ||= get_combined(:checks)
+    end
+
+    def get_arr_checks_remove
+      @get_arr_checks_remove   ||= get_arr("checks_remove")
+    end
+
+    def get_combined_warnings
+      @get_combined_warnings   ||= get_combined(:warnings)
+    end
+
+    def get_arr_warnings_remove
+      @get_arr_warnings_remove ||= get_arr("warnings_remove")
+    end
+
     def plugin_names
       @pluginator['checks'].map{|plugin| class2string(class2name(plugin)) }.sort
     end

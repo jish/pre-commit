@@ -5,35 +5,38 @@ module PreCommit
   end
 
   class PluginsList
-    attr_reader :configured_names
+    attr_reader :configured_names, :configured_remove
 
-    def initialize(configured_names, &block)
-      @configured_names = configured_names
-      @class_finder     = block
+    def initialize(configured_names, configured_remove, &block)
+      @configured_names  = configured_names
+      @configured_remove = configured_remove
+      @class_finder      = block
     end
 
     def evaluated_names
-      evaluated_names_(evaluated_names_pairs).flatten
+      evaluated_names_(evaluated_names_pairs).flatten.compact
     end
 
     def list_to_run
-      list_to_run_(evaluated_names_pairs).flatten
+      list_to_run_(evaluated_names_pairs).flatten.compact
     end
 
   private
 
     def evaluated_names_(list)
-      list.map{|name, klass, includes| [name] + evaluated_names_(includes) }
+      list.map{|name, klass, includes| [name] + evaluated_names_(includes||[]) }
     end
 
     def list_to_run_(list)
-      list.map{|name, klass, includes| [klass] + list_to_run_(includes) }
+      list.map{|name, klass, includes| [klass] + list_to_run_(includes||[]) }
     end
 
     def evaluated_names_pairs
       list = find_classes_and_includes(configured_names)
       excludes = excludes(list).flatten.compact
       list = filter_excludes(list, excludes)
+      list = filter_callable(list)
+      list = filter_configured_remove(list)
       list
     end
 
@@ -63,6 +66,25 @@ module PreCommit
 
     def filter_excludes(list, excludes)
       list.map{|name, klass, includes| excludes.include?(name) ? nil : [name, klass, filter_excludes(includes, excludes)] }.compact
+    end
+
+    def filter_callable(list)
+      list.map{|name, klass, includes|
+        (klass.instance_methods.include?(:call) ? [name, klass] : [nil, nil]) << filter_callable(includes)
+      }.compact
+    end
+
+    def configured_remove_aliases
+      @configured_remove_aliases ||= configured_remove.map{|remove|
+        list = [remove]
+        klass = find_class(remove)
+        list += klass.aliases if klass.respond_to?(:aliases)
+        list
+      }.flatten.compact
+    end
+
+    def filter_configured_remove(list)
+      list.map{|name, klass, includes| configured_remove_aliases.include?(name) ? nil : [name, klass, filter_configured_remove(includes)] }.compact
     end
 
   end

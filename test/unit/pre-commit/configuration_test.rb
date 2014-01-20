@@ -29,7 +29,7 @@ describe PreCommit::Configuration do
     end
 
     it "calculates checks" do
-      subject.get_combined(:test).must_equal(%w{5 7 8})
+      subject.get_combined(:test).must_equal(%w{5 6 7 8})
     end
   end
 

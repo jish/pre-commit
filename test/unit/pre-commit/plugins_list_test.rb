@@ -1,24 +1,28 @@
 require 'minitest_helper'
 require 'pre-commit/plugins_list'
 
-class Class1; end
-class Class3
+class ClassBase
+  def call(*args)
+  end
+end
+class Class1 < ClassBase; end
+class Class3 < ClassBase
   def self.includes
     [:class4]
   end
 end
-class Class4; end
-class Class5
+class Class4 < ClassBase; end
+class Class5 < ClassBase
   def self.excludes
     [:class4]
   end
 end
-class Class6
+class Class6 < ClassBase
   def self.excludes
     [:class3]
   end
 end
-class Class7
+class Class7 < ClassBase
   def self.includes
     [:class6]
   end
@@ -27,7 +31,7 @@ end
 describe PreCommit::PluginsList do
   describe :find_class do
     subject do
-      PreCommit::PluginsList.new([]) do |name|
+      PreCommit::PluginsList.new([], []) do |name|
         { :class1 => Class1 }[name]
       end
     end
@@ -44,7 +48,7 @@ describe PreCommit::PluginsList do
 
   describe :configured_names do
     subject do
-      PreCommit::PluginsList.new([:a, :b]) do |name|
+      PreCommit::PluginsList.new([:a, :b], []) do |name|
       end
     end
 
@@ -55,7 +59,7 @@ describe PreCommit::PluginsList do
 
   describe :finds_classes do
     subject do
-      PreCommit::PluginsList.new([]) do |name|
+      PreCommit::PluginsList.new([], []) do |name|
         { :class1 => Class1 }[name]
       end
     end
@@ -75,7 +79,7 @@ describe PreCommit::PluginsList do
 
   describe :class_and_includes do
     subject do
-      PreCommit::PluginsList.new([]) do |name|
+      PreCommit::PluginsList.new([], []) do |name|
         { :class1 => Class1, :class3 => Class3, :class4 => Class4 }[name]
       end
     end
@@ -91,7 +95,7 @@ describe PreCommit::PluginsList do
 
   describe :find_classes_and_includes do
     subject do
-      PreCommit::PluginsList.new([]) do |name|
+      PreCommit::PluginsList.new([], []) do |name|
         { :class1 => Class1, :class3 => Class3, :class4 => Class4 }[name]
       end
     end
@@ -111,7 +115,7 @@ describe PreCommit::PluginsList do
 
   describe :excludes do
     subject do
-      PreCommit::PluginsList.new([]) do |name|
+      PreCommit::PluginsList.new([], []) do |name|
       end
     end
 
@@ -130,7 +134,7 @@ describe PreCommit::PluginsList do
 
   describe :filter_excludes do
     subject do
-      PreCommit::PluginsList.new([]) do |name|
+      PreCommit::PluginsList.new([], []) do |name|
       end
     end
 
@@ -153,7 +157,7 @@ describe PreCommit::PluginsList do
 
   describe :evaluated_names_pairs do
     subject do
-      PreCommit::PluginsList.new([:class1, :class2, :class3, :class7]) do |name|
+      PreCommit::PluginsList.new([:class1, :class2, :class3, :class7], []) do |name|
         { :class1 => Class1, :class3 => Class3, :class4 => Class4, :class6 => Class6, :class7 => Class7 }[name]
       end
     end
@@ -170,5 +174,19 @@ describe PreCommit::PluginsList do
       subject.list_to_run.must_equal([Class1, Class7, Class6])
     end
   end
+
+  describe "evaluated_names_pairs config remove" do
+    subject do
+      PreCommit::PluginsList.new([:class7], [:class6]) do |name|
+        { :class1 => Class1, :class3 => Class3, :class4 => Class4, :class6 => Class6, :class7 => Class7 }[name]
+      end
+    end
+
+    it "evaluates list" do
+      subject.send(:evaluated_names_pairs).must_equal([[:class7, Class7, []]])
+    end
+
+  end
+
 
 end
