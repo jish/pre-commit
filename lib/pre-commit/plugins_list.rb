@@ -35,8 +35,8 @@ module PreCommit
       list = find_classes_and_includes(configured_names)
       excludes = excludes(list).flatten.compact
       list = filter_excludes(list, excludes)
+      list = filter_excludes(list, configured_remove_aliases)
       list = filter_callable(list)
-      list = filter_configured_remove(list)
       list
     end
 
@@ -81,10 +81,6 @@ module PreCommit
         list += klass.aliases if klass.respond_to?(:aliases)
         list
       }.flatten.compact
-    end
-
-    def filter_configured_remove(list)
-      list.map{|name, klass, includes| configured_remove_aliases.include?(name) ? nil : [name, klass, filter_configured_remove(includes)] }.compact
     end
 
   end
