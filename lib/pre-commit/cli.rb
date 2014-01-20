@@ -57,7 +57,7 @@ module PreCommit
     end
 
     def config
-      @config ||= PreCommit::Configuration.new(Pluginator.find('pre_commit'))
+      @config ||= PreCommit::Configuration.new(PreCommit.pluginator)
     end
 
   end

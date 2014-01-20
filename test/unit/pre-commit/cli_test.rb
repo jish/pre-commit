@@ -49,8 +49,10 @@ Available providers: default(0) git(10) git_old(11) yaml(20)
 Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Evaluated checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Default   warnings :
 Enabled   warnings :
+Evaluated warnings :
 EXPECTED
   end
 
@@ -78,8 +80,10 @@ Available providers: default(0) git(10) git_old(11) yaml(20)
 Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Enabled   checks   : console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Evaluated checks   : console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Default   warnings :
 Enabled   warnings :
+Evaluated warnings :
 EXPECTED
   end
 
@@ -98,8 +102,10 @@ Available providers: default(0) git(10) git_old(11) yaml(20)
 Available checks   : before_all ci closure coffeelint console_log csslint debugger gemfile_path jshint jslint local merge_conflict migration nb_space php pry rspec_focus rubocop ruby_symbol_hashrockets tabs whitespace
 Default   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Enabled   checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
+Evaluated checks   : white_space console_log debugger pry tabs jshint migrations merge_conflict local nb_space
 Default   warnings :
 Enabled   warnings : gemfile_path
+Evaluated warnings : gemfile_path
 EXPECTED
   end
 

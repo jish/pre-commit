@@ -1,7 +1,6 @@
 require 'pluginator'
 require 'pre-commit/utils/staged_files'
 require 'pre-commit/configuration'
-require 'pre-commit/plugins_list'
 
 module PreCommit
   class Runner
@@ -11,7 +10,7 @@ module PreCommit
 
     def initialize(stderr = nil, staged_files = nil, config = nil, pluginator = nil)
       @stderr       = (stderr       or $stderr)
-      @pluginator   = (pluginator   or Pluginator.find('pre_commit', :extends => [:find_check] ))
+      @pluginator   = (pluginator   or PreCommit.pluginator)
       @config       = (config       or PreCommit::Configuration.new(@pluginator))
       @staged_files = staged_files
     end
@@ -39,9 +38,7 @@ module PreCommit
     end
 
     def list_to_run(name)
-      PreCommit::PluginsList.new(config.get_combined(name)) do |name|
-        pluginator.find_check(name)
-      end.list_to_run
+      config.send(:"#{name}_evaluated", :list_to_run)
     end
 
     def warnings(list)

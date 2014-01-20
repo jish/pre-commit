@@ -1,4 +1,9 @@
 module PreCommit
+
+  def self.pluginator
+    Pluginator.find('pre_commit', :extends => [:find_check])
+  end
+
   class PluginsList
     attr_reader :configured_names
 

@@ -1,13 +1,14 @@
 require 'pluginator'
 require 'pre-commit/configuration/providers'
 require 'plugins/pluginator/extensions/conversions'
+require 'pre-commit/plugins_list'
 
 module PreCommit
   class Configuration
     include Pluginator::Extensions::Conversions
 
     def initialize(pluginator, providers = nil)
-      @pluginator = (pluginator or Pluginator.find('pre_commit'))
+      @pluginator = (pluginator or PreCommit.pluginator)
       @providers  = (providers  or Providers.new(@pluginator))
     end
 
@@ -33,9 +34,11 @@ module PreCommit
 Available providers: #{@providers.list.join(" ")}
 Available checks   : #{plugin_names.join(" ")}
 Default   checks   : #{get_arr(:checks).join(" ")}
-Enabled   checks   : #{get_combined(:checks).join(" ")}
+Enabled   checks   : #{checks_config.join(" ")}
+Evaluated checks   : #{checks_evaluated.join(" ")}
 Default   warnings : #{get_arr(:warnings).join(" ")}
-Enabled   warnings : #{get_combined(:warnings).join(" ")}
+Enabled   warnings : #{warnings_config.join(" ")}
+Evaluated warnings : #{warnings_evaluated.join(" ")}
 DATA
     end
 
@@ -65,6 +68,26 @@ DATA
     rescue PreCommit::PluginNotFound => e
       warn e
       false
+    end
+
+    def checks_config
+      @checks_config ||= get_combined(:checks)
+    end
+
+    def checks_evaluated(type = :evaluated_names)
+      PreCommit::PluginsList.new(checks_config) do |name|
+        @pluginator.find_check(name)
+      end.send(type)
+    end
+
+    def warnings_config
+      @warnings_config ||= get_combined(:warnings)
+    end
+
+    def warnings_evaluated(type = :evaluated_names)
+      PreCommit::PluginsList.new(warnings_config) do |name|
+        @pluginator.find_check(name)
+      end.send(type)
     end
 
   private

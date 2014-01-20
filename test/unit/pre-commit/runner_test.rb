@@ -16,10 +16,17 @@ class FakeAll
   end
   # Plugin
   def new(pluginator, config, list)
+    @pluginator = pluginator
     self
   end
   def call(list)
     @value
+  end
+  def checks_evaluated(type = :evaluated_names)
+    @value[:checks]
+  end
+  def warnings_evaluated(type = :evaluated_names)
+    @value[:warnings]
   end
 end
 
@@ -29,20 +36,21 @@ describe PreCommit::Runner do
     before do
       @output = StringIO.new
     end
-    subject do
-      PreCommit::Runner.new(
-        @output,
-        [],
-        FakeAll.new(
-          :warnings => [:plugin1],
-          :checks   => [:plugin2, :plugin3],
-        ),
-        FakeAll.new(
-          :plugin1 => FakeAll.new("result 1"),
-          :plugin2 => FakeAll.new("result 2"),
-          :plugin3 => FakeAll.new("result 3"),
-        ),
+    let :pluginator do
+      FakeAll.new(
+        :plugin1 => FakeAll.new("result 1"),
+        :plugin2 => FakeAll.new("result 2"),
+        :plugin3 => FakeAll.new("result 3"),
       )
+    end
+    let :configuration do
+      configuration = PreCommit::Configuration.new(pluginator)
+      configuration.instance_variable_set(:@warnings_config, [:plugin1])
+      configuration.instance_variable_set(:@checks_config, [:plugin2, :plugin3])
+      configuration
+    end
+    subject do
+      PreCommit::Runner.new( @output, [], configuration, pluginator )
     end
 
     it "has warning template" do
@@ -62,9 +70,8 @@ describe PreCommit::Runner do
     end
 
     it "finds plugins" do
-      result = subject.list_to_run(:checks).map(&:class)
-      result.size.must_equal(2)
-      result.must_include(FakeAll)
+      result = subject.list_to_run(:checks)
+      result.must_equal([pluginator.find_check(:plugin2), pluginator.find_check(:plugin3)])
     end
 
     it "executes checks" do
@@ -108,26 +115,29 @@ EXPECTED
     before do
       @output = StringIO.new
     end
-    subject do
-      PreCommit::Runner.new(
-        @output,
-        [],
-        FakeAll.new(
-          :warnings => [:plugin1],
-          :checks   => [:plugin2, :plugin3],
-        ),
-        FakeAll.new(
-          :plugin1 => FakeAll.new(nil),
-          :plugin2 => FakeAll.new(nil),
-          :plugin3 => FakeAll.new(nil),
-        ),
+    let :pluginator do
+      FakeAll.new(
+        :plugin1 => FakeAll.new(nil),
+        :plugin2 => FakeAll.new(nil),
+        :plugin3 => FakeAll.new(nil),
       )
     end
+    let :configuration do
+      configuration = PreCommit::Configuration.new(pluginator)
+      configuration.instance_variable_set(:@warnings_config, [:plugin1])
+      configuration.instance_variable_set(:@checks_config, [:plugin2, :plugin3])
+      configuration
+    end
+    subject do
+      PreCommit::Runner.new( @output, [], configuration, pluginator )
+    end
+
     it "has no errors" do
       subject.run.must_equal(true)
       @output.string.must_equal('')
     end
   end
+
 
   describe "real run" do
     before do
