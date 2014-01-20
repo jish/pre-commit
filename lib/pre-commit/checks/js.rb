@@ -29,11 +29,15 @@ module PreCommit
         staged_files.grep(/\.js$/)
       end
 
+      def error_selector
+        'reason'
+      end
+
       def display_error(error_object, file)
         return "" unless error_object
 
         line = error_object['line'].to_i + 1
-        "#{error_object['reason']}\n#{file}:#{line} #{error_object['evidence']}"
+        "#{error_object[error_selector]}\n#{file}:#{line} #{error_object['evidence']}"
       end
     end
   end

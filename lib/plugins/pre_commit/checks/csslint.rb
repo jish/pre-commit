@@ -15,11 +15,8 @@ module PreCommit
         File.expand_path("../../../../pre-commit/support/csslint/csslint.js", __FILE__)
       end
 
-      def display_error(error_object, file)
-        return "" unless error_object
-
-        line = error_object['line'].to_i + 1
-        "#{error_object['message']}\n#{file}:#{line} #{error_object['evidence']}"
+      def error_selector
+        'message'
       end
 
       def files_filter(staged_files)
