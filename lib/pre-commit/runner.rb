@@ -1,6 +1,7 @@
 require 'pluginator'
 require 'pre-commit/utils/staged_files'
 require 'pre-commit/configuration'
+require 'pre-commit/list_evaluator'
 
 module PreCommit
   class Runner
@@ -38,7 +39,11 @@ module PreCommit
     end
 
     def list_to_run(name)
-      config.send(:"#{name}_evaluated", :list_to_run)
+      list_evaluator.send(:"#{name}_evaluated", :list_to_run)
+    end
+
+    def list_evaluator
+      @list_evaluator ||= PreCommit::ListEvaluator.new(config)
     end
 
     def warnings(list)

@@ -84,19 +84,6 @@ describe PreCommit::Configuration do
       $stdout.string.must_equal('')
     end
 
-    it :list do
-      subject.list.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10)
-Available checks   : before_all console_log
-Default   checks   :
-Enabled   checks   :
-Evaluated checks   :
-Default   warnings :
-Enabled   warnings :
-Evaluated warnings :
-EXPECTED
-    end
-
   end
 
 end

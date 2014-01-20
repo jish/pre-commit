@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'pre-commit/configuration'
 require 'pre-commit/installer'
+require 'pre-commit/list_evaluator'
 
 module PreCommit
 
@@ -35,12 +36,12 @@ module PreCommit
     end
 
     def execute_list(*args)
-      puts config.list
+      puts list_evaluator.list
       true
     end
 
     def execute_plugins(*args)
-      puts config.plugins
+      puts list_evaluator.plugins
       true
     end
 
@@ -58,6 +59,10 @@ module PreCommit
 
     def config
       @config ||= PreCommit::Configuration.new(PreCommit.pluginator)
+    end
+
+    def list_evaluator
+      @list_evaluator ||= PreCommit::ListEvaluator.new(config)
     end
 
   end

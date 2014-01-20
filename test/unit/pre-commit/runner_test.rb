@@ -43,15 +43,20 @@ describe PreCommit::Runner do
       )
     end
     let :configuration do
-      configuration = PreCommit::Configuration.new(pluginator)
-      configuration.instance_variable_set(:@get_combined_warnings,   [:plugin1])
-      configuration.instance_variable_set(:@get_arr_warnings_remove, [])
-      configuration.instance_variable_set(:@get_combined_checks,     [:plugin2, :plugin3])
-      configuration.instance_variable_set(:@get_arr_checks_remove,   [])
-      configuration
+      PreCommit::Configuration.new(pluginator)
+    end
+    let :list_evaluator do
+      list_evaluator = PreCommit::ListEvaluator.new(configuration)
+      list_evaluator.instance_variable_set(:@get_combined_warnings,   [:plugin1])
+      list_evaluator.instance_variable_set(:@get_arr_warnings_remove, [])
+      list_evaluator.instance_variable_set(:@get_combined_checks,     [:plugin2, :plugin3])
+      list_evaluator.instance_variable_set(:@get_arr_checks_remove,   [])
+      list_evaluator
     end
     subject do
-      PreCommit::Runner.new( @output, [], configuration, pluginator )
+      runner = PreCommit::Runner.new( @output, [], configuration, pluginator )
+      runner.instance_variable_set(:@list_evaluator, list_evaluator)
+      runner
     end
 
     it "has warning template" do
@@ -124,15 +129,20 @@ EXPECTED
       )
     end
     let :configuration do
-      configuration = PreCommit::Configuration.new(pluginator)
-      configuration.instance_variable_set(:@get_combined_warnings,   [:plugin1])
-      configuration.instance_variable_set(:@get_arr_warnings_remove, [])
-      configuration.instance_variable_set(:@get_combined_checks,     [:plugin2, :plugin3])
-      configuration.instance_variable_set(:@get_arr_checks_remove,   [])
-      configuration
+      PreCommit::Configuration.new(pluginator)
+    end
+    let :list_evaluator do
+      list_evaluator = PreCommit::ListEvaluator.new(configuration)
+      list_evaluator.instance_variable_set(:@get_combined_warnings,   [:plugin1])
+      list_evaluator.instance_variable_set(:@get_arr_warnings_remove, [])
+      list_evaluator.instance_variable_set(:@get_combined_checks,     [:plugin2, :plugin3])
+      list_evaluator.instance_variable_set(:@get_arr_checks_remove,   [])
+      list_evaluator
     end
     subject do
-      PreCommit::Runner.new( @output, [], configuration, pluginator )
+      runner = PreCommit::Runner.new( @output, [], configuration, pluginator )
+      runner.instance_variable_set(:@list_evaluator, list_evaluator)
+      runner
     end
 
     it "has no errors" do
