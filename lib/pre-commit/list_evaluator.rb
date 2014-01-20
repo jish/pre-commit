@@ -27,9 +27,14 @@ DATA
     end
 
     def plugins
-      list = config.pluginator['checks'].map{|plugin| [class2string(class2name(plugin)), plugin.description] }.sort
-      separator = list.map{|name, description| name.length }.max
-      list.map{|name, description| sprintf("%#{separator}s : %s", name, description) }
+      list = config.pluginator['checks'].map{|plugin| [class2string(class2name(plugin)), plugin] }.sort
+      separator = list.map{|name, plugin| name.length }.max
+      list.map do |name, plugin|
+        line = sprintf("%#{separator}s : %s", name, plugin.description)
+        line +=  sprintf("\n%#{separator}s   - includes: %s", "", plugin.includes.join(" ")) if plugin.respond_to?(:includes)
+        line +=  sprintf("\n%#{separator}s   - excludes: %s", "", plugin.excludes.join(" ")) if plugin.respond_to?(:excludes)
+        line
+      end
     end
 
     def checks_config

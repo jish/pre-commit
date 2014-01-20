@@ -9,6 +9,10 @@ module PreCommit
         [ :rubocop_all, :rubocop_new ]
       end
 
+      def self.excludes
+        [ :ruby_symbol_hashrocket ]
+      end
+
       def call(staged_files)
         require 'rubocop'
       rescue LoadError => e

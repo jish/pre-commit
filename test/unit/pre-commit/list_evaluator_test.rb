@@ -31,4 +31,12 @@ Enabled   warnings :
 Evaluated warnings :
 EXPECTED
   end
+
+  it "plugins have includes and excludes" do
+    list = subject.plugins.map{|line| line.split(/\n/) }.flatten.map(&:strip)
+    list.must_include("- includes: tabs nb_space whitespace merge_conflict debugger")
+    list.must_include("- includes: ruby jshint console_log migration")
+    list.must_include("- includes: pry local")
+    list.must_include("- excludes: ruby_symbol_hashrocket")
+  end
 end
