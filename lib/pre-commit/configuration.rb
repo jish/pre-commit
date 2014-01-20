@@ -31,8 +31,8 @@ module PreCommit
     def enable(plugin_name, type, check1, *checks)
       checks.unshift(check1) # check1 is ArgumentError triger
       checks.map!(&:to_sym)
-      @providers.update_remove( plugin_name, "#{type}_remove", checks )
-      @providers.update_add(    plugin_name, "#{type}_add",    (checks or []) - (@providers.default(type) or []) )
+      @providers.update( plugin_name, "#{type}_remove", :-, checks )
+      @providers.update( plugin_name, "#{type}_add",    :+, (checks or []) - (@providers.default(type) or []) )
       true
     rescue PreCommit::PluginNotFound => e
       $stderr.puts e
@@ -42,8 +42,8 @@ module PreCommit
     def disable(plugin_name, type, check1, *checks)
       checks.unshift(check1) # check1 is ArgumentError triger
       checks.map!(&:to_sym)
-      @providers.update_remove( plugin_name, "#{type}_add",    checks )
-      @providers.update_add(    plugin_name, "#{type}_remove", checks )
+      @providers.update( plugin_name, "#{type}_add",    :-, checks )
+      @providers.update( plugin_name, "#{type}_remove", :+, checks )
       true
     rescue PreCommit::PluginNotFound => e
       warn e

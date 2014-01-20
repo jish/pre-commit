@@ -26,13 +26,14 @@ describe PreCommit::Configuration::Providers do
         PreCommit::Configuration::Providers::Yaml.new,
       ]
 
-      sh "git config pre-commit.test1 4"
+      sh "git config pre-commit.test1 [:a]"
       sh "git config pre-commit.test2 5"
       Dir.mkdir("config")
       File.open("config/pre_commit.yml", "w") do |file|
         file.write <<-DATA
 ---
-:test1: 6
+:test1:
+  - :c
 DATA
       end
     end
@@ -40,7 +41,7 @@ DATA
 
     it "reads configurations" do
       provider = subject.new(nil, @plugins)
-      provider[:test1].must_equal(6)
+      provider[:test1].must_equal([:c])
       provider[:test2].must_equal("5")
       provider[:test3].must_equal(3)
       provider[:test4].must_equal(nil)
@@ -48,18 +49,20 @@ DATA
 
     it "updates git configurations" do
       provider = subject.new(nil, @plugins)
-      provider.update('git', 'test1', "7")
-      sh("git config pre-commit.test1").strip.must_equal("7")
+      provider.update('git', 'test1', :+, [:b])
+      sh("git config pre-commit.test1").strip.must_equal("[:a, :b]")
     end
 
     it "updates yaml configurations" do
       provider = subject.new(nil, @plugins)
-      provider.update('yaml', 'test2', 8)
+      provider.update('yaml', 'test2', :+, [:d])
       File.open("config/pre_commit.yml", "r") do |file|
         file.read.must_equal(<<-EXPECTED)
 ---
-:test1: 6
-:test2: 8
+:test1:
+- :c
+:test2:
+- :d
 EXPECTED
       end
     end
@@ -67,14 +70,14 @@ EXPECTED
     it "update add configurations" do
       sh "git config pre-commit.test.array '[:one, :two]'"
       provider = subject.new(nil, @plugins)
-      provider.update_add('git', 'test.array', [:three])
+      provider.update('git', 'test.array', :+, [:three])
       sh("git config pre-commit.test.array").strip.must_equal("[:one, :two, :three]")
     end
 
     it "update remore configurations" do
       sh "git config pre-commit.test.array '[:one, :two]'"
       provider = subject.new(nil, @plugins)
-      provider.update_remove('git', 'test.array', [:one])
+      provider.update('git', 'test.array', :-, [:one])
       sh("git config pre-commit.test.array").strip.must_equal("[:two]")
     end
 
