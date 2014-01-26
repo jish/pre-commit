@@ -74,6 +74,15 @@ git add config/pre-commit.yml
 git commit -m "pre-commit: move jshint from checks to warnings"
 ```
 
+Example `config/pre_commit.yml`:
+```yaml
+---
+:warnings_remove: []
+:warnings_add:
+- :jshint
+- :tabs
+```
+
 ## Configuration providers
 
 `pre-commit` comes with 3 configuration providers:
