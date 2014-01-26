@@ -36,6 +36,8 @@ module PreCommit
         end
 
         def save_config(path, content)
+          parent = File.expand_path('..', path)
+          Dir.mkdir(parent) unless Dir.exist?(parent)
           File.open(path, "w") do |file|
             file.write(YAML.dump(content))
           end
