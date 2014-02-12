@@ -9,11 +9,11 @@ describe PreCommit::Checks::RubySymbolHashrockets do
   end
 
   it "succeeds with valid" do
-    check.call([test_filename('valid_hashrockets.rb')]).must_equal nil
+    check.call([fixture_file('valid_hashrockets.rb')]).must_equal nil
   end
 
   it "fails with invalid" do
-    result = check.call([test_filename('wrong_hashrockets.rb')]).must_equal(<<-EXPECTED)
+    result = check.call([fixture_file('wrong_hashrockets.rb')]).must_equal(<<-EXPECTED)
 detected :symbol => value hashrocket:
 test/files/wrong_hashrockets.rb:3:gem 'foo', :ref => 'v2.6.0'
 test/files/wrong_hashrockets.rb:5:{ :@test => \"foo_bar\" }

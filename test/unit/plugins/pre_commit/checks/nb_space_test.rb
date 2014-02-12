@@ -9,10 +9,10 @@ describe PreCommit::Checks::NbSpace do
   end
 
   it "succeeds if only good changes" do
-    check.call([test_filename("pre-commit.rb")]).must_equal nil
+    check.call([fixture_file("pre-commit.rb")]).must_equal nil
   end
 
   it "fails if script fails" do
-    check.call([test_filename("file_with_nb_space.rb")]).must_equal "Detected non-breaking space in test/files/file_with_nb_space.rb:2 character:13, remove it!"
+    check.call([fixture_file("file_with_nb_space.rb")]).must_equal "Detected non-breaking space in test/files/file_with_nb_space.rb:2 character:13, remove it!"
   end
 end

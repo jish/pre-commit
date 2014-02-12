@@ -9,11 +9,11 @@ describe PreCommit::Checks::Pry do
   end
 
   it "succeeds if only good changes" do
-    check.call([test_filename('valid_file.rb')]).must_equal nil
+    check.call([fixture_file('valid_file.rb')]).must_equal nil
   end
 
   it "fails if file contains pry" do
-    check.call([test_filename('pry_file.rb')]).must_equal(<<-EXPECTED)
+    check.call([fixture_file('pry_file.rb')]).must_equal(<<-EXPECTED)
 binding.pry found:
 test/files/pry_file.rb:3:    binding.pry
 EXPECTED

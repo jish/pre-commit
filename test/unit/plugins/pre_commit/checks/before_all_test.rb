@@ -10,25 +10,25 @@ describe PreCommit::Checks::BeforeAll do
 
   it "filters out rb files" do
     subject.files_filter([
-      test_filename('valid_file.rb'),test_filename('changelog.md'),test_filename('console_log.rb')
+      fixture_file('valid_file.rb'),fixture_file('changelog.md'),fixture_file('console_log.rb')
     ]).must_equal([
-      test_filename('valid_file.rb'),test_filename('console_log.rb')
+      fixture_file('valid_file.rb'),fixture_file('console_log.rb')
     ])
   end
 
   it "succeeds if only good changes" do
-    subject.call([test_filename('valid_spec.rb')]).must_equal nil
+    subject.call([fixture_file('valid_spec.rb')]).must_equal nil
   end
 
   it "fails if file contains before(:all)" do
-    subject.call([test_filename('before_all_spec.rb')]).must_equal(<<-EXPECTED)
+    subject.call([fixture_file('before_all_spec.rb')]).must_equal(<<-EXPECTED)
 before(:all) found:
 test/files/before_all_spec.rb:2:  before(:all) do
 EXPECTED
   end
 
   it "fails if file contains before :all" do
-    subject.call([test_filename('before_all_spec_2.rb')]).must_equal(<<-EXPECTED)
+    subject.call([fixture_file('before_all_spec_2.rb')]).must_equal(<<-EXPECTED)
 before(:all) found:
 test/files/before_all_spec_2.rb:2:  before :all do
 EXPECTED

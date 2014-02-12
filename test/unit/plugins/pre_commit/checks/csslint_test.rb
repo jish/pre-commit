@@ -10,15 +10,15 @@ describe PreCommit::Checks::Csslint do
   end
 
   it "succeeds if only good changes" do
-    check.run_check(test_filename('valid_file.css')).must_equal []
+    check.run_check(fixture_file('valid_file.css')).must_equal []
   end
 
   it "succeeds if only good changes" do
-    check.call([test_filename('valid_file.css')]).must_equal nil
+    check.call([fixture_file('valid_file.css')]).must_equal nil
   end
 
   it "fails if file contains errors" do
-    check.run_check(test_filename('bad_file.css')).must_equal [
+    check.run_check(fixture_file('bad_file.css')).must_equal [
       {
         "type"=>"error", "line"=>3, "col"=>8, "message"=>"Expected RBRACKET at line 3, col 8.", "evidence"=>"  color:#cfc2b5",
         "rule"=>{"id"=>"errors", "name"=>"Parsing Errors", "desc"=>"This rule looks for recoverable syntax errors.", "browsers"=>"All"}
@@ -38,7 +38,7 @@ describe PreCommit::Checks::Csslint do
   end
 
   it "fails if file contains errors" do
-    check.call([test_filename('bad_file.css')]).must_equal "Expected RBRACKET at line 3, col 8.\ntest/files/bad_file.css:4   color:#cfc2b5\nExpected RBRACKET at line 3, col 8.\ntest/files/bad_file.css:4   color:#cfc2b5"
+    check.call([fixture_file('bad_file.css')]).must_equal "Expected RBRACKET at line 3, col 8.\ntest/files/bad_file.css:4   color:#cfc2b5\nExpected RBRACKET at line 3, col 8.\ntest/files/bad_file.css:4   color:#cfc2b5"
   end
 
 end

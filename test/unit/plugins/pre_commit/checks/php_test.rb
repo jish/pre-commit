@@ -9,14 +9,14 @@ describe PreCommit::Checks::Php do
   end
 
   it "succeeds if non-php file changed" do
-    check.call([test_filename('bad-php.js')]).must_equal nil
+    check.call([fixture_file('bad-php.js')]).must_equal nil
   end
 
   it "succeeds if only good changes" do
-    check.call([test_filename("good.php")]).must_equal nil
+    check.call([fixture_file("good.php")]).must_equal nil
   end
 
   it "fails if script fails" do
-    check.call([test_filename("bad.php")]).must_match(/Parse error/i)
+    check.call([fixture_file("bad.php")]).must_match(/Parse error/i)
   end
 end

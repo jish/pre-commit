@@ -9,11 +9,11 @@ describe PreCommit::Checks::MergeConflict do
   end
 
   it "succeeds if only good changes" do
-    check.call([test_filename('valid_file.rb')]).must_equal nil
+    check.call([fixture_file('valid_file.rb')]).must_equal nil
   end
 
   it "fails if file contains merge conflict" do
-    check.call([test_filename('merge_conflict.rb')]).must_equal(<<-EXPECTED)
+    check.call([fixture_file('merge_conflict.rb')]).must_equal(<<-EXPECTED)
 detected a merge conflict
 test/files/merge_conflict.rb:3:<<<<<<< HEAD
 EXPECTED

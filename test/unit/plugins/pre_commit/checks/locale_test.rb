@@ -2,7 +2,7 @@ require 'minitest_helper'
 require 'plugins/pre_commit/checks/local'
 
 describe PreCommit::Checks::Local do
-  let(:config_file) { test_filename("pre-commit.rb") }
+  let(:config_file) { fixture_file("pre-commit.rb") }
   let(:check) { PreCommit::Checks::Local.new(nil, nil, []) }
 
   it "succeeds if there is no config" do

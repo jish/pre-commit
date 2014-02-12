@@ -10,26 +10,26 @@ describe PreCommit::Checks::Jshint do
   end
 
   it "succeeds if only good changes" do
-    check.run_check(test_filename('valid_file.js')).must_equal []
+    check.run_check(fixture_file('valid_file.js')).must_equal []
   end
 
   it "succeeds if only good changes" do
-    check.call([test_filename('valid_file.js')]).must_equal nil
+    check.call([fixture_file('valid_file.js')]).must_equal nil
   end
 
   it "fails if file contains debugger" do
-    check.run_check(test_filename('bad_file.js')).must_equal [{
+    check.run_check(fixture_file('bad_file.js')).must_equal [{
       "id"=>"(error)", "raw"=>"Missing semicolon.", "evidence"=>"}", "line"=>4, "character"=>2, "reason"=>"Missing semicolon."
     }]
   end
 
   it "fails if file contains debugger" do
-    check.call([test_filename('bad_file.js')]).must_equal "Missing semicolon.\ntest/files/bad_file.js:5 }"
+    check.call([fixture_file('bad_file.js')]).must_equal "Missing semicolon.\ntest/files/bad_file.js:5 }"
   end
 
   describe "filesystem" do
     before do
-      @example = File.join(Dir.pwd, test_filename('bad_file.js'))
+      @example = File.join(Dir.pwd, fixture_file('bad_file.js'))
       create_temp_dir
       start_git
     end

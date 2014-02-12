@@ -10,30 +10,30 @@ describe PreCommit::Checks::Debugger do
 
   it "filters out Gemfiles files" do
     subject.files_filter([
-      test_filename('valid_file.rb'),test_filename('Gemfiles'),test_filename('console_log.rb')
+      fixture_file('valid_file.rb'),fixture_file('Gemfiles'),fixture_file('console_log.rb')
     ]).must_equal([
-      test_filename('valid_file.rb'),test_filename('console_log.rb')
+      fixture_file('valid_file.rb'),fixture_file('console_log.rb')
     ])
   end
 
   it "succeeds if only good changes" do
-    subject.call([test_filename('valid_file.rb')]).must_equal nil
+    subject.call([fixture_file('valid_file.rb')]).must_equal nil
   end
 
   it "fails if file contains debugger" do
-    subject.call([test_filename('debugger_file.rb')]).must_equal(<<-EXPECTED)
+    subject.call([fixture_file('debugger_file.rb')]).must_equal(<<-EXPECTED)
 debugger statement(s) found:
 test/files/debugger_file.rb:3:    debugger
 EXPECTED
   end
 
   it "Skips checking the Gemfile" do
-    files = [test_filename("with_debugger/Gemfile")]
+    files = [fixture_file("with_debugger/Gemfile")]
     subject.call(files).must_equal nil
   end
 
   it "Skips checking the Gemfile.lock" do
-    files = [test_filename("with_debugger/Gemfile.lock")]
+    files = [fixture_file("with_debugger/Gemfile.lock")]
     subject.call(files).must_equal nil
   end
 end

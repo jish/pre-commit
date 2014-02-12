@@ -24,10 +24,9 @@ require 'pluginator'
 
 Minitest::Reporters.use!
 
-class MiniTest::Test
-  protected
+module PreCommit; module Helpers
 
-  def test_filename(filename)
+  def fixture_file(filename)
     file_dir = File.expand_path('../files', __FILE__).sub("#{project_dir}/", "")
     File.join(file_dir, filename)
   end
@@ -65,4 +64,12 @@ class MiniTest::Test
     result
   end
 
+end; end
+
+class MiniTest::Test
+  include PreCommit::Helpers
+end
+
+class MiniTest::Unit::TestCase
+  include PreCommit::Helpers
 end
