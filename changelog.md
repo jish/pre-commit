@@ -1,3 +1,10 @@
+## 0.13.0
+
+* Hashrockets check only runs on Ruby files
+* Fix "uninitialized constant" bug when running Rubocop
+* Add [CSSLint](http://csslint.net/) support
+* New configuration strategies -- backwards compatible with old configuration
+
 ## 0.12.0
 
 * Add a `before_all` check for RSpec `before(:all)` blocks.
