@@ -1,3 +1,5 @@
+* Add a `Go` check
+
 ## 0.13.0
 
 * Hashrockets check only runs on Ruby files
