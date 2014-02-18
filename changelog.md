@@ -1,4 +1,7 @@
+## 0.14.0
+
 * Add a `Go` check
+* Fix for bug: "Could not find template default"
 
 ## 0.13.0
 
