@@ -1,3 +1,7 @@
+## 0.14.1
+
+* use `get` to read rubocop.config, fix #124
+
 ## 0.14.0
 
 * Add a `Go` check
