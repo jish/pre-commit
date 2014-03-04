@@ -20,7 +20,7 @@ module PreCommit
       else
         staged_files = staged_files.grep(/\.rb$/)
         return if staged_files.empty?
-        config_file = config.get_combined('rubocop.config')
+        config_file = config.get('rubocop.config')
 
         args = staged_files
         if !config_file.empty?
