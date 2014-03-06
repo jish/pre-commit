@@ -21,7 +21,9 @@ Gem::Specification.new do |s|
 
   # X.509 signature
   s.cert_chain = ["certs/jish.pem"]
-  s.signing_key = File.expand_path("~/.gem/gem-private_key.pem")
+  if $PROGRAM_NAME =~ /gem\z/
+    s.signing_key = File.expand_path("~/.gem/gem-private_key.pem")
+  end
 
   s.add_dependency('pluginator', '~> 1.0')
   s.add_development_dependency('rake', '~> 10.0')
