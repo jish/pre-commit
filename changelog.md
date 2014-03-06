@@ -1,3 +1,6 @@
+
+* Add the ability to sign the gem with an X.509 certificate
+
 ## 0.14.1
 
 * use `get` to read rubocop.config, fix #124
