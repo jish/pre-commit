@@ -3,7 +3,13 @@ require 'plugins/pre_commit/checks/jshint'
 require 'execjs'
 
 describe PreCommit::Checks::Jshint do
-  let(:check){ PreCommit::Checks::Jshint.new(nil, nil, []) }
+  let(:config) do
+    mock = MiniTest::Mock.new
+    mock.expect(:get, '', ['jshint.config'])
+    mock
+  end
+
+  let(:check){ PreCommit::Checks::Jshint.new(nil, config, []) }
 
   it "succeeds if nothing changed" do
     check.call([]).must_equal nil

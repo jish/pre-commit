@@ -20,21 +20,8 @@ module PreCommit
       else
         staged_files = staged_files.grep(/\.rb$/)
         return if staged_files.empty?
-        config_file = config.get('rubocop.config')
 
-        args = staged_files
-        if !config_file.empty?
-          if !File.exist? config_file
-            $stderr.puts "Warning: rubocop config file '" + config_file + "' does not exist"
-            $stderr.puts "Set the path to the config file using:"
-            $stderr.puts "\tgit config pre-commit.rubocop.config 'path/relative/to/git/dir/rubocop.yml'"
-            $stderr.puts "Or in 'config/pre-commit.yml':"
-            $stderr.puts "\trubocop.config: path/relative/to/git/dir/rubocop.yml"
-            $stderr.puts "rubocop will use its default configuration or look for a .rubocop.yml file\n\n"
-          else
-            args = ['-c', config_file] + args
-          end
-        end
+        args = config_file_flag + staged_files
 
         success, captured = capture { ::Rubocop::CLI.new.run(args) == 0 }
         captured unless success
@@ -48,6 +35,14 @@ module PreCommit
       ensure
         $stdout = stdout
         $stderr = stderr
+      end
+
+      def config_file_flag
+        config_file ? ['-c', config_file] : []
+      end
+
+      def alternate_config_file
+        '.rubocop.yml'
       end
 
       def self.description

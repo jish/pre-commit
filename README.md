@@ -86,10 +86,11 @@ Example `config/pre_commit.yml`:
 
 ## Configuration providers
 
-`pre-commit` comes with 3 configuration providers:
+`pre-commit` comes with 4 configuration providers:
 
 - `default` - basic settings, read only
 - `git` - reads configuration from `git config pre-commit.*`, allow local update
 - `yaml` - reads configuration from `/etc/pre-commit.yml`, `$HOME/.pre-commit.yml` and `config/pre-commit.yml`, allows `config/pre-commit.yml` updates
+- `env` - reads configuration from environment variables
 
 ## [Contributing](CONTRIBUTING.md)
