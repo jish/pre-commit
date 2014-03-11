@@ -19,12 +19,6 @@ Gem::Specification.new do |s|
   s.summary = "A slightly better git pre-commit hook"
   s.description = "A git pre-commit hook written in ruby with a few more tricks up its sleeve"
 
-  # X.509 signature
-  s.cert_chain = ["certs/jish.pem"]
-  if $PROGRAM_NAME =~ /gem\z/
-    s.signing_key = File.expand_path("~/.gem/gem-private_key.pem")
-  end
-
   s.add_dependency('pluginator', '~> 1.0')
   s.add_development_dependency('rake', '~> 10.0')
   s.add_development_dependency('guard', '~> 2.0')
