@@ -45,7 +45,7 @@ describe PreCommit::Cli do
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) git_old(11) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
 Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
 Default   checks   : common rails
 Enabled   checks   : common rails
@@ -76,7 +76,7 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) git_old(11) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
 Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
 Default   checks   : common rails
 Enabled   checks   : common rails
@@ -98,7 +98,7 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) git_old(11) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
 Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
 Default   checks   : common rails
 Enabled   checks   : common rails
@@ -120,7 +120,7 @@ EXPECTED
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
-Available providers: default(0) git(10) git_old(11) yaml(20)
+Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
 Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
 Default   checks   : common rails
 Enabled   checks   : common rails

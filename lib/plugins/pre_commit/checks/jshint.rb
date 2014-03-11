@@ -4,8 +4,8 @@ module PreCommit
   module Checks
     class Jshint < Js
 
-      def config
-        if config_file = [ENV['JSHINT_CONFIG'], ".jshintrc"].compact.detect { |f| File.exist?(f) }
+      def js_config
+        if config_file
           ExecJS.exec("return (#{File.read(config_file)});")
         else
           {}
@@ -14,11 +14,15 @@ module PreCommit
 
       def run_check(file)
         context = ExecJS.compile(File.read(linter_src))
-        context.call("JSHINT", File.read(file), config, config["globals"])
+        context.call("JSHINT", File.read(file), js_config, js_config["globals"])
       end
 
       def linter_src
         File.expand_path("../../../../pre-commit/support/jshint/jshint.js", __FILE__)
+      end
+
+      def alternate_config_file
+        ".jshintrc"
       end
 
       def self.description
