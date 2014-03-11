@@ -1,5 +1,6 @@
+## 0.15.0
 
-* Add the ability to sign the gem with an X.509 certificate
+* Add a standard way for checks to find a config file. `check_name.config`
 
 ## 0.14.1
 
