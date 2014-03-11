@@ -20,6 +20,31 @@ Use the pre-commit command to generate a stub pre-commit hook
 
 This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled.
 
+### Verifying the signature
+
+If you wish to verify the installation of the gem you'll need to import the public key, and then install using:
+
+    $ gem install -P MediumSecurity pre-commit
+
+If you get an error, continue reading.
+
+### Installation errors, Importing the public key
+
+If you do not have a copy of my public key (which you probably do not), then you will likely see an error message that looks like this:
+
+    $ gem install -P MediumSecurity pre-commit
+    ERROR:  While executing gem ... (Gem::Security::Exception)
+        missing signing certificate
+
+First you'll need to import my public key:
+
+    $ curl "https://gist.githubusercontent.com/jish/9380136/raw/4d49b8c44370db533c0916be1682532503b673c6/gem-public_cert.pem" > jish.pem
+    $ gem cert --add jish.pem
+
+Then installation should succeed:
+
+    $ gem install -P MediumSecurity pre-commit
+
 ## Available checks
 
 These are the available checks:
