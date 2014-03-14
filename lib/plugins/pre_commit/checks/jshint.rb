@@ -13,12 +13,8 @@ module PreCommit
       end
 
       def run_check(file)
-        context = ExecJS.compile(File.read(linter_src))
+        context = ExecJS.compile(File.read(support_path('jshint.js')))
         context.call("JSHINT", File.read(file), js_config, js_config["globals"])
-      end
-
-      def linter_src
-        File.expand_path("../../../../pre-commit/support/jshint/jshint.js", __FILE__)
       end
 
       def alternate_config_file

@@ -1,0 +1,41 @@
+$blue: #3bbfce;
+$margin: 16px;
+
+.content_navigation {
+  color: $blue;
+}
+
+.border {
+  border: 2px $blue solid;
+  margin: $margin / 2;
+  padding: $margin / 2;
+}
+
+table.hl {
+  margin: 2em 0;
+
+  td.ln {
+    padding-left: .2em;
+    text-align: right;
+  }
+}
+
+@mixin table-scaffolding {
+  th {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  td,
+    th { padding: 2px; }
+}
+
+@mixin left($dist) {
+  float: left;
+  margin-left: $dist;
+}
+
+#data {
+  @include left(10px);
+  @include table-scaffolding;
+}

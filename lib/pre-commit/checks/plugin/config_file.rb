@@ -2,10 +2,11 @@ module PreCommit
   module Checks
     class Plugin
       class ConfigFile
-        def initialize(name, config, alternate_location)
+        def initialize(name, config, alternate_location, config_key = 'config')
           @name = name
           @config = config
           @alternate_location = alternate_location
+          @config_key = config_key
         end
 
         def location
@@ -15,7 +16,7 @@ module PreCommit
         end
 
       private
-        attr_reader :name, :config, :alternate_location
+        attr_reader :name, :config, :alternate_location, :config_key
 
         def location_from_config
           location_from(config_location, true)
@@ -26,7 +27,7 @@ module PreCommit
         end
 
         def location_from(location, show_usage = false)
-          if location && !location.empty?
+          if location_present?(location)
             if File.exist?(location)
               location
             else
@@ -36,16 +37,20 @@ module PreCommit
           end
         end
 
+        def location_present?(location)
+          location && !location.empty?
+        end
+
         def config_location
           @config_location ||= config.get(property_name)
         end
 
         def property_name
-          "#{name}.config"
+          "#{name}.#{config_key}"
         end
 
         def environment_variable_name
-          "#{name.upcase}_CONFIG"
+          "#{name.upcase}_#{config_key.upcase}"
         end
 
         def yaml_property_name
@@ -53,6 +58,8 @@ module PreCommit
         end
 
         def usage
+          alternate_location_message = "look for #{alternate_location} or " if location_present?(alternate_location)
+
           $stderr.puts "Warning: #{name} config file '#{config_location}' does not exist"
           $stderr.puts "Set the path to the config file using:"
           $stderr.puts "\tgit config pre-commit.#{property_name} 'path/relative/to/git/dir/#{name}.config'"
@@ -60,7 +67,7 @@ module PreCommit
           $stderr.puts "\t#{yaml_property_name}: path/relative/to/git/dir/#{name}.config"
           $stderr.puts "Or set the environment variable:"
           $stderr.puts "\texport #{environment_variable_name}='path/relative/to/git/dir/#{name}.config'"
-          $stderr.puts "#{name} will look for a configuration file in the project root or use its default behavior.\n\n"
+          $stderr.puts "#{name} will #{alternate_location_message}use its default behavior.\n\n"
         end
       end
     end

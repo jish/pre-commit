@@ -37,7 +37,7 @@ Or in 'config/pre-commit.yml':
 \tmy.plugin.config: path/relative/to/git/dir/my_plugin.config
 Or set the environment variable:
 \texport MY_PLUGIN_CONFIG='path/relative/to/git/dir/my_plugin.config'
-my_plugin will look for a configuration file in the project root or use its default behavior.
+my_plugin will look for #{temp_config_file.path} or use its default behavior.
 
 USAGE
         config.verify
