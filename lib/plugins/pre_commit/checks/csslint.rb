@@ -7,12 +7,8 @@ module PreCommit
       SOURCE = "https://github.com/stubbornella/csslint/blob/v0.10.0/release/csslint.js"
 
       def run_check(file)
-        context = ExecJS.compile(File.read(linter_src))
+        context = ExecJS.compile(File.read(support_path('csslint.js')))
         context.call("CSSLint.verify", File.read(file))["messages"]
-      end
-
-      def linter_src
-        File.expand_path("../../../../pre-commit/support/csslint/csslint.js", __FILE__)
       end
 
       def error_selector

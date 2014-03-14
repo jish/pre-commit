@@ -1,0 +1,2 @@
+dbal:
+  driver: %database_driver%
