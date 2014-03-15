@@ -43,6 +43,7 @@ These are the available checks:
 * before_all (Check your RSpec tests for the use of `before(:all)`)
 * coffeelint (Check your coffeescript files using the [coffeelint gem.](https://github.com/clutchski/coffeelint))
 * go (Runs go fmt on a go source file and fail if formatting is incorrect, then runs go build and fails if can't compile)
+* scss_lint (Check your SCSS files using the [scss-lint gem](https://github.com/causes/scss-lint))
 * yaml (Check that your YAML is parsable)
 * json (Checks if JSON is parsable)
 

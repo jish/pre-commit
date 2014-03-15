@@ -2,27 +2,27 @@ require 'pre-commit/checks/shell'
 
 module PreCommit
   module Checks
-    class Coffeelint < Shell
+    class ScssLint < Shell
 
       def call(staged_files)
-        staged_files = staged_files.grep(/\.coffee$/)
+        staged_files = staged_files.grep(/\.scss$/)
         return if staged_files.empty?
 
         args = (config_file_flag + staged_files).join(' ')
 
-        execute("coffeelint #{args}")
+        execute("scss-lint #{args}")
       end
 
       def config_file_flag
-        config_file ? ['-f', config_file] : []
+        config_file ? ['-c', config_file] : []
       end
 
       def alternate_config_file
-        'coffeelint.json'
+        '.scss-lint.yml'
       end
 
       def self.description
-        "Runs coffeelint to detect errors"
+        "Runs scss lint to detect errors"
       end
 
     end

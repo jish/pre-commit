@@ -1,4 +1,5 @@
 require 'pre-commit/checks/plugin'
+require 'open3'
 
 module PreCommit
   module Checks
