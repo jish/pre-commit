@@ -18,7 +18,7 @@ module PreCommit
       end
 
       def linter_src
-        File.expand_path("../../../../pre-commit/support/jslint/lint.js", __FILE__)
+        support_path("lint.js")
       end
 
       def self.description

@@ -20,6 +20,11 @@ module PreCommit
 
     private
 
+      #TODO: add pluginator assets support
+      def support_path(file)
+        File.expand_path("../../support/#{name}/#{file}", __FILE__)
+      end
+
       def config_file
         @config_file ||= ConfigFile.new(name, config, alternate_config_file)
         @config_file.location
