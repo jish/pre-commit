@@ -43,6 +43,7 @@ These are the available checks:
 * before_all (Check your RSpec tests for the use of `before(:all)`)
 * coffeelint (Check your coffeescript files using the [coffeelint gem.](https://github.com/clutchski/coffeelint))
 * go (Runs go fmt on a go source file and fail if formatting is incorrect, then runs go build and fails if can't compile)
+* checkstyle (Check your Java files using [checkstyle](http://checkstyle.sourceforge.net/))
 
 ## Default checks
 

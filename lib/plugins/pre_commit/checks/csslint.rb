@@ -12,7 +12,7 @@ module PreCommit
       end
 
       def linter_src
-        File.expand_path("../../../../pre-commit/support/csslint/csslint.js", __FILE__)
+        support_path('csslint.js')
       end
 
       def error_selector

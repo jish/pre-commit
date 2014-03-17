@@ -22,7 +22,7 @@ describe PreCommit::ListEvaluator do
   it :list do
     subject.list.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0)
-Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
+Available checks   : before_all checkstyle ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets tabs whitespace
 Default   checks   :
 Enabled   checks   :
 Evaluated checks   :
