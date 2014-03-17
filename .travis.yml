@@ -2,6 +2,7 @@ bundler_args: ""
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y nodejs php5
+  - npm install -g coffeelint
   - rvm default do gem install execjs
   - git config --global user.name "Pre Commit"
   - git config --global user.email "pre-commit+travis@example.com"

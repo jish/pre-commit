@@ -1,9 +1,9 @@
 require 'open3'
-require 'pre-commit/checks/plugin'
+require 'pre-commit/checks/shell'
 
 module PreCommit
   module Checks
-    class Coffeelint < Plugin
+    class Coffeelint < Shell
 
       def call(staged_files)
         staged_files = staged_files.grep(/\.coffee$/)
@@ -11,8 +11,7 @@ module PreCommit
 
         args = (config_file_flag + staged_files).join(' ')
 
-        stdout, stderr, result = Open3.capture3("coffeelint #{args}")
-        stdout + stderr unless result.success?
+        execute("coffeelint #{args}")
       end
 
       def config_file_flag
