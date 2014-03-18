@@ -1,3 +1,6 @@
+
+* Add a JSON check -- checks if JSON is parsable.
+
 ## 0.15.0
 
 * Add a standard way for checks to find a config file. `check_name.config`
