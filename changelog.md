@@ -1,5 +1,5 @@
-
 * Add a JSON check -- checks if JSON is parsable.
+* Add a YAML check -- checks if YAML is parsable.
 
 ## 0.15.0
 
