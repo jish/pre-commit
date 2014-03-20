@@ -18,6 +18,14 @@ Gem::Specification.new do |s|
   s.license = 'Apache 2.0'
   s.summary = "A slightly better git pre-commit hook"
   s.description = "A git pre-commit hook written in ruby with a few more tricks up its sleeve"
+  s.post_install_message == <<-EOF
+    Thank you for installing pre-commit!
+    Install the hook in each git repo you want to scan using:
+
+    > pre-commit install
+
+    Read more: https://github.com/jish/pre-commit#readme
+  EOF
 
   s.add_dependency('pluginator', '~> 1.0')
   s.add_development_dependency('rake', '~> 10.0')
