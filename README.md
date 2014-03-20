@@ -63,7 +63,7 @@ To disable, simply leave one off the list
 ### CLI configuration
 
 ```ssh
-pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 ```
 
 The `git` provider can be used for local machine configuration, the `yaml` can be used for shared
@@ -71,7 +71,7 @@ project configuration.
 
 Example move `jshint` from `checks` to `warnings` in `yaml` provider and save configuration to git:
 ```bash
-pre-commit disbale yaml checks   jshint
+pre-commit disable yaml checks   jshint
 pre-commit enable  yaml warnings jshint
 git add config/pre-commit.yml
 git commit -m "pre-commit: move jshint from checks to warnings"
