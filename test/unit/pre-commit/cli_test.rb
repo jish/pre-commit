@@ -149,7 +149,7 @@ Unknown parameters: enable
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
-Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
     status.must_equal(false)
@@ -163,7 +163,7 @@ Unknown parameters: enable git
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
-Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
     status.must_equal(false)
@@ -177,7 +177,7 @@ Unknown parameters: enable git checks
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
-Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
     status.must_equal(false)
@@ -191,7 +191,7 @@ Unknown parameters: disable
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
-Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]
+Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
     status.must_equal(false)

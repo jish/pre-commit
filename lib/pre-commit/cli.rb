@@ -27,7 +27,7 @@ module PreCommit
       warn "Usage: pre-commit install"
       warn "Usage: pre-commit list"
       warn "Usage: pre-commit plugins"
-      warn "Usage: pre-commit <enable|disbale> <git|yaml> <checks|warnings> check1 [check2...]"
+      warn "Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]"
       args.empty? # return status, it's ok if user requested help
     end
 
