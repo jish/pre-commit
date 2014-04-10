@@ -1,3 +1,5 @@
+## 0.16.0
+
 * Add a JSON check -- checks if JSON is parsable.
 * Add a YAML check -- checks if YAML is parsable.
 * Add an SCSS-Lint check -- scss-lint is a tool to help keep your SCSS files clean and readable.
