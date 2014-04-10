@@ -5,7 +5,7 @@ module PreCommit
     class ConsoleLog < Grep
 
       def files_filter(staged_files)
-        staged_files.grep(/\.js$/)
+        staged_files.grep(/\.(js|coffee)$/)
       end
 
       def extra_grep
