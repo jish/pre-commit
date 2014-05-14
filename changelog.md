@@ -1,3 +1,7 @@
+## 0.16.1
+
+* Adds --force-exclusion option to rubocop CLI
+
 ## 0.16.0
 
 * Add a JSON check -- checks if JSON is parsable.
