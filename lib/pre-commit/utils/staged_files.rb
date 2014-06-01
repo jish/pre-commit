@@ -5,7 +5,12 @@ module PreCommit
       def staged_files
         @staged_files ||= begin
           files = `git diff --cached --name-only --diff-filter=ACM`.split
-          files.reject { |f| size = File.size(f); size > 1_000_000 || (size > 20 && binary?(f)) }
+          files.reject do |f|
+            size = File.size(f);
+            File.directory?(f) ||
+              size > 1_000_000 ||
+              (size > 20 && binary?(f))
+          end
         end
       end
 
