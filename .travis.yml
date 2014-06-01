@@ -8,9 +8,9 @@ before_install:
   - git config --global user.email "pre-commit+travis@example.com"
 language: ruby
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - jruby-19mode
+  - ruby-1.9.3
+  - ruby-2.0.0
+  - ruby-2.1
+  - jruby
 matrix:
   fast_finish: true
