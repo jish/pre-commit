@@ -1,3 +1,7 @@
+## 0.16.3
+
+* Account for the `RuboCop` top level namespace case sensitivity change.
+
 ## 0.16.2
 
 * Fix an error that occurred when adding a git submodule
