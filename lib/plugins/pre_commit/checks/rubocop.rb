@@ -23,7 +23,7 @@ module PreCommit
 
         args = config_file_flag + ["--force-exclusion"] + staged_files
 
-        success, captured = capture { ::Rubocop::CLI.new.run(args) == 0 }
+        success, captured = capture { ::RuboCop::CLI.new.run(args) == 0 }
         captured unless success
       end
 
