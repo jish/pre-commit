@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     Read more: https://github.com/jish/pre-commit#readme
   EOF
 
-  s.add_dependency('pluginator', '~> 1.0')
+  s.add_dependency('pluginator', '~> 1.1')
   s.add_development_dependency('rake', '~> 10.0')
   s.add_development_dependency('guard', '~> 2.0')
   s.add_development_dependency('guard-minitest', '~> 2.0')
