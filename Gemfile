@@ -5,7 +5,6 @@ gemspec
 group :development do
   # checks that do not have to be enabled
   gem "execjs"
-  gem "rubocop"
   gem "scss-lint"
 
   # statistics only on MRI 2.0 - avoid problems on older rubies
