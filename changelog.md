@@ -1,4 +1,5 @@
 * Fix a bug where `pre-commit list` would bomb when you had older versions of `pre-commit` installed
+* Smarter debugger check allows you to leave `debugger` in comments, quotes, or other intended uses
 
 ## 0.16.3
 
