@@ -54,4 +54,12 @@ local path found in Gemfile:
 Gemfile:1:      gem "foo", path: "xxxx"
 EXPECTED
   end
+
+  it "allows a Gemfile path that is commented out" do
+    write "Gemfile", <<-RUBY
+      # gem 'my-internal-app-gem', '~> 0.0.1', :path => './lib/my-internal-app-gem'
+    RUBY
+    check.call(["Gemfile"]).must_equal nil, "There should be no errors"
+  end
+
 end
