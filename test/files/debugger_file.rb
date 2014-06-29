@@ -1,5 +1,5 @@
 class DebuggerFile
   def blam
-    debugger
+  	debugger
   end
 end

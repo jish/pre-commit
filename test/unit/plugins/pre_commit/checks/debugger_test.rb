@@ -23,7 +23,7 @@ describe PreCommit::Checks::Debugger do
   it "fails if file contains debugger" do
     subject.call([fixture_file('debugger_file.rb')]).must_equal(<<-EXPECTED)
 debugger statement(s) found:
-test/files/debugger_file.rb:3:    debugger
+test/files/debugger_file.rb:3:  	debugger
 EXPECTED
   end
 

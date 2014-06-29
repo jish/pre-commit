@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pre-commit}
-  s.version = "0.16.2"
+  s.version = "0.16.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Shajith Chacko, Josh Lubaway"]
@@ -28,11 +28,13 @@ Gem::Specification.new do |s|
   EOF
 
   s.add_dependency('pluginator', '~> 1.1')
-  s.add_development_dependency('rake', '~> 10.0')
+
   s.add_development_dependency('guard', '~> 2.0')
   s.add_development_dependency('guard-minitest', '~> 2.0')
   s.add_development_dependency('minitest', '~> 4.0')
   s.add_development_dependency('minitest-reporters', '~> 0')
+  s.add_development_dependency('rake', '~> 10.0')
+  s.add_development_dependency('rubocop', '~> 0.23')
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
