@@ -89,6 +89,8 @@ Example `config/pre_commit.yml`:
 
 ## Running test manually
 
+This functionality was added in version `0.17.0`
+
 ```bash
 pre-commit run              # run on the files added to index not yet commited
 pre-commit run all          # run on all files in current directory
