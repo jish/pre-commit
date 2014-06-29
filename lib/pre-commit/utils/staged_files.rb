@@ -33,7 +33,7 @@ module PreCommit
         files.reject do |f|
           File.directory?(f) ||
           {
-            size = File.size(f);
+            size = File.size(f)
             size > 1_000_000 || (size > 20 && binary?(f))
           }
         end
