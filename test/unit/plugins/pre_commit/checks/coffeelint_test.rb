@@ -27,4 +27,4 @@ describe PreCommit::Checks::Coffeelint do
 
 ERROR
   end
-end
+end unless `which coffeelint 2>/dev/null`.empty?

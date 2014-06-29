@@ -19,4 +19,4 @@ describe PreCommit::Checks::Go do
   it "fails for compiler errors" do
     check.call([fixture_file("dont_compile.go")]).must_match(/imported and not used/)
   end
-end
+end unless `which go 2>/dev/null`.empty?
