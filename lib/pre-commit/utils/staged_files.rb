@@ -32,10 +32,10 @@ module PreCommit
       def filter_files(files)
         files.reject do |f|
           File.directory?(f) ||
-          {
+          (
             size = File.size(f)
             size > 1_000_000 || (size > 20 && binary?(f))
-          }
+          )
         end
       end
 
