@@ -31,6 +31,11 @@ module PreCommit
       args.empty? # return status, it's ok if user requested help
     end
 
+    def execute_run(*args)
+      require 'pre-commit/runner'
+      PreCommit::Runner.new.run(*args)
+    end
+
     def execute_install(key = nil, *args)
       PreCommit::Installer.new(key).install
     end

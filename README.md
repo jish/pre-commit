@@ -87,6 +87,14 @@ Example `config/pre_commit.yml`:
 - :tabs
 ```
 
+## Running test manually
+
+```bash
+pre-commit run              # run on the files added to index not yet commited
+pre-commit run all          # run on all files in current directory
+pre-commit run <file-list>  # run on the list of files, patterns not supported
+```
+
 ## Configuration providers
 
 `pre-commit` comes with 4 configuration providers:

@@ -16,7 +16,8 @@ module PreCommit
       @staged_files = staged_files
     end
 
-    def run
+    def run(*args)
+      set_staged_files(*args)
       run_single(:warnings)
       run_single(:checks  ) or return false
       true
