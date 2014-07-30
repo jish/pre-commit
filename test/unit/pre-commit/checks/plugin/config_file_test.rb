@@ -33,7 +33,7 @@ describe PreCommit::Checks::Plugin::ConfigFile do
 Warning: my_plugin config file 'missing.config' does not exist
 Set the path to the config file using:
 \tgit config pre-commit.my_plugin.config 'path/relative/to/git/dir/my_plugin.config'
-Or in 'config/pre-commit.yml':
+Or in 'config/pre_commit.yml':
 \tmy.plugin.config: path/relative/to/git/dir/my_plugin.config
 Or set the environment variable:
 \texport MY_PLUGIN_CONFIG='path/relative/to/git/dir/my_plugin.config'
