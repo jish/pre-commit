@@ -6,7 +6,7 @@ module PreCommit
         case args[0].to_s
         when "all" then staged_files_all
         when "" then staged_files
-        else staged_files=args
+        else self.staged_files=args
         end
       end
 

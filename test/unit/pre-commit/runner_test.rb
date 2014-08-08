@@ -29,7 +29,31 @@ class FakeAll
   end
 end
 
+class EmptyListEvaluator
+  def warnings_evaluated(*); []; end
+  def checks_evaluated(*); []; end
+end
+
 describe PreCommit::Runner do
+
+  describe "file selection" do
+
+    let :list_evaluator do
+      EmptyListEvaluator.new
+    end
+
+    subject do
+      PreCommit::Runner.new(StringIO.new).tap do |runner|
+        runner.instance_variable_set(:@list_evaluator, list_evaluator)
+      end
+    end
+
+    it "uses files passed to #run" do
+      subject.run("some_file", "another_file")
+      subject.staged_files.must_equal(["some_file", "another_file"])
+    end
+
+  end
 
   describe "stubbed - failing" do
     before do
