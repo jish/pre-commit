@@ -46,7 +46,7 @@ describe PreCommit::Cli do
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
-Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go go_build go_fmt jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
 Default   checks   : common rails
 Enabled   checks   : common rails
 Evaluated checks   : tabs nb_space whitespace merge_conflict debugger pry local jshint console_log migration
@@ -77,7 +77,7 @@ EXPECTED
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
-Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go go_build go_fmt jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
 Default   checks   : common rails
 Enabled   checks   : common rails
 Evaluated checks   : tabs nb_space merge_conflict debugger pry local jshint console_log migration
@@ -99,7 +99,7 @@ EXPECTED
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
-Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go go_build go_fmt jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
 Default   checks   : common rails
 Enabled   checks   : common rails
 Evaluated checks   : tabs nb_space merge_conflict debugger pry local jshint console_log migration
@@ -121,7 +121,7 @@ EXPECTED
     $stderr.string.must_equal('')
     $stdout.string.gsub(/\s+\n/,"\n").must_equal(<<-EXPECTED)
 Available providers: default(0) git(10) git_old(11) yaml(20) env(30)
-Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
+Available checks   : before_all ci closure coffeelint common console_log csslint debugger gemfile_path go go_build go_fmt jshint jslint json local merge_conflict migration nb_space php pry rails rspec_focus rubocop ruby ruby_symbol_hashrockets scss_lint tabs whitespace yaml
 Default   checks   : common rails
 Enabled   checks   : common rails
 Evaluated checks   : tabs nb_space whitespace merge_conflict debugger pry local jshint console_log migration
