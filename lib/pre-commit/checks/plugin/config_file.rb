@@ -56,7 +56,7 @@ module PreCommit
           $stderr.puts "Warning: #{name} config file '#{config_location}' does not exist"
           $stderr.puts "Set the path to the config file using:"
           $stderr.puts "\tgit config pre-commit.#{property_name} 'path/relative/to/git/dir/#{name}.config'"
-          $stderr.puts "Or in 'config/pre-commit.yml':"
+          $stderr.puts "Or in 'config/pre_commit.yml':"
           $stderr.puts "\t#{yaml_property_name}: path/relative/to/git/dir/#{name}.config"
           $stderr.puts "Or set the environment variable:"
           $stderr.puts "\texport #{environment_variable_name}='path/relative/to/git/dir/#{name}.config'"
