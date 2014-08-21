@@ -46,6 +46,7 @@ These are the available checks:
 * scss_lint (Check your SCSS files using the [scss-lint gem](https://github.com/causes/scss-lint))
 * yaml (Check that your YAML is parsable)
 * json (Checks if JSON is parsable)
+* reek (Checks ruby code for code smells using the [reek gem.](https://github.com/troessner/reek))
 
 ## Default checks
 
