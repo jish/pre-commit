@@ -1,4 +1,6 @@
 require 'pluginator'
+require 'benchmark'
+
 require 'pre-commit/utils/staged_files'
 require 'pre-commit/configuration'
 require 'pre-commit/list_evaluator'
@@ -7,13 +9,14 @@ module PreCommit
   class Runner
     include PreCommit::Utils::StagedFiles
 
-    attr_reader :pluginator, :config
+    attr_reader :pluginator, :config, :debug
 
     def initialize(stderr = nil, staged_files = nil, config = nil, pluginator = nil)
       @stderr       = (stderr       or $stderr)
       @pluginator   = (pluginator   or PreCommit.pluginator)
       @config       = (config       or PreCommit::Configuration.new(@pluginator))
       @staged_files = staged_files
+      @debug = ENV["PRE_COMMIT_DEBUG"]
     end
 
     def run
@@ -35,7 +38,16 @@ module PreCommit
     end
 
     def execute(list)
-      list.map{|cmd| cmd.new(pluginator, config, list).call(staged_files.dup) }.compact
+      list.map do |cmd|
+        result = nil
+        seconds = Benchmark.realtime do
+          cmd.new(pluginator, config, list).call(staged_files.dup)
+        end
+
+        puts "#{cmd} #{seconds*1000}ms" if debug
+
+        result
+      end.compact
     end
 
     def list_to_run(name)
