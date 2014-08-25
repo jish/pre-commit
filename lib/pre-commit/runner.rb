@@ -41,8 +41,9 @@ module PreCommit
     def execute(list)
       list.map do |cmd|
         result = nil
+
         seconds = Benchmark.realtime do
-          cmd.new(pluginator, config, list).call(staged_files.dup)
+          result = cmd.new(pluginator, config, list).call(staged_files.dup)
         end
 
         puts "#{cmd} #{seconds*1000}ms" if debug
