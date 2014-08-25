@@ -28,4 +28,10 @@ describe PreCommit::Utils::StagedFiles do
     subject.staged_files.must_equal([])
   end
 
+  it "sets staged files" do
+    subject.staged_files.must_equal([])
+    subject.set_staged_files("some_file", "another_file")
+    subject.staged_files.must_equal(["some_file", "another_file"])
+  end
+
 end
