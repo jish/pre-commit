@@ -1,6 +1,7 @@
-## master
+## 0.18.0
 
 * Improve version number discovery in schema and migration files so that a blank `schema.rb` (with version `0`) does not fail the migration check
+* Fix `pre-commit run <file-list>`.
 
 ## 0.17.0
 
