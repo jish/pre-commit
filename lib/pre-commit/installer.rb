@@ -26,6 +26,7 @@ module PreCommit
       if
         hook
       then
+        FileUtils.mkdir_p(File.dirname(target))
         FileUtils.cp(hook, target)
         FileUtils.chmod(0755, target)
         puts "Installed #{hook} to #{target}"

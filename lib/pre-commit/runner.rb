@@ -19,7 +19,8 @@ module PreCommit
       @debug = ENV["PRE_COMMIT_DEBUG"]
     end
 
-    def run
+    def run(*args)
+      set_staged_files(*args)
       run_single(:warnings)
       run_single(:checks  ) or return false
       true

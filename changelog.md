@@ -1,5 +1,13 @@
+## master
+
+* Improve version number discovery in schema and migration files so that a blank `schema.rb` (with version `0`) does not fail the migration check
+
+## 0.17.0
+
 * Fix a bug where `pre-commit list` would bomb when you had older versions of `pre-commit` installed
 * Smarter debugger check allows you to leave `debugger` in comments, quotes, or other intended uses
+* Add a `pre-commit run` CLI command
+* Fix intermittent install failures #154
 
 ## 0.16.3
 

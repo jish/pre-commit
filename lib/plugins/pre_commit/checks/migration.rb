@@ -3,36 +3,56 @@ require 'pre-commit/checks/plugin'
 module PreCommit
   module Checks
     class Migration < Plugin
+      VERSION_PATTERN = /(\d{14})/
+
+      self::VersionedFile = Struct.new(:file, :version) do
+        alias_method :to_s, :file
+      end
+
       def self.aliases
         [:migrations]
       end
 
       def call(staged_files)
-        migration_files = migration_files(staged_files)
-        schema_files = schema_files(staged_files)
+        migration_files = versioned_migration_files(staged_files)
+        schema_files = versioned_schema_files(staged_files)
 
         if migration_files.any? && schema_files.none?
           "It looks like you're adding a migration, but did not update the schema file"
         elsif migration_files.none? && schema_files.any?
           "You're trying to change the schema without adding a migration file"
         elsif migration_files.any? && schema_files.any?
-          versions = migration_files.map { |f| f[/\d+/] }
-          schema = schema_files.map { |f| File.read(f) }.join
-          missing_versions = versions.select { |version| !schema.include?(version) }
+          migration_versions = migration_files.map(&:version)
+          missing_versions = migration_versions - schema_files.map(&:version)
           if missing_versions.any?
-            "You did not add the schema versions for #{versions.join(', ')} to #{schema_files.join(' or ')}"
+            "You did not add the schema versions for "\
+            "#{migration_versions.join(', ')} to #{schema_files.join(' or ')}"
           end
         end
       end
 
       private
 
-      def migration_files(staged_files)
-        staged_files.grep(/db\/migrate\/.*\.rb/)
+      def versioned_migration_files(staged_files)
+        files = staged_files.grep(/db\/migrate\/.*\.rb/)
+
+        files.each_with_object([]) do |f, result|
+          if f =~ VERSION_PATTERN
+            result << VersionedFile.new(f, $1)
+          end
+        end
       end
 
-      def schema_files(staged_files)
-        staged_files.select { |f| File.basename(f) =~ /schema\.rb|structure.*\.sql/ }
+      def versioned_schema_files(staged_files)
+        files = staged_files.select do |f|
+          File.basename(f) =~ /schema\.rb|structure.*\.sql/
+        end
+
+        files.each_with_object([]) do |f, result|
+          if IO.read(f) =~ VERSION_PATTERN
+            result << VersionedFile.new(f, $1)
+          end
+        end
       end
 
       def self.description

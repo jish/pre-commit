@@ -1,11 +1,11 @@
 A better pre-commit hook for git.
 
-[![Current version](https://badge.fury.io/rb/pre-commit.png)](https://rubygems.org/gems/pre-commit)
-[![Code Climate](https://codeclimate.com/github/jish/pre-commit.png)](https://codeclimate.com/github/jish/pre-commit)
-[![Coverage Status](https://coveralls.io/repos/jish/pre-commit/badge.png?branch=master)](https://coveralls.io/r/jish/pre-commit?branch=master)
-[![Build status](https://secure.travis-ci.org/jish/pre-commit.png?branch=master)](https://travis-ci.org/jish/pre-commit)
+[![Current version](https://badge.fury.io/rb/pre-commit.svg)](https://rubygems.org/gems/pre-commit)
+[![Code Climate](https://img.shields.io/codeclimate/github/jish/pre-commit.svg)](https://codeclimate.com/github/jish/pre-commit)
+[![Coverage Status](https://img.shields.io/coveralls/jish/pre-commit/master.svg)](https://coveralls.io/r/jish/pre-commit?branch=master)
+[![Build status](https://travis-ci.org/jish/pre-commit.svg?branch=master)](https://travis-ci.org/jish/pre-commit)
 [![Dependency Status](https://gemnasium.com/jish/pre-commit.png)](https://gemnasium.com/jish/pre-commit)
-[![Documentation](http://b.repl.ca/v1/yard-docs-blue.png)](http://rubydoc.info/gems/pre-commit/frames)
+[![Documentation](https://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/gems/pre-commit/frames)
 
 ## Installation
 
@@ -74,7 +74,7 @@ Example move `jshint` from `checks` to `warnings` in `yaml` provider and save co
 ```bash
 pre-commit disable yaml checks   jshint
 pre-commit enable  yaml warnings jshint
-git add config/pre-commit.yml
+git add config/pre_commit.yml
 git commit -m "pre-commit: move jshint from checks to warnings"
 ```
 
@@ -87,13 +87,23 @@ Example `config/pre_commit.yml`:
 - :tabs
 ```
 
+## Running test manually
+
+This functionality was added in version `0.17.0`
+
+```bash
+pre-commit run              # run on the files added to index not yet commited
+pre-commit run all          # run on all files in current directory
+pre-commit run <file-list>  # run on the list of files, patterns not supported
+```
+
 ## Configuration providers
 
 `pre-commit` comes with 4 configuration providers:
 
 - `default` - basic settings, read only
 - `git` - reads configuration from `git config pre-commit.*`, allow local update
-- `yaml` - reads configuration from `/etc/pre-commit.yml`, `$HOME/.pre-commit.yml` and `config/pre-commit.yml`, allows `config/pre-commit.yml` updates
+- `yaml` - reads configuration from `/etc/pre_commit.yml`, `$HOME/.pre_commit.yml` and `config/pre_commit.yml`, allows `config/pre_commit.yml` updates
 - `env` - reads configuration from environment variables
 
 ## [Contributing](CONTRIBUTING.md)
