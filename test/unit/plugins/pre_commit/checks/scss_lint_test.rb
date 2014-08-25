@@ -18,8 +18,7 @@ describe PreCommit::Checks::ScssLint do
   end
 
   it "fails for bad formatted code" do
-    check.call([fixture_file("bad.scss")]).must_equal <<-ERROR
-test/files/bad.scss:2 [W] PropertySortOrder: Properties should be sorted in order, with vendor-prefixed extensions before the standardized CSS property
-ERROR
+    check.call([fixture_file("bad.scss")]).must_match(/test\/files\/bad\.scss/)
+    check.call([fixture_file("bad.scss")]).must_match(/should be sorted in order/)
   end
 end
