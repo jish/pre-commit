@@ -94,6 +94,7 @@ This functionality was added in version `0.17.0`
 ```bash
 pre-commit run              # run on the files added to index not yet commited
 pre-commit run all          # run on all files in current directory
+pre-commit run git          # run on all git-tracked files, respect gitignore (added in 0.19.0)
 pre-commit run <file-list>  # run on the list of files, patterns not supported
 ```
 
