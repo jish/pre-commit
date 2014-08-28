@@ -1,3 +1,7 @@
+## 0.19.0
+
+* Add a `pre-commit run git` command to run `pre-commit` checks on all files tracked by git.
+
 ## 0.18.0
 
 * Improve version number discovery in schema and migration files so that a blank `schema.rb` (with version `0`) does not fail the migration check
