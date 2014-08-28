@@ -1,4 +1,4 @@
-## 0.19.0
+## master
 
 * Add a `pre-commit run git` command to run `pre-commit` checks on all files tracked by git.
 
