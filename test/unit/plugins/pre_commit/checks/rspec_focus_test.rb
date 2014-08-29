@@ -16,7 +16,7 @@ describe PreCommit::Checks::RspecFocus do
     check.call([fixture_file('rspec_focus_good_spec.rb')]).must_equal nil
   end
 
-  it 'fails if focus specified on describe block using old hash syntax' do
+  it 'fails if focus specified on describe, context or example block using any valid syntax' do
     check.call([fixture_file('rspec_focus_bad_spec.rb')]).must_equal(<<-EXPECTED)
 :focus found in specs:
 test/files/rspec_focus_bad_spec.rb:2:  context 'with old hash syntax', :focus => true do
