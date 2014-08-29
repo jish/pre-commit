@@ -1,4 +1,5 @@
 require 'pre-commit/checks/plugin'
+require 'shellwords'
 
 module PreCommit
   module Checks
@@ -30,7 +31,7 @@ module PreCommit
     # general code:
 
       def call(staged_files)
-        staged_files = files_filter(staged_files)
+        staged_files = files_filter(staged_files).map(&:shellescape)
         return if staged_files.empty?
         errors = `#{grep} #{pattern} #{staged_files.join(" ")}#{extra_grep}`
         return unless $?.success?
