@@ -1,6 +1,7 @@
 ## master
 
 * Add a `pre-commit run git` command to run `pre-commit` checks on all files tracked by git.
+* Filenames containing spaces no longer break the Grep check
 
 ## 0.18.0
 
