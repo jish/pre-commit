@@ -13,13 +13,22 @@ describe PreCommit::Checks::RspecFocus do
   end
 
   it "succeeds if only good changes" do
-    check.call([fixture_file('good_spec.rb')]).must_equal nil
+    check.call([fixture_file('rspec_focus_good_spec.rb')]).must_equal nil
   end
 
-  it "fails if file contains pry" do
-    check.call([fixture_file('bad_spec.rb')]).must_equal(<<-EXPECTED)
+  it 'fails if focus specified on describe, context or example block using any valid syntax' do
+    check.call([fixture_file('rspec_focus_bad_spec.rb')]).must_equal(<<-EXPECTED)
 :focus found in specs:
-test/files/bad_spec.rb:2:  context \"functionality\", :focus do
-EXPECTED
+test/files/rspec_focus_bad_spec.rb:2:  context 'with old hash syntax', :focus => true do
+test/files/rspec_focus_bad_spec.rb:3:    describe 'focus on describe', :focus => true do
+test/files/rspec_focus_bad_spec.rb:4:      it 'alerts with focus on example too', :focus => true do
+test/files/rspec_focus_bad_spec.rb:9:  context 'with new hash syntax', focus: true do
+test/files/rspec_focus_bad_spec.rb:10:    describe 'focus on describe', focus: true do
+test/files/rspec_focus_bad_spec.rb:11:      it 'alerts with focus on example too', focus: true do
+test/files/rspec_focus_bad_spec.rb:16:  context 'with symbols as keys', :focus do
+test/files/rspec_focus_bad_spec.rb:17:    describe 'focus on describe', :focus do
+test/files/rspec_focus_bad_spec.rb:18:      it 'alerts with focus on example too', :focus do
+    EXPECTED
   end
+
 end
