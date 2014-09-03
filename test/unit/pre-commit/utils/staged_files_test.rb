@@ -34,4 +34,13 @@ describe PreCommit::Utils::StagedFiles do
     subject.staged_files.must_equal(["some_file", "another_file"])
   end
 
+  it "does not include links to nowhere" do
+    write("something.rb", "class Something; end")
+    write("nowhere.rb", "")
+    FileUtils.ln_s("nowhere.rb", "link_to_nowhere.rb")
+    FileUtils.rm("nowhere.rb")
+    system("git", "add", "-A")
+    subject.staged_files.must_equal ["something.rb"]
+  end
+
 end
