@@ -1,3 +1,5 @@
+* Upgrade JSHint to 2.5.4
+
 ## 0.19.0
 
 * Add a `pre-commit run git` command to run `pre-commit` checks on all files tracked by git.
