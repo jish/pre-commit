@@ -25,7 +25,14 @@ describe PreCommit::Checks::Jshint do
 
   it "fails if file contains debugger" do
     check.run_check(fixture_file('bad_file.js')).must_equal [{
-      "id"=>"(error)", "raw"=>"Missing semicolon.", "evidence"=>"}", "line"=>4, "character"=>2, "reason"=>"Missing semicolon."
+      "id" => "(error)",
+      "raw" => "Missing semicolon.",
+      "evidence" => "}",
+      "line" => 4,
+      "character" => 2,
+      "reason" => "Missing semicolon.",
+      "code" => "W033",
+      "scope" => "(main)"
     }]
   end
 
