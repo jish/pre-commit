@@ -13,7 +13,6 @@ module PreCommit
       end
 
       def run_check(file)
-        context = get_context
         context.call("JSHINT._getErrors", File.read(file), js_config, js_config["globals"])
       end
 
@@ -31,7 +30,7 @@ module PreCommit
 
       private
 
-      def get_context
+      def context
         return @context if defined?(@context)
 
         get_errors = <<-JAVASCRIPT
