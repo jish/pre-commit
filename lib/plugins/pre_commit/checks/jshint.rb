@@ -23,16 +23,12 @@ module PreCommit
       private
 
       def context
-        return @context if defined?(@context)
-
-        get_errors = <<-JAVASCRIPT
-          JSHINT._getErrors = function(source, options, globals) {
+        @context ||= ExecJS.compile(File.read(linter_src) << <<-JAVASCRIPT)
+          ;JSHINT._getErrors = function(source, options, globals) {
             JSHINT(source, options, globals);
             return JSHINT.errors;
           }
         JAVASCRIPT
-
-        @context = ExecJS.compile(File.read(linter_src) + get_errors)
       end
 
       def js_config
