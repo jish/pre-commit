@@ -4,14 +4,6 @@ module PreCommit
   module Checks
     class Jshint < Js
 
-      def js_config
-        @js_config ||= if config_file
-          ExecJS.exec("return (#{File.read(config_file)});")
-        else
-          {}
-        end
-      end
-
       def run_check(file)
         context.call("JSHINT._getErrors", File.read(file), js_config, js_config["globals"])
       end
@@ -41,6 +33,14 @@ module PreCommit
         JAVASCRIPT
 
         @context = ExecJS.compile(File.read(linter_src) + get_errors)
+      end
+
+      def js_config
+        @js_config ||= if config_file
+          ExecJS.exec("return (#{File.read(config_file)});")
+        else
+          {}
+        end
       end
 
     end
