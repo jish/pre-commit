@@ -21,16 +21,16 @@ describe PreCommit::Checks::BeforeAll do
   end
 
   it "fails if file contains before(:all)" do
-    subject.call([fixture_file('before_all_spec.rb')]).must_equal(<<-EXPECTED)
-before(:all) found:
-test/files/before_all_spec.rb:2:  before(:all) do
-EXPECTED
+    subject.call([fixture_file('before_all_spec.rb')]).to_a.must_equal([
+      "before(:all) found:",
+      "test/files/before_all_spec.rb:2:  before(:all) do"
+    ])
   end
 
   it "fails if file contains before :all" do
-    subject.call([fixture_file('before_all_spec_2.rb')]).must_equal(<<-EXPECTED)
-before(:all) found:
-test/files/before_all_spec_2.rb:2:  before :all do
-EXPECTED
+    subject.call([fixture_file('before_all_spec_2.rb')]).to_a.must_equal([
+      "before(:all) found:",
+      "test/files/before_all_spec_2.rb:2:  before :all do"
+    ])
   end
 end

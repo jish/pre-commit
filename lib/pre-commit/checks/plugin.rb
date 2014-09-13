@@ -1,5 +1,6 @@
 require 'plugins/pluginator/extensions/conversions'
 require 'pre-commit/checks/plugin/config_file'
+require 'pre-commit/line'
 
 module PreCommit
   module Checks

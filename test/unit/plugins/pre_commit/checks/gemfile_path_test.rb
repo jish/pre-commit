@@ -39,20 +39,20 @@ describe PreCommit::Checks::GemfilePath do
     write "Gemfile", <<-RUBY
       gem "foo", :path => "xxxx"
     RUBY
-    check.call(["Gemfile"]).must_equal(<<-EXPECTED)
-local path found in Gemfile:
-Gemfile:1:      gem "foo", :path => "xxxx"
-EXPECTED
+    check.call(["Gemfile"]).to_a.must_equal([
+      "local path found in Gemfile:",
+      'Gemfile:1:      gem "foo", :path => "xxxx"'
+    ])
   end
 
   it "fails if Gemfile contains path:" do
     write "Gemfile", <<-RUBY
       gem "foo", path: "xxxx"
     RUBY
-    check.call(["Gemfile"]).must_equal(<<-EXPECTED)
-local path found in Gemfile:
-Gemfile:1:      gem "foo", path: "xxxx"
-EXPECTED
+    check.call(["Gemfile"]).to_a.must_equal([
+      "local path found in Gemfile:",
+      'Gemfile:1:      gem "foo", path: "xxxx"'
+    ])
   end
 
   it "allows a Gemfile path that is commented out" do

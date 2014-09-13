@@ -4,6 +4,7 @@ require 'benchmark'
 require 'pre-commit/utils/staged_files'
 require 'pre-commit/configuration'
 require 'pre-commit/list_evaluator'
+require 'pre-commit/error_list'
 
 module PreCommit
   class Runner
@@ -63,17 +64,21 @@ module PreCommit
     def warnings(list)
       <<-WARNINGS
 pre-commit: Some warnings were raised. These will not stop commit:
-#{list.join("\n")}
+#{errors_to_string(list)}
 WARNINGS
     end
 
     def checks(list)
       <<-ERRORS
 pre-commit: Stopping commit because of errors.
-#{list.join("\n")}
+#{errors_to_string(list)}
 pre-commit: You can bypass this check using `git commit -n`
 
 ERRORS
+    end
+
+    def errors_to_string(list)
+      list.map(&:to_s).join("\n")
     end
 
   end

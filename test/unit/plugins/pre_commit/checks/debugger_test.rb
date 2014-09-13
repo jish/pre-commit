@@ -21,10 +21,10 @@ describe PreCommit::Checks::Debugger do
   end
 
   it "fails if file contains debugger" do
-    subject.call([fixture_file('debugger_file.rb')]).must_equal(<<-EXPECTED)
-debugger statement(s) found:
-test/files/debugger_file.rb:3:  	debugger
-EXPECTED
+    subject.call([fixture_file('debugger_file.rb')]).to_a.must_equal([
+      "debugger statement(s) found:",
+      "test/files/debugger_file.rb:3:  \tdebugger"
+    ])
   end
 
   it "Skips checking the Gemfile" do

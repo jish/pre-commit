@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def message
-        "debugger statement(s) found:\n"
+        "debugger statement(s) found:"
       end
 
       def pattern

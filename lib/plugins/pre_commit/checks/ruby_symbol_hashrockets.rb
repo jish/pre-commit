@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def message
-        "detected :symbol => value hashrocket:\n"
+        "detected :symbol => value hashrocket:"
       end
 
       def pattern

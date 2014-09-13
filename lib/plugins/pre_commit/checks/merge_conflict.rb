@@ -5,7 +5,7 @@ module PreCommit
     class MergeConflict < Grep
 
       def message
-        "detected a merge conflict\n"
+        "detected a merge conflict"
       end
 
       def pattern

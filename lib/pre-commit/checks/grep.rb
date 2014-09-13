@@ -1,4 +1,6 @@
 require 'pre-commit/checks/plugin'
+require 'pre-commit/error_list'
+require 'pre-commit/line'
 require 'shellwords'
 
 module PreCommit
@@ -35,10 +37,24 @@ module PreCommit
         return if staged_files.empty?
         errors = `#{grep} #{pattern} #{staged_files.join(" ")}#{extra_grep}`
         return unless $?.success?
-        "#{message}#{errors}"
+        parse_errors(message, errors)
       end
 
     private
+
+      def parse_errors(message, list)
+        result = PreCommit::ErrorList.new(message)
+        result.errors +=
+        list.split(/\n/).map do |line|
+          PreCommit::Line.new(nil, *parse_error(line))
+        end
+        result
+      end
+
+      def parse_error(line)
+        matches = /^([^:]+):([[:digit:]]+):(.*)$/.match(line)
+        matches and matches.captures
+      end
 
       def grep(grep_version = nil)
         grep_version ||= detect_grep_version

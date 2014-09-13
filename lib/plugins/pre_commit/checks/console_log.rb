@@ -13,7 +13,7 @@ module PreCommit
       end
 
       def message
-        "console.log found:\n"
+        "console.log found:"
       end
 
       def pattern

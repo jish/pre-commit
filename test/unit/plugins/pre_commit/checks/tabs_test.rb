@@ -25,9 +25,9 @@ describe PreCommit::Checks::Tabs do
   end
 
   it "shows error message when an initial tab is found" do
-    check.call([fixture_file('initial_tab.rb')]).must_equal(<<-EXPECTED)
-detected tab before initial space:
-test/files/initial_tab.rb:3:\t 'hello'
-EXPECTED
+    check.call([fixture_file('initial_tab.rb')]).to_a.must_equal([
+      "detected tab before initial space:",
+      "test/files/initial_tab.rb:3:\t 'hello'"
+    ])
   end
 end
