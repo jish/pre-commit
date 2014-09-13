@@ -1,5 +1,4 @@
 require 'pre-commit/checks/shell'
-require 'shellwords'
 
 module PreCommit
   module Checks
@@ -17,7 +16,7 @@ module PreCommit
       end
 
       def extra_grep
-        @extra_grep or ""
+        @extra_grep or []
       end
 
       def message
@@ -31,9 +30,10 @@ module PreCommit
     # general code:
 
       def call(staged_files)
-        staged_files = files_filter(staged_files).map(&:shellescape)
+        staged_files = files_filter(staged_files)
         return if staged_files.empty?
-        args = ([grep, pattern] + staged_files + [extra_grep]).join(" ")
+        args = grep + [pattern] + staged_files
+        args << extra_grep if !extra_grep.nil? and extra_grep != ""
         errors = execute(args, success_status: false)
         errors and "#{message}#{errors}"
       end
@@ -43,9 +43,9 @@ module PreCommit
       def grep(grep_version = nil)
         grep_version ||= detect_grep_version
         if grep_version =~ /FreeBSD/
-          "grep -EnIH"
+          %w{grep -EnIH}
         else
-          "grep -PnIH"
+          %w{grep -PnIH}
         end
       end
 

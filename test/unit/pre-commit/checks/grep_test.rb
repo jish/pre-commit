@@ -49,11 +49,11 @@ EXPECTED
   end
 
   it "finds grep for FreeBSD" do
-    subject.send(:grep, 'FreeBSD').must_equal("grep -EnIH")
+    subject.send(:grep, 'FreeBSD').must_equal(%w{grep -EnIH})
   end
 
   it "finds grep for other systems" do
-    subject.send(:grep,  'other systems').must_equal("grep -PnIH")
+    subject.send(:grep,  'other systems').must_equal(%w{grep -PnIH})
   end
 
   it "detects grep version" do

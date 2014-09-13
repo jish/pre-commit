@@ -13,7 +13,7 @@ module PreCommit
       end
 
       def pattern
-        '\'[^:](:{1}(?:\$|@|@@|[_A-Za-z])?\w*[=!?]?\s*=>\s*)\''
+        '[^:](:{1}(?:\$|@|@@|[_A-Za-z])?\w*[=!?]?\s*=>\s*)'
       end
 
       def self.description

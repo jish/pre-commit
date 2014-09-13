@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def extra_grep
-        " | grep -v \/\/"
+        %w{| grep -v //}
       end
 
       def message
@@ -17,7 +17,7 @@ module PreCommit
       end
 
       def pattern
-        '-e "before.*:all"'
+        "before.*:all"
       end
 
       def self.description
