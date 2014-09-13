@@ -33,9 +33,15 @@ module PreCommit
       def call(staged_files)
         staged_files = files_filter(staged_files).map(&:shellescape)
         return if staged_files.empty?
-        errors = `#{grep} #{pattern} #{staged_files.join(" ")}#{extra_grep}`
-        return unless $?.success?
-        "#{message}#{errors}"
+        errors =
+        in_groups(staged_files).map do |files|
+          [
+            `#{grep} #{pattern} #{files.join(" ")}#{extra_grep}`,
+            $?.success?
+          ]
+        end
+        return unless errors.all?{|output, result| result }
+        "#{message}#{errors.map(&:first).join("\n")}"
       end
 
     private
