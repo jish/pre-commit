@@ -1,5 +1,4 @@
 require 'pre-commit/checks/plugin'
-require 'open3'
 
 module PreCommit
   module Checks
@@ -7,9 +6,9 @@ module PreCommit
 
     private
 
-      def execute(command)
-        _, stdout, stderr, process = Open3.popen3(command)
-        stdout.read + stderr.read unless process.value.success?
+      def execute(command, options = {})
+        result = `#{command} 2>&1`
+        $?.success? == (options.fetch(:success_status, true)) ? nil : result
       end
     end
   end

@@ -1,9 +1,9 @@
-require 'pre-commit/checks/plugin'
+require 'pre-commit/checks/shell'
 require 'shellwords'
 
 module PreCommit
   module Checks
-    class Grep < Plugin
+    class Grep < Shell
       class PaternNotSet < StandardError
         def message
           "Please define 'pattern' method."
@@ -33,9 +33,9 @@ module PreCommit
       def call(staged_files)
         staged_files = files_filter(staged_files).map(&:shellescape)
         return if staged_files.empty?
-        errors = `#{grep} #{pattern} #{staged_files.join(" ")}#{extra_grep}`
-        return unless $?.success?
-        "#{message}#{errors}"
+        args = ([grep, pattern] + staged_files + [extra_grep]).join(" ")
+        errors = execute(args, success_status: false)
+        errors and "#{message}#{errors}"
       end
 
     private
