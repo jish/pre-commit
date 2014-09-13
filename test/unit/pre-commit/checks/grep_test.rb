@@ -44,7 +44,7 @@ EXPECTED
 
   it "respects extra_grep" do
     subject.instance_variable_set(:@pattern, "test")
-    subject.instance_variable_set(:@extra_grep, "| grep -v test")
+    subject.instance_variable_set(:@extra_grep, %w{-v test})
     subject.call([fixture_file('file_with_nb_space.rb')]).must_equal(nil)
   end
 

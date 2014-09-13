@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def extra_grep
-        %w{| grep -v //}
+        %w{-v //}
       end
 
       def message

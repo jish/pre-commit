@@ -33,7 +33,7 @@ module PreCommit
         staged_files = files_filter(staged_files)
         return if staged_files.empty?
         args = grep + [pattern] + staged_files
-        args << extra_grep if !extra_grep.nil? and extra_grep != ""
+        args += ["|", "grep"] + extra_grep if !extra_grep.nil? and !extra_grep.empty?
         errors = execute(args, success_status: false)
         errors and "#{message}#{errors}"
       end
