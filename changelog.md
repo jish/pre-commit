@@ -1,3 +1,15 @@
+* Upgrade JSHint to 2.5.4
+
+## 0.19.0
+
+* Add a `pre-commit run git` command to run `pre-commit` checks on all files tracked by git.
+* Filenames containing spaces no longer break the Grep check
+
+## 0.18.0
+
+* Improve version number discovery in schema and migration files so that a blank `schema.rb` (with version `0`) does not fail the migration check
+* Fix `pre-commit run <file-list>`.
+
 ## 0.17.0
 
 * Fix a bug where `pre-commit list` would bomb when you had older versions of `pre-commit` installed

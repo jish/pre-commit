@@ -5,8 +5,9 @@ module PreCommit
       def set_staged_files(*args)
         case args[0].to_s
         when "all" then staged_files_all
+        when "git" then staged_files_git_all
         when "" then staged_files
-        else staged_files=args
+        else self.staged_files=args
         end
       end
 
@@ -22,6 +23,10 @@ module PreCommit
         @staged_files = filter_files(staged_from_dir)
       end
 
+      def staged_files_git_all
+        @staged_files = filter_files(staged_from_git_all)
+      end
+
     private
       # from https://github.com/djberg96/ptools/blob/master/lib/ptools.rb#L90
       def binary?(file)
@@ -31,6 +36,7 @@ module PreCommit
 
       def filter_files(files)
         files.reject do |f|
+          !File.exists?(f) ||
           File.directory?(f) ||
           (
             size = File.size(f)
@@ -41,6 +47,10 @@ module PreCommit
 
       def staged_from_git
         `git diff --cached --name-only --diff-filter=ACM`.split(/\n/)
+      end
+
+      def staged_from_git_all
+        `git ls-files`.split(/\n/)
       end
 
       def staged_from_dir

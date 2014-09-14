@@ -13,7 +13,7 @@ module PreCommit
       end
 
       def pattern
-        "':focus'"
+        "'(describe|context|it).*(:focus|focus:).*do'"
       end
 
       def self.description

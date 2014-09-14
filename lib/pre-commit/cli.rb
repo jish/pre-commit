@@ -33,7 +33,7 @@ module PreCommit
 
     def execute_run(*args)
       require 'pre-commit/runner'
-      PreCommit::Runner.new.run(*args)
+      PreCommit::Runner.new.run(*args) and puts "No failed checks."
     end
 
     def execute_install(key = nil, *args)

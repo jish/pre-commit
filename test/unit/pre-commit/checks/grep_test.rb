@@ -26,6 +26,13 @@ test/files/file_with_nb_space.rb:1:test
 EXPECTED
   end
 
+  it "fails if file has pattern, even if filename has spaces" do
+    subject.instance_variable_set(:@pattern, "test")
+    subject.call([fixture_file('filename with spaces.rb')]).must_equal(<<-EXPECTED)
+test/files/filename with spaces.rb:1:test
+EXPECTED
+  end
+
   it "adds message to output" do
     subject.instance_variable_set(:@pattern, "test")
     subject.instance_variable_set(:@message, "extra message:\n")
