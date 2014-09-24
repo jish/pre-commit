@@ -21,7 +21,7 @@ module PreCommit
         staged_files = staged_files.grep(/\.rb$/)
         return if staged_files.empty?
 
-        args = config_file_flag + ["--force-exclusion"] + staged_files
+        args = config_file_flag + user_supplied_flags + ["--force-exclusion"] + staged_files
 
         success, captured = capture { ::RuboCop::CLI.new.run(args) == 0 }
         captured unless success
@@ -39,6 +39,10 @@ module PreCommit
 
       def config_file_flag
         config_file ? ['-c', config_file] : []
+      end
+
+      def user_supplied_flags
+        Array(config.get('rubocop.flags')).reject(&:empty?)
       end
 
       def alternate_config_file
