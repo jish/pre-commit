@@ -26,6 +26,14 @@ describe PreCommit::Checks::Rubocop do
     check.call([fixture_file('merge_conflict.rb')]).must_match(/1 file inspected, (\e\[31m)?[12] offenses? detected/)
   end
 
+  describe 'with --fail-level=warn' do
+    let(:flags) { '--fail-level=warn' }
+
+    it "fails if file contains errors" do
+      check.call([fixture_file('pry_file.rb')]).must_match(/1 file inspected, (\e\[31m)?2 offenses detected/)
+    end
+  end
+
   describe 'with --fail-level=fatal' do
     let(:flags) { '--fail-level=fatal' }
 
