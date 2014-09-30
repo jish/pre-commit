@@ -5,7 +5,8 @@ module PreCommit
 
   class Installer
 
-    TARGET_HOOK_PATH = '.git/hooks/pre-commit'
+    TARGET_GIT_PATH = '.git'
+    TARGET_HOOKS_PATH = 'hooks/pre-commit'
     TEMPLATE_DIR = File.expand_path("../../../templates/hooks/", __FILE__)
 
     attr_reader :key
@@ -19,7 +20,12 @@ module PreCommit
     end
 
     def target
-      TARGET_HOOK_PATH
+      target_git_path =
+      if   File.directory?(TARGET_GIT_PATH)
+      then TARGET_GIT_PATH
+      else File.readlines('.git').first.match(/gitdir: (.*)$/)[1]
+      end
+      File.join(target_git_path, TARGET_HOOKS_PATH)
     end
 
     def install
