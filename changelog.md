@@ -1,3 +1,4 @@
+* Add the ability to pass command line flags to Rubocop. `rubocop.flags`
 * Upgrade JSHint to 2.5.4
 
 ## 0.19.0

@@ -32,10 +32,15 @@ module PreCommit
       def call(staged_files)
         staged_files = files_filter(staged_files)
         return if staged_files.empty?
-        args = grep + [pattern] + staged_files
-        args += ["|", "grep"] + extra_grep if !extra_grep.nil? and !extra_grep.empty?
-        errors = execute(args, success_status: false)
-        errors and "#{message}#{errors}"
+
+        result =
+        in_groups(staged_files).map do |files|
+          args = grep + [pattern] + files
+          args += ["|", "grep"] + extra_grep if !extra_grep.nil? and !extra_grep.empty?
+          execute(args, success_status: false)
+        end.compact
+
+        result.empty? ? nil : "#{message}#{result.join("\n")}"
       end
 
     private
