@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def pattern
-        "'<<<<<<<'"
+        "<<<<<<<"
       end
 
       def self.description

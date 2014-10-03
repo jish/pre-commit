@@ -13,7 +13,7 @@ module PreCommit
       end
 
       def pattern
-        '-e "^[ 	]*debugger"'
+        "^[ 	]*debugger"
       end
 
       def self.description

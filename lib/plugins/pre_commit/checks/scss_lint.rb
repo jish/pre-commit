@@ -10,8 +10,8 @@ module PreCommit
 
         result =
         in_groups(staged_files).map do |files|
-          args = (config_file_flag + files).join(' ')
-          execute("scss-lint #{args}")
+          args = %w{scss-lint} + config_file_flag + files
+          execute(args)
         end.compact
 
         result.empty? ? nil : result.join("\n")

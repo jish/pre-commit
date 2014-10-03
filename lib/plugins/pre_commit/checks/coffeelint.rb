@@ -10,8 +10,8 @@ module PreCommit
 
         result =
         in_groups(staged_files).map do |files|
-          args = (config_file_flag + files).join(' ')
-          execute("coffeelint #{args}")
+          args = %w{coffeelint} + config_file_flag + files
+          execute(args)
         end.compact
 
         result.empty? ? nil : result.join("\n")
