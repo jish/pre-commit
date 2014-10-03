@@ -1,11 +1,10 @@
-require 'pre-commit/checks/plugin'
+require 'pre-commit/checks/shell'
 require 'pre-commit/error_list'
 require 'pre-commit/line'
-require 'shellwords'
 
 module PreCommit
   module Checks
-    class Grep < Plugin
+    class Grep < Shell
       class PaternNotSet < StandardError
         def message
           "Please define 'pattern' method."
@@ -19,7 +18,7 @@ module PreCommit
       end
 
       def extra_grep
-        @extra_grep or ""
+        @extra_grep or []
       end
 
       def message
@@ -33,11 +32,17 @@ module PreCommit
     # general code:
 
       def call(staged_files)
-        staged_files = files_filter(staged_files).map(&:shellescape)
+        staged_files = files_filter(staged_files)
         return if staged_files.empty?
-        errors = `#{grep} #{pattern} #{staged_files.join(" ")}#{extra_grep}`
-        return unless $?.success?
-        parse_errors(message, errors)
+
+        result =
+        in_groups(staged_files).map do |files|
+          args = grep + [pattern] + files
+          args += ["|", "grep"] + extra_grep if !extra_grep.nil? and !extra_grep.empty?
+          execute(args, success_status: false)
+        end.compact
+
+        result.empty? ? nil : parse_errors(message, result)
       end
 
     private
@@ -45,7 +50,9 @@ module PreCommit
       def parse_errors(message, list)
         result = PreCommit::ErrorList.new(message)
         result.errors +=
-        list.split(/\n/).map do |line|
+        list.map do |group|
+          group.split(/\n/)
+        end.flatten.compact.map do |line|
           PreCommit::Line.new(nil, *parse_error(line))
         end
         result
@@ -59,9 +66,9 @@ module PreCommit
       def grep(grep_version = nil)
         grep_version ||= detect_grep_version
         if grep_version =~ /FreeBSD/
-          "grep -EnIH"
+          %w{grep -EnIH}
         else
-          "grep -PnIH"
+          %w{grep -PnIH}
         end
       end
 

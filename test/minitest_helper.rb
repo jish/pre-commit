@@ -46,6 +46,14 @@ module PreCommit; module Helpers
     FileUtils.rm_rf(@dir)
   end
 
+  def in_tmpdir
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir) do
+        yield
+      end
+    end
+  end
+
   def ruby_includes
     "-I #{Gem::Specification.find_by_name('pluginator').full_gem_path}/lib -I #{project_dir}/lib"
   end

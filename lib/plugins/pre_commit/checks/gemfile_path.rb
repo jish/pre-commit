@@ -13,11 +13,11 @@ module PreCommit
       end
 
       def pattern
-        "'path:|:path\\s*=>'"
+        "path:|:path\\s*=>"
       end
 
       def extra_grep
-        " | grep -v '#'"
+        %w{-v #}
       end
 
       def self.description

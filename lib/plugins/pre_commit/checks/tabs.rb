@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def pattern
-        "'^ *\t'"
+        "^ *\t"
       end
 
       def self.description
