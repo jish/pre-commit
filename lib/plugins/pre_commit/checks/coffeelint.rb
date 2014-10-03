@@ -8,9 +8,13 @@ module PreCommit
         staged_files = staged_files.grep(/\.coffee$/)
         return if staged_files.empty?
 
-        args = (config_file_flag + staged_files).join(' ')
+        result =
+        in_groups(staged_files).map do |files|
+          args = (config_file_flag + files).join(' ')
+          execute("coffeelint #{args}")
+        end.compact
 
-        execute("coffeelint #{args}")
+        result.empty? ? nil : result.join("\n")
       end
 
       def config_file_flag
