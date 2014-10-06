@@ -13,9 +13,9 @@ describe PreCommit::Checks::MergeConflict do
   end
 
   it "fails if file contains merge conflict" do
-    check.call([fixture_file('merge_conflict.rb')]).must_equal(<<-EXPECTED)
-detected a merge conflict
-test/files/merge_conflict.rb:3:<<<<<<< HEAD
-EXPECTED
+    check.call([fixture_file('merge_conflict.rb')]).to_a.must_equal([
+      "detected a merge conflict",
+      "test/files/merge_conflict.rb:3:<<<<<<< HEAD"
+    ])
   end
 end

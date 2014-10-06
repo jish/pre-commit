@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def message
-        ":focus found in specs:\n"
+        ":focus found in specs:"
       end
 
       def pattern

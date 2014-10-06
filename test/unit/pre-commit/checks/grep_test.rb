@@ -21,25 +21,24 @@ describe PreCommit::Checks::Grep do
 
   it "fails if file has pattern" do
     subject.instance_variable_set(:@pattern, "test")
-    subject.call([fixture_file('file_with_nb_space.rb')]).must_equal(<<-EXPECTED)
-test/files/file_with_nb_space.rb:1:test
-EXPECTED
+    subject.call([fixture_file('file_with_nb_space.rb')]).to_s.must_equal(
+      "test/files/file_with_nb_space.rb:1:test"
+    )
   end
 
   it "fails if file has pattern, even if filename has spaces" do
     subject.instance_variable_set(:@pattern, "test")
-    subject.call([fixture_file('filename with spaces.rb')]).must_equal(<<-EXPECTED)
-test/files/filename with spaces.rb:1:test
-EXPECTED
+    subject.call([fixture_file('filename with spaces.rb')]).to_s.must_equal(
+      "test/files/filename with spaces.rb:1:test"
+    )
   end
 
   it "adds message to output" do
     subject.instance_variable_set(:@pattern, "test")
-    subject.instance_variable_set(:@message, "extra message:\n")
-    subject.call([fixture_file('file_with_nb_space.rb')]).must_equal(<<-EXPECTED)
+    subject.instance_variable_set(:@message, "extra message:")
+    subject.call([fixture_file('file_with_nb_space.rb')]).to_s.must_equal("\
 extra message:
-test/files/file_with_nb_space.rb:1:test
-EXPECTED
+test/files/file_with_nb_space.rb:1:test")
   end
 
   it "respects extra_grep" do

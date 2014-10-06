@@ -192,7 +192,6 @@ EXPECTED
 pre-commit: Stopping commit because of errors.
 detected tab before initial space:
 test.rb:1:\t\t Muahaha
-
 test.rb:2: new blank line at EOF.
 
 pre-commit: You can bypass this check using `git commit -n`

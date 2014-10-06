@@ -27,9 +27,9 @@ describe PreCommit::Checks::ConsoleLog do
   end
 
   it "fails if a js file has a console.log" do
-    subject.call([fixture_file('console_log.js')]).must_equal(<<-EXPECTED)
-console.log found:
-test/files/console_log.js:6:    console.log(\"I'm in bar\");
-EXPECTED
+    subject.call([fixture_file('console_log.js')]).to_a.must_equal([
+      "console.log found:",
+      "test/files/console_log.js:6:    console.log(\"I'm in bar\");"
+    ])
   end
 end

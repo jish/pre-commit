@@ -5,7 +5,7 @@ module PreCommit
     class Tabs < Grep
 
       def message
-        "detected tab before initial space:\n"
+        "detected tab before initial space:"
       end
 
       def pattern

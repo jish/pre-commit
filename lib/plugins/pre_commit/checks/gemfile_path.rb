@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def message
-        "local path found in Gemfile:\n"
+        "local path found in Gemfile:"
       end
 
       def pattern

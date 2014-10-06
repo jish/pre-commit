@@ -13,7 +13,7 @@ module PreCommit
       end
 
       def message
-        "before(:all) found:\n"
+        "before(:all) found:"
       end
 
       def pattern

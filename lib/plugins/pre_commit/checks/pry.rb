@@ -5,7 +5,7 @@ module PreCommit
     class Pry < Grep
 
       def message
-        "binding.pry found:\n"
+        "binding.pry found:"
       end
 
       def pattern

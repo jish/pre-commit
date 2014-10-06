@@ -1,4 +1,6 @@
 require 'pre-commit/checks/shell'
+require 'pre-commit/error_list'
+require 'pre-commit/line'
 
 module PreCommit
   module Checks
@@ -40,10 +42,26 @@ module PreCommit
           execute(args, success_status: false)
         end.compact
 
-        result.empty? ? nil : "#{message}#{result.join("\n")}"
+        result.empty? ? nil : parse_errors(message, result)
       end
 
     private
+
+      def parse_errors(message, list)
+        result = PreCommit::ErrorList.new(message)
+        result.errors +=
+        list.map do |group|
+          group.split(/\n/)
+        end.flatten.compact.map do |line|
+          PreCommit::Line.new(nil, *parse_error(line))
+        end
+        result
+      end
+
+      def parse_error(line)
+        matches = /^([^:]+):([[:digit:]]+):(.*)$/.match(line)
+        matches and matches.captures
+      end
 
       def grep(grep_version = nil)
         grep_version ||= detect_grep_version
