@@ -1,10 +1,13 @@
 require 'yaml'
+require "pre-commit/configuration/top_level"
 
 module PreCommit
   class Configuration
     class Providers
 
       class Yaml
+        include PreCommit::Configuration::TopLevel
+
         def self.priority
           20
         end
@@ -55,11 +58,6 @@ module PreCommit
           File.join(top_level, 'config', 'pre_commit.yml')
         end
 
-        def top_level
-          top_level = `git rev-parse --show-toplevel`.chomp.strip
-          raise "no git repo!" if top_level == ""
-          top_level
-        end
       end
 
     end

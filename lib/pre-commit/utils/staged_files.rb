@@ -1,6 +1,9 @@
+require "pre-commit/configuration/top_level"
+
 module PreCommit
   module Utils
     module StagedFiles
+      include PreCommit::Configuration::TopLevel
 
       def set_staged_files(*args)
         case args[0].to_s
@@ -17,6 +20,7 @@ module PreCommit
 
       def staged_files
         @staged_files ||= filter_files(staged_from_git)
+fail @staged_files.inspect
       end
 
       def staged_files_all
@@ -35,13 +39,14 @@ module PreCommit
       end
 
       def filter_files(files)
-        files.reject do |f|
-          !File.exists?(f) ||
-          File.directory?(f) ||
+        files.reject do |file|
+          !File.exists?(file) ||
+          File.directory?(file) ||
           (
-            size = File.size(f)
-            size > 1_000_000 || (size > 20 && binary?(f))
-          )
+            size = File.size(file)
+            size > 1_000_000 || (size > 20 && binary?(file))
+          ) ||
+          repo_ignores.any? { |ignore| File.fnmatch?(ignore, file) }
         end
       end
 
@@ -55,6 +60,16 @@ module PreCommit
 
       def staged_from_dir
         Dir["**/*"]
+      end
+
+      def repo_ignores_file
+        File.join(top_level, ".pre_commit.ignore")
+      end
+
+      def repo_ignores
+        @repo_ignores ||= File.read(repo_ignores_file).split("\n").compact
+      rescue Errno::ENOENT
+        @repo_ignores = []
       end
 
     end

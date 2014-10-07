@@ -107,4 +107,14 @@ pre-commit run <file-list>  # run on the list of files, patterns not supported
 - `yaml` - reads configuration from `/etc/pre_commit.yml`, `$HOME/.pre_commit.yml` and `config/pre_commit.yml`, allows `config/pre_commit.yml` updates
 - `env` - reads configuration from environment variables
 
+## Excluding files from checks
+
+`pre-commit` uses `git` to get list of files to check, you can ignore
+the list of git files to check with:
+
+1. `.gitignore` - git supported file shared beteen all checkouts
+2. `.git/info/exclude` - git supported file only for this checkout
+3. `.pre_commit.ignore` - `pre-commit` specific list can be shared,
+    [Allowed filters](http://www.ruby-doc.org/core-2.1.3/File.html#method-c-fnmatch)
+
 ## [Contributing](CONTRIBUTING.md)
