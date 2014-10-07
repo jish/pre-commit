@@ -30,12 +30,6 @@ describe PreCommit::Utils::StagedFiles do
       subject.staged_files.must_equal([])
     end
 
-    it "sets staged files" do
-      subject.staged_files.must_equal([])
-      subject.set_staged_files("some_file", "another_file")
-      subject.staged_files.must_equal(["some_file", "another_file"])
-    end
-
     it "does not include links to nowhere" do
       write("something.rb", "class Something; end")
       write("nowhere.rb", "")
@@ -93,5 +87,44 @@ describe PreCommit::Utils::StagedFiles do
     end
 
   end # :staged_files_git_all
+
+  describe :set_staged_files do
+
+    it "sets staged files from list" do
+      subject.staged_files.must_equal([])
+      subject.set_staged_files("some_file", "another_file")
+      subject.staged_files.must_equal(["some_file", "another_file"])
+    end
+
+    it "sets staged files - all" do
+      subject.staged_files.must_equal([])
+      write("something.rb", "")
+      write("file.rb", "")
+      subject.set_staged_files(:all)
+      subject.staged_files.must_equal(["file.rb", "something.rb"])
+    end
+
+    it "sets staged files - git" do
+      subject.staged_files.must_equal([])
+      write("something.rb", "")
+      write("file.rb", "")
+      system("git", "add", "-A")
+      subject.staged_files = nil
+      subject.set_staged_files()
+      write("not_git.rb", "")
+      subject.staged_files.must_equal(["file.rb", "something.rb"])
+    end
+
+    it "sets staged files - git all" do
+      subject.staged_files.must_equal([])
+      write("something.rb", "")
+      write("file.rb", "")
+      system("git", "add", "-A")
+      subject.set_staged_files(:git)
+      write("not_git.rb", "")
+      subject.staged_files.must_equal(["file.rb", "something.rb"])
+    end
+
+  end
 
 end
