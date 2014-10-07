@@ -72,4 +72,14 @@ describe PreCommit::Utils::StagedFiles do
 
   end # :repo_ignores
 
+  describe :staged_files_all do
+
+    it "lists all files" do
+      write("something.rb", "")
+      write("file.rb", "")
+      subject.staged_files_all.sort.must_equal ["file.rb", "something.rb"].sort
+    end
+
+  end
+
 end
