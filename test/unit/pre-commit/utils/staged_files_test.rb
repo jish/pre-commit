@@ -80,6 +80,18 @@ describe PreCommit::Utils::StagedFiles do
       subject.staged_files_all.sort.must_equal ["file.rb", "something.rb"].sort
     end
 
-  end
+  end # :staged_files_all
+
+  describe :staged_files_git_all do
+
+    it "lists all files" do
+      write("something.rb", "")
+      write("file.rb", "")
+      system("git", "add", "-A")
+      write("not_git.rb", "")
+      subject.staged_files_git_all.sort.must_equal ["file.rb", "something.rb"].sort
+    end
+
+  end # :staged_files_git_all
 
 end
