@@ -43,4 +43,25 @@ describe PreCommit::Utils::StagedFiles do
     subject.staged_files.must_equal ["something.rb"]
   end
 
+  it "builds ignores file path" do
+    subject.send(:repo_ignores_file).must_match(%r{.*/.pre_commit.ignore$})
+  end
+
+  it "does not fail without ignore file" do
+    subject.send(:repo_ignores).must_equal []
+  end
+
+  it "does read ignores file" do
+    write(".pre_commit.ignore", "file.rb\n")
+    subject.send(:repo_ignores).must_equal ["file.rb"]
+  end
+
+  it "it does exclude links from ignore file" do
+    write(".pre_commit.ignore", "file.rb\n")
+    write("something.rb", "")
+    write("file.rb", "")
+    system("git", "add", "-A")
+    subject.staged_files.sort.must_equal [".pre_commit.ignore", "something.rb"].sort
+  end
+
 end

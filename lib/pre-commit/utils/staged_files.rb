@@ -20,7 +20,6 @@ module PreCommit
 
       def staged_files
         @staged_files ||= filter_files(staged_from_git)
-fail @staged_files.inspect
       end
 
       def staged_files_all
