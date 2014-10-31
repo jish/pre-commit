@@ -1,3 +1,7 @@
+## 0.21.0
+
+* Ignore `no rvm in path` errors if rvm is not present.
+
 ## 0.20.0
 
 * Add the ability to pass command line flags to Rubocop. `rubocop.flags`
