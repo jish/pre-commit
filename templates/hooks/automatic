@@ -12,9 +12,9 @@
 cmd=`git config pre-commit.ruby 2>/dev/null`
 if   test -n "${cmd}"
 then true
-elif which rvm > /dev/null
+elif which rvm   >/dev/null 2>/dev/null
 then cmd="rvm default do ruby"
-elif which rbenv > /dev/null
+elif which rbenv >/dev/null 2>/dev/null
 then cmd="rbenv exec ruby"
 else cmd="ruby"
 fi
