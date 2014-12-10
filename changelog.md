@@ -1,3 +1,7 @@
+## 0.22.0
+
+* Read all versions from schema files in the migration check.
+
 ## 0.21.0
 
 * Ignore `no rvm in path` errors if rvm is not present.
