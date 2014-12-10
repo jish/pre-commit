@@ -6,7 +6,9 @@ module PreCommit
       VERSION_PATTERN = /(\d{14})/
 
       self::VersionedFile = Struct.new(:file, :version) do
-        alias_method :to_s, :file
+        def to_s
+          "<#{self.class.name} file=\"#{file}\" version=\"#{version}\">"
+        end
       end
 
       def self.aliases
@@ -26,7 +28,7 @@ module PreCommit
           missing_versions = migration_versions - schema_files.map(&:version)
           if missing_versions.any?
             "You did not add the schema versions for "\
-            "#{migration_versions.join(', ')} to #{schema_files.join(' or ')}"
+            "#{migration_versions.join(', ')} to #{schema_files.map(&:file).join(' or ')}"
           end
         end
       end
@@ -49,8 +51,8 @@ module PreCommit
         end
 
         files.each_with_object([]) do |f, result|
-          if IO.read(f) =~ VERSION_PATTERN
-            result << VersionedFile.new(f, $1)
+          File.read(f).scan(VERSION_PATTERN) do |i|
+            result << VersionedFile.new(f, i.first)
           end
         end
       end

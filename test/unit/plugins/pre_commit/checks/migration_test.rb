@@ -36,6 +36,18 @@ describe PreCommit::Checks::Migration do
     end
   end
 
+  it 'detects multiple versions in a structure file' do
+    in_new_directory do
+      write "db/migrate/20140718171920_foo.rb", "Yep"
+      write "db/foo_structure.sql", <<-STRUCTURE
+        INSERT INTO schema_migrations (version) VALUES ('20111115214127');
+
+        INSERT INTO schema_migrations (version) VALUES ('20140718171920');
+      STRUCTURE
+      check.call(['db/migrate/20140718171920_foo.rb', 'db/foo_structure.sql']).must_equal nil
+    end
+  end
+
   it "succeeds if random files are changed" do
     check.call(['public/javascript/foo.js', 'lib/bar.rb']).must_equal nil
   end
