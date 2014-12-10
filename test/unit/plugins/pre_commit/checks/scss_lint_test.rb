@@ -19,6 +19,5 @@ describe PreCommit::Checks::ScssLint do
 
   it "fails for bad formatted code" do
     check.call([fixture_file("bad.scss")]).must_match(/test\/files\/bad\.scss/)
-    check.call([fixture_file("bad.scss")]).must_match(/should be sorted in order/)
   end
 end
