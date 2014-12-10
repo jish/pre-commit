@@ -93,7 +93,7 @@ describe PreCommit::Utils::StagedFiles do
     it "sets staged files from list" do
       subject.staged_files.must_equal([])
       subject.set_staged_files("some_file", "another_file")
-      subject.staged_files.must_equal(["some_file", "another_file"])
+      subject.staged_files.sort.must_equal(["some_file", "another_file"].sort)
     end
 
     it "sets staged files - all" do
@@ -101,7 +101,7 @@ describe PreCommit::Utils::StagedFiles do
       write("something.rb", "")
       write("file.rb", "")
       subject.set_staged_files(:all)
-      subject.staged_files.must_equal(["file.rb", "something.rb"])
+      subject.staged_files.sort.must_equal(["file.rb", "something.rb"].sort)
     end
 
     it "sets staged files - git" do
@@ -112,7 +112,7 @@ describe PreCommit::Utils::StagedFiles do
       subject.staged_files = nil
       subject.set_staged_files()
       write("not_git.rb", "")
-      subject.staged_files.must_equal(["file.rb", "something.rb"])
+      subject.staged_files.sort.must_equal(["file.rb", "something.rb"].sort)
     end
 
     it "sets staged files - git all" do
@@ -122,7 +122,7 @@ describe PreCommit::Utils::StagedFiles do
       system("git", "add", "-A")
       subject.set_staged_files(:git)
       write("not_git.rb", "")
-      subject.staged_files.must_equal(["file.rb", "something.rb"])
+      subject.staged_files.sort.must_equal(["file.rb", "something.rb"].sort)
     end
 
   end
