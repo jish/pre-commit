@@ -1,3 +1,7 @@
+## 0.22.1
+
+* `pre-commit run` used to always exit with the same status code. Now it exits with 0 on success, 1 on error
+
 ## 0.22.0
 
 * Read all versions from schema files in the migration check.
