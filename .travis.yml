@@ -1,7 +1,8 @@
 bundler_args: ""
 before_install:
+  - sudo add-apt-repository ppa:fta/dev -y
   - sudo apt-get update
-  - sudo apt-get install -y nodejs php5
+  - sudo apt-get install -y nodejs php5 closure-linter
   - npm install -g coffeelint
   - rvm default do gem install execjs
   - git config --global user.name "Pre Commit"
