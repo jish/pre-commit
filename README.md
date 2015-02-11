@@ -32,6 +32,7 @@ These are the available checks:
 * jshint
 * js_lint
 * closure\_syntax\_check
+* closure\_linter (Check your JS using [closure linter tool](https://developers.google.com/closure/utilities/docs/linter_howto). Closure Linter must be installed)
 * php (Runs php -l on all staged files)
 * rspec_focus (Will check if you are about to check in a :focus in a spec file)
 * ruby_symbol_hashrockets (1.9 syntax. BAD :foo => "bar". GOOD foo: "bar")
