@@ -20,6 +20,16 @@ Use the pre-commit command to generate a stub pre-commit hook
 
 This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled.
 
+### RVM
+
+If you are using rvm you need to install pre-commit into the ```default``` gemset, because it does not use the ```current``` environment
+
+    $ rvm default do gem install pre-commit
+
+Alternatively you can configure pre-commit to use the ```current``` rvm gemset
+
+    $ git config pre-commit.ruby "rvm \`rvm current\` do ruby"
+
 ## Available checks
 
 These are the available checks:
