@@ -2,3 +2,4 @@
 # that we may or may not add in the future.
 
 gem "debugger"
+gem 'byebug'

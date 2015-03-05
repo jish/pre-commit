@@ -2,22 +2,22 @@ require 'pre-commit/checks/grep'
 
 module PreCommit
   module Checks
-    class Debugger < Grep
+    class Byebug < Grep
 
       def files_filter(staged_files)
         staged_files.reject { |file| File.basename(file) =~ /^Gemfile/ }
       end
 
       def message
-        "debugger statement(s) found:"
+        "byebug statement(s) found:"
       end
 
       def pattern
-        "^[ 	]*debugger"
+        "^.*byebug"
       end
 
       def self.description
-        "Finds files with 'debugger'."
+        "Finds files with 'byebug'."
       end
 
     end

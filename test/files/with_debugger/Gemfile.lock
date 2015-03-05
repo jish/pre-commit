@@ -7,9 +7,11 @@ GEM
       debugger-ruby_core_source (~> 1.2.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.3)
+    byebug (1.1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   debugger
+  byebug
