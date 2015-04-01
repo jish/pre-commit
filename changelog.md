@@ -1,3 +1,7 @@
+## 0.23.0
+
+* RuboCop checks more than just .rb files (`.gemspec`, `Rakefile`, etc.)
+
 ## 0.22.1
 
 * `pre-commit run` used to always exit with the same status code. Now it exits with 0 on success, 1 on error
