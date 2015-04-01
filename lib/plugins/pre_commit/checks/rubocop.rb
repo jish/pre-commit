@@ -18,7 +18,24 @@ module PreCommit
       rescue LoadError => e
         $stderr.puts "Could not find rubocop: #{e}"
       else
-        staged_files = staged_files.grep(/\.rb$/)
+        allowed_files_regex = /\.gemspec\Z|
+                               \.podspec\Z|
+                               \.jbuilder\Z|
+                               \.rake\Z|
+                               \.opal\Z|
+                               \.rb\Z|
+                               Gemfile\Z|
+                               Rakefile\Z|
+                               Capfile\Z|
+                               Guardfile\Z|
+                               Podfile\Z|
+                               Thorfile\Z|
+                               Vagrantfile\Z|
+                               Berksfile\Z|
+                               Cheffile\Z|
+                               Vagabondfile\Z
+                              /x
+        staged_files = staged_files.grep(allowed_files_regex)
         return if staged_files.empty?
 
         args = config_file_flag + user_supplied_flags + ["--force-exclusion"] + staged_files
