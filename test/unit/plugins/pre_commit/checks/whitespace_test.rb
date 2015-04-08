@@ -12,16 +12,28 @@ describe PreCommit::Checks::Whitespace do
   let(:check){ PreCommit::Checks::Whitespace.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call(['a']).must_equal nil
   end
 
   it "succeeds if only good changes" do
     `echo aaa > b && git add b`
-    check.call([]).must_equal nil
+    check.call(['a', 'b']).must_equal nil
   end
 
-  it "fails on bad changes" do
-    `echo '   ' > b && git add b`
-    check.call([]).must_equal "b:1: trailing whitespace.\n+   \nb:1: new blank line at EOF.\n"
+  describe 'staged bad changes' do
+    it "fails on bad changes" do
+      `echo '   ' > b && git add b`
+      check.call(['a', 'b']).must_equal "b:1: trailing whitespace.\n+   \nb:1: new blank line at EOF.\n"
+    end
+
+    it "succeeds if the target files don't have bad changes" do
+      `echo '   ' > b && git add b`
+      check.call(['a']).must_equal nil
+    end
+
+    it "succeeds if no target files" do
+      `echo '   ' > b && git add b`
+      check.call([]).must_equal nil
+    end
   end
 end
