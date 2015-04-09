@@ -1,3 +1,5 @@
+* Whitespace check will not run if there are no staged files
+
 ## 0.23.0
 
 * RuboCop checks more than just .rb files (`.gemspec`, `Rakefile`, etc.)
