@@ -23,6 +23,8 @@ module PreCommit
       end
 
       def call(staged_files)
+        return if staged_files.empty?
+
         errors = `git diff-index --check --cached HEAD -- #{files_string(staged_files)} 2>&1`
         return if $?.success?
 
