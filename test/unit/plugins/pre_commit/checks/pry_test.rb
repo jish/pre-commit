@@ -15,7 +15,9 @@ describe PreCommit::Checks::Pry do
   it "fails if file contains pry" do
     check.call([fixture_file('pry_file.rb')]).to_a.must_equal([
       "binding.pry found:",
-      "test/files/pry_file.rb:3:    binding.pry"
+      "test/files/pry_file.rb:3:    binding.pry",
+      "test/files/pry_file.rb:4:    binding.remote_pry",
+      "test/files/pry_file.rb:5:    binding.remote_pry_em"
     ])
   end
 end
