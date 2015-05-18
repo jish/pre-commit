@@ -24,6 +24,7 @@ module PreCommit
                                \.rake\Z|
                                \.opal\Z|
                                \.rb\Z|
+                               config\.ru\Z|
                                Gemfile\Z|
                                Rakefile\Z|
                                Capfile\Z|
