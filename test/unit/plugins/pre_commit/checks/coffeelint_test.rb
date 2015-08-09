@@ -18,7 +18,7 @@ describe PreCommit::Checks::Coffeelint do
     check.call([fixture_file('good.coffee')]).must_equal nil
   end
 
-  # it "fails for bad formatted code" do
-  #   check.call([fixture_file("bad.coffee")]).must_be_kind_of String
-  # end
+  it "fails for bad formatted code" do
+    check.call([fixture_file("bad.coffee")]).must_be_kind_of String
+  end
 end unless `which coffeelint 2>/dev/null`.empty?

@@ -76,8 +76,11 @@ end; end
 
 module PreCommit
   module PrintTestNames
-    def after_setup
-      puts "Running #{self.inspect} #{@__name__}"
+    def after_teardown
+      super
+      if !passed?
+        puts "Test #{@__name__} did not pass."
+      end
     end
   end
 end
@@ -88,5 +91,5 @@ end
 
 class MiniTest::Unit::TestCase
   include PreCommit::Helpers
-  # include PreCommit::PrintTestNames
+  include PreCommit::PrintTestNames
 end
