@@ -28,7 +28,7 @@ describe PreCommit::Checks::Rubocop do
 
   [".gemspec", ".podspec", ".jbuilder", ".rake", ".opal", ".rb"].each do |extension|
     it "runs checks on #{extension} files" do
-      assert check.call([fixture_file("test#{extension}")])
+      check.call([fixture_file("test#{extension}")]).must_be_kind_of String
     end
   end
 
@@ -37,7 +37,7 @@ describe PreCommit::Checks::Rubocop do
     "Vagrantfile", "Berksfile", "Cheffile", "Vagabondfile"
   ].each do |file|
     it "runs checks on #{file} file" do
-      assert check.call([fixture_file(file)])
+      check.call([fixture_file(file)]).must_be_kind_of String
     end
   end
 
