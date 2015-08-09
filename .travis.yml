@@ -6,6 +6,7 @@ before_install:
   - rvm default do gem install execjs
   - git config --global user.name "Pre Commit"
   - git config --global user.email "pre-commit+travis@example.com"
+script: "bundle exec rake --trace"
 language: ruby
 rvm:
   - ruby-1.9.3
