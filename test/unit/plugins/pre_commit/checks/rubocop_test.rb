@@ -32,14 +32,18 @@ describe PreCommit::Checks::Rubocop do
   #   end
   # end
 
-  [
-    "Gemfile", "Rakefile", "Capfile", "Guardfile", "Podfile", "Thorfile",
-    "Vagrantfile", "Berksfile", "Cheffile", "Vagabondfile"
-  ].each do |file|
-    it "runs checks on #{file} file" do
-      check.call([fixture_file(file)]).must_be_kind_of String
-    end
+  it "runs checks on Gemfile" do
+    check.call(fixture_file("Gemfile")).must_be_kind_of String
   end
+
+  # [
+  #   "Gemfile", "Rakefile", "Capfile", "Guardfile", "Podfile", "Thorfile",
+  #   "Vagrantfile", "Berksfile", "Cheffile", "Vagabondfile"
+  # ].each do |file|
+  #   it "runs checks on #{file} file" do
+  #     check.call([fixture_file(file)]).must_be_kind_of String
+  #   end
+  # end
 
   describe 'with --fail-level=warn' do
     let(:flags) { '--fail-level=warn' }

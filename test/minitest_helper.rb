@@ -75,11 +75,11 @@ module PreCommit; module Helpers
 end; end
 
 module PreCommit
-  module PrintTestNames
+  module PrintFailingTestNames
     def after_teardown
       super
       if !passed?
-        puts "Test #{@__name__} did not pass."
+        puts "\nTest '#{@__name__}' did not pass."
       end
     end
   end
@@ -87,9 +87,10 @@ end
 
 class MiniTest::Test
   include PreCommit::Helpers
+  include PreCommit::PrintFailingTestNames
 end
 
 class MiniTest::Unit::TestCase
   include PreCommit::Helpers
-  include PreCommit::PrintTestNames
+  include PreCommit::PrintFailingTestNames
 end
