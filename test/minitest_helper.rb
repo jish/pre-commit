@@ -74,10 +74,19 @@ module PreCommit; module Helpers
 
 end; end
 
+module PreCommit
+  module PrintTestNames
+    def after_setup
+      puts "Running #{self.inspect} #{@__name__}"
+    end
+  end
+end
+
 class MiniTest::Test
   include PreCommit::Helpers
 end
 
 class MiniTest::Unit::TestCase
   include PreCommit::Helpers
+  include PreCommit::PrintTestNames
 end
