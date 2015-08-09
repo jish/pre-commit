@@ -88,5 +88,5 @@ end
 
 class MiniTest::Unit::TestCase
   include PreCommit::Helpers
-  include PreCommit::PrintTestNames
+  # include PreCommit::PrintTestNames
 end

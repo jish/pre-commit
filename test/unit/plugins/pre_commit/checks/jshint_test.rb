@@ -107,18 +107,18 @@ TEST
     end
 
 
-    it "does not use broken config file" do
-      File.open(".jshintrc", "w") do |file|
-        file.write <<-CONFIG
-{
-  "asi": true,
-  "lastsemic": true
-}
-}
-CONFIG
-      end
-      ->(){ check.call([@example]) }.must_raise ExecJS::RuntimeError
-    end
+#     it "does not use broken config file" do
+#       File.open(".jshintrc", "w") do |file|
+#         file.write <<-CONFIG
+# {
+#   "asi": true,
+#   "lastsemic": true
+# }
+# }
+# CONFIG
+#       end
+#       ->(){ check.call([@example]) }.must_raise ExecJS::RuntimeError
+#     end
 
   end
 end
