@@ -33,7 +33,7 @@ describe PreCommit::Checks::Rubocop do
   # end
 
   it "runs checks on Gemfile" do
-    check.call(fixture_file("Gemfile")).must_be_kind_of String
+    check.call([fixture_file("Gemfile")]).must_be_kind_of String
   end
 
   # [
