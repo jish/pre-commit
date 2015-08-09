@@ -11,10 +11,4 @@ describe PreCommit::Checks::Jslint do
   it "succeeds if only good changes" do
     check.call([fixture_file('valid_file.js')]).must_equal nil
   end
-
-  it "fails if file contains debugger" do
-    skip do
-      check.call([fixture_file('bad_file.js')]).must_equal "Missing semicolon.\ntest/files/bad_file.js:5 }"
-    end
-  end
 end
