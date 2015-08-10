@@ -10,7 +10,7 @@
 #
 
 # This is a work-around to get GitHub for Mac to be able to run `node` commands
-# http://stackoverflow.com/questions/12881975/git-pre-commit-hook-failing-in-github-for-mac-works-on-command-line
+# https://stackoverflow.com/questions/12881975/git-pre-commit-hook-failing-in-github-for-mac-works-on-command-line
 PATH=$PATH:/usr/local/bin:/usr/local/sbin
 
 
