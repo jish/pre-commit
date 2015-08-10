@@ -1,4 +1,7 @@
-* Whitespace check will not run if there are no staged files
+## 0.224.0
+
+* Whitespace check will not run if there are no staged files.
+* The `pre-commit` script now runs properly in GitHub for Mac.
 
 ## 0.23.0
 
