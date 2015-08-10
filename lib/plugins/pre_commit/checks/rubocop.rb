@@ -5,6 +5,12 @@ module PreCommit
   module Checks
     class Rubocop < Plugin
 
+      WHITELIST = [
+        ".gemspec", ".jbuilder", ".opal", ".podspec", ".rake", ".rb",
+        "Berksfile", "Capfile", "Cheffile", "Gemfile", "Guardfile", "Podfile",
+        "Rakefile", "Thorfile", "Vagabondfile", "Vagrantfile"
+      ]
+
       def self.aliases
         [ :rubocop_all, :rubocop_new ]
       end
@@ -18,30 +24,18 @@ module PreCommit
       rescue LoadError => e
         $stderr.puts "Could not find rubocop: #{e}"
       else
-        allowed_files_regex = /\.gemspec\Z|
-                               \.podspec\Z|
-                               \.jbuilder\Z|
-                               \.rake\Z|
-                               \.opal\Z|
-                               \.rb\Z|
-                               Gemfile\Z|
-                               Rakefile\Z|
-                               Capfile\Z|
-                               Guardfile\Z|
-                               Podfile\Z|
-                               Thorfile\Z|
-                               Vagrantfile\Z|
-                               Berksfile\Z|
-                               Cheffile\Z|
-                               Vagabondfile\Z
-                              /x
-        staged_files = staged_files.grep(allowed_files_regex)
+        staged_files = filter_staged_files(staged_files)
         return if staged_files.empty?
 
         args = config_file_flag + user_supplied_flags + ["--force-exclusion"] + staged_files
 
         success, captured = capture { ::RuboCop::CLI.new.run(args) == 0 }
         captured unless success
+      end
+
+      def filter_staged_files(staged_files)
+        expression = Regexp.new(WHITELIST.map { |i| i + "\\Z" }.join("|"))
+        staged_files.grep(expression)
       end
 
       def capture
