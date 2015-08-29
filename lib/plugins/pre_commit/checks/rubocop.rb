@@ -6,7 +6,7 @@ module PreCommit
     class Rubocop < Plugin
 
       WHITELIST = [
-        ".gemspec", ".jbuilder", ".opal", ".podspec", ".rake", ".rb",
+        "\\.gemspec", "\\.jbuilder", "\\.opal", "\\.podspec", "\\.rake", "\\.rb",
         "Berksfile", "Capfile", "Cheffile", "Gemfile", "Guardfile", "Podfile",
         "Rakefile", "Thorfile", "Vagabondfile", "Vagrantfile"
       ]
