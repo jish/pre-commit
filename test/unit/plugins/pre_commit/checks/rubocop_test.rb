@@ -43,6 +43,11 @@ describe PreCommit::Checks::Rubocop do
     end
   end
 
+  it "ignores erb files" do
+    file = fixture_file("test.erb")
+    check.filter_staged_files([file]).wont_include(file)
+  end
+
   describe 'with --fail-level=warn' do
     let(:flags) { '--fail-level=warn' }
 
