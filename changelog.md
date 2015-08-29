@@ -1,4 +1,9 @@
-## 0.224.0
+## 0.25.0
+
+* Rubocop check was not filtering file extensions properly. It was ignoring the dot `.` (e.g. `.foo`).
+* Users should now be able to commit from subdirectories (e.g. `$ cd subdir`, `$ git commit`).
+
+## 0.24.0
 
 * Whitespace check will not run if there are no staged files.
 * The `pre-commit` script now runs properly in GitHub for Mac.
