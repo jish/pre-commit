@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+which npm > /dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+
+  echo "npm installed ✓"
+  echo "Checking for coffeelint..."
+
+  npm list --global coffeelint > /dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+
+    echo "Installing coffeelint..."
+    npm install -g coffeelint
+
+  else
+    echo "coffeelint installed ✓"
+  fi
+
+else
+
+  echo "npm is missing, aborting bootstrap."
+  echo "Please install npm."
+
+fi
