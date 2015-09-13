@@ -10,7 +10,9 @@ describe PreCommit::Checks::Debugger do
 
   it "filters out Gemfiles files" do
     subject.files_filter([
-      fixture_file('valid_file.rb'),fixture_file('Gemfiles'),fixture_file('console_log.rb')
+      fixture_file('valid_file.rb'),
+      fixture_file('Gemfiles'),
+      fixture_file('console_log.rb')
     ]).must_equal([
       fixture_file('valid_file.rb'),fixture_file('console_log.rb')
     ])
@@ -25,6 +27,15 @@ describe PreCommit::Checks::Debugger do
       "debugger statement(s) found:",
       "test/files/debugger_file.rb:3:  \tdebugger"
     ])
+  end
+
+  it "fails if file contains a byebug statement" do
+    actual = subject.call([fixture_file("byebug_file.rb")]).to_a
+    expected = [
+      "debugger statement(s) found:",
+      "test/files/byebug_file.rb:3:    byebug"
+    ]
+    actual.must_equal expected, "Did not detect byebug in byebug_file.rb"
   end
 
   it "Skips checking the Gemfile" do
