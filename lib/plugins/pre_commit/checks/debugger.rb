@@ -13,11 +13,11 @@ module PreCommit
       end
 
       def pattern
-        "^[ 	]*debugger"
+        "^[ 	]*(debugger|byebug)"
       end
 
       def self.description
-        "Finds files with 'debuger'."
+        "Finds files with 'debugger'."
       end
 
     end
