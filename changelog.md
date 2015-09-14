@@ -1,3 +1,7 @@
+## 0.26.0
+
+* Add byebug support to the debugger check
+
 ## 0.25.0
 
 * Rubocop check was not filtering file extensions properly. It was ignoring the dot `.` (e.g. `.foo`).
