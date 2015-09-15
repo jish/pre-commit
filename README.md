@@ -65,11 +65,11 @@ Use `pre-commit list` to see the list of default and enabled checks and warnings
 
 ### Git configuration
 
-    git config pre-commit.checks "whitespace, jshint, debugger"
+    git config pre-commit.checks "[whitespace, jshint, debugger]"
 
 To disable, simply leave one off the list
 
-    git config pre-commit.checks "whitespace, jshint"
+    git config pre-commit.checks "[whitespace, jshint]"
 
 ### CLI configuration
 
