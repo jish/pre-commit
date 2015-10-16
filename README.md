@@ -41,7 +41,6 @@ These are the available checks:
 * tabs
 * jshint
 * js_lint
-* closure\_syntax\_check
 * php (Runs php -l on all staged files)
 * rspec_focus (Will check if you are about to check in a :focus in a spec file)
 * ruby_symbol_hashrockets (1.9 syntax. BAD :foo => "bar". GOOD foo: "bar")
