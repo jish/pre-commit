@@ -29,13 +29,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency('pluginator', '~> 1.1')
 
-  s.add_development_dependency('guard', '~> 2.0')
-  s.add_development_dependency('guard-minitest', '~> 2.0')
-  s.add_development_dependency('minitest', '~> 4.0')
-  s.add_development_dependency('minitest-reporters', '~> 0')
-  s.add_development_dependency('rake', '~> 10.0')
-  s.add_development_dependency('rubocop', '~> 0.25')
-
   if s.respond_to? :specification_version then
     s.specification_version = 3
   end
