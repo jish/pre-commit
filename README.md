@@ -5,7 +5,7 @@ A better pre-commit hook for git.
 [![Coverage Status](https://img.shields.io/coveralls/jish/pre-commit/master.svg)](https://coveralls.io/r/jish/pre-commit?branch=master)
 [![Build status](https://travis-ci.org/jish/pre-commit.svg?branch=master)](https://travis-ci.org/jish/pre-commit)
 [![Dependency Status](https://gemnasium.com/jish/pre-commit.png)](https://gemnasium.com/jish/pre-commit)
-[![Documentation](https://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/gems/pre-commit/frames)
+[![Documentation](https://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/gems/pre-commit/frames)
 
 ## Installation
 
@@ -52,7 +52,7 @@ These are the available checks:
 * before_all (Check your RSpec tests for the use of `before(:all)`)
 * coffeelint (Check your coffeescript files using the [coffeelint gem.](https://github.com/clutchski/coffeelint))
 * go (Runs go fmt on a go source file and fail if formatting is incorrect, then runs go build and fails if can't compile)
-* scss_lint (Check your SCSS files using the [scss-lint gem](https://github.com/causes/scss-lint))
+* scss_lint (Check your SCSS files using the [scss-lint gem](https://github.com/brigade/scss-lint))
 * yaml (Check that your YAML is parsable)
 * json (Checks if JSON is parsable)
 
@@ -124,6 +124,6 @@ the list of git files to check with:
 1. `.gitignore` - git supported file shared beteen all checkouts
 2. `.git/info/exclude` - git supported file only for this checkout
 3. `.pre_commit.ignore` - `pre-commit` specific list can be shared,
-    [Allowed filters](http://www.ruby-doc.org/core-2.1.3/File.html#method-c-fnmatch)
+    [Allowed filters](http://ruby-doc.org/core-2.1.3/File.html#method-c-fnmatch)
 
 ## [Contributing](CONTRIBUTING.md)
