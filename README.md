@@ -28,7 +28,8 @@ If you are using rvm you need to install pre-commit into the ```default``` gemse
 
 Alternatively you can configure pre-commit to use the ```current``` rvm gemset
 
-    $ git config pre-commit.ruby "rvm `rvm current` do ruby"
+    $ git config pre-commit.ruby "rvm `rvm current` do ruby" # OR:
+    $ git config pre-commit.ruby `rvm wrapper current show ruby` # available in RVM 1.26.12
 
 ## Available checks
 
