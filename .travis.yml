@@ -15,11 +15,11 @@ cache:
  - npm
 language: ruby
 rvm:
+  - jruby
   - ruby-1.9.3
   - ruby-2.0.0
   - ruby-2.1
   - ruby-2.2
   - ruby-2.3.0
-  - jruby
 matrix:
   fast_finish: true
