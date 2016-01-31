@@ -5,10 +5,10 @@ module PreCommit
   module Checks
     class Rubocop < Plugin
 
-      WHITELIST = [
-        "\\.gemspec", "\\.jbuilder", "\\.opal", "\\.podspec", "\\.rake", "\\.rb",
-        "Berksfile", "Capfile", "Cheffile", "Gemfile", "Guardfile", "Podfile",
-        "Rakefile", "Thorfile", "Vagabondfile", "Vagrantfile"
+      WHITELIST = %w[
+        \.gemspec \.jbuilder \.opal \.podspec \.rake \.rb config\.ru
+        Berksfile Capfile Cheffile Gemfile Guardfile Podfile
+        Rakefile Thorfile Vagabondfile Vagrantfile
       ]
 
       def self.aliases
