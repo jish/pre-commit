@@ -25,7 +25,7 @@ module PreCommit
       end
 
       def safe_load_file(file)
-        YAML.safe_load(File.read(file), [], [], true, file)
+        YAML.safe_load(File.read(file), [::Symbol], [], true, file)
 
         nil
       rescue Psych::DisallowedClass
