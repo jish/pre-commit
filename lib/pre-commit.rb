@@ -24,5 +24,4 @@ module PreCommit
   def self.runner
     @runner ||= PreCommit::Runner.new
   end
-
 end

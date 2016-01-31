@@ -1,0 +1,15 @@
+---
+language: ruby
+sudo: false
+bundler_args: ""
+rvm:
+  - jruby
+  - rubinius
+  - ruby-2.0.0
+  - ruby-2.1
+  - ruby-2.2
+  - ruby-2.3.0
+matrix:
+  fast_finish: true
+  allow_failures:
+    - rvm: rubinius
