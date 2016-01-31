@@ -1,7 +1,10 @@
+sudo: false
+addons:
+  apt:
+    packages:
+    - php5
 bundler_args: ""
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y php5
   - npm install -g coffeelint
   - rvm default do gem install execjs
   - git config --global user.name "Pre Commit"
@@ -15,6 +18,8 @@ rvm:
   - ruby-1.9.3
   - ruby-2.0.0
   - ruby-2.1
+  - ruby-2.2
+  - ruby-2.3.0
   - jruby
 matrix:
   fast_finish: true
