@@ -72,6 +72,13 @@ module PreCommit; module Helpers
     result
   end
 
+  def available_checks
+    @available_checks ||=
+    Dir["#{project_dir}/lib/plugins/pre_commit/checks/*.rb"].map{|path|
+      path.gsub(/^.*\/([^\/]*)\.rb$/, "\\1")
+    }.sort.join(" ")
+  end
+
 end; end
 
 class MiniTest::Test
