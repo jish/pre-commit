@@ -145,10 +145,11 @@ EXPECTED
     cli = subject.new('enable')
     status = cli.execute
     $stderr.string.must_equal(<<-EXPECTED)
-Unknown parameters: enable
+Unknown parameters: "enable"
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
+Usage: pre-commit new plugin-name 'Author Name' author@email 'description of the plugin'
 Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
@@ -159,10 +160,11 @@ EXPECTED
     cli = subject.new('enable', 'git')
     status = cli.execute
     $stderr.string.must_equal(<<-EXPECTED)
-Unknown parameters: enable git
+Unknown parameters: "enable" "git"
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
+Usage: pre-commit new plugin-name 'Author Name' author@email 'description of the plugin'
 Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
@@ -173,10 +175,11 @@ EXPECTED
     cli = subject.new('enable', 'git', 'checks')
     status = cli.execute
     $stderr.string.must_equal(<<-EXPECTED)
-Unknown parameters: enable git checks
+Unknown parameters: "enable" "git" "checks"
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
+Usage: pre-commit new plugin-name 'Author Name' author@email 'description of the plugin'
 Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')
@@ -187,10 +190,11 @@ EXPECTED
     cli = subject.new('disable')
     status = cli.execute
     $stderr.string.must_equal(<<-EXPECTED)
-Unknown parameters: disable
+Unknown parameters: "disable"
 Usage: pre-commit install
 Usage: pre-commit list
 Usage: pre-commit plugins
+Usage: pre-commit new plugin-name 'Author Name' author@email 'description of the plugin'
 Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]
 EXPECTED
     $stdout.string.must_equal('')

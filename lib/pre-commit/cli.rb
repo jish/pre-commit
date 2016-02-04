@@ -2,6 +2,7 @@ require 'fileutils'
 require 'pre-commit/configuration'
 require 'pre-commit/installer'
 require 'pre-commit/list_evaluator'
+require 'pre-commit/template'
 
 module PreCommit
 
@@ -15,7 +16,7 @@ module PreCommit
 
     def execute()
       action_name = @args.shift or 'help'
-      action = "execute_#{action_name}".to_sym
+      action = :"execute_#{action_name}"
       if respond_to?(action)
       then send(action, *@args)
       else execute_help(action_name, *@args)
@@ -23,10 +24,11 @@ module PreCommit
     end
 
     def execute_help(*args)
-      warn "Unknown parameters: #{args * " "}" unless args.empty?
+      warn "Unknown parameters: #{args.map(&:inspect) * " "}" unless args.empty?
       warn "Usage: pre-commit install"
       warn "Usage: pre-commit list"
       warn "Usage: pre-commit plugins"
+      warn "Usage: pre-commit new plugin-name 'Author Name' author@email 'description of the plugin'"
       warn "Usage: pre-commit <enable|disable> <git|yaml> <checks|warnings> check1 [check2...]"
       args.empty? # return status, it's ok if user requested help
     end
@@ -48,6 +50,13 @@ module PreCommit
     def execute_plugins(*args)
       puts list_evaluator.plugins
       true
+    end
+
+    def execute_new(*args)
+      PreCommit::Template.new(*args).save
+    rescue ArgumentError => e
+      warn e
+      warn "Usage: pre-commit new plugin-name 'Author Name' author@email 'description of the plugin'"
     end
 
     def execute_enable(*args)
