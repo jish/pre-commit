@@ -9,7 +9,7 @@ module PreCommit
       end
 
       def pattern
-        "binding\.pry"
+        "binding\.(remote_)?pry"
       end
 
       def self.description
