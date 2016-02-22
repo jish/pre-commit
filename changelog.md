@@ -1,3 +1,12 @@
+## 0.27.0
+
+* Removed the closure check
+* Separated gofmt and gobuild checks
+* Run tests against more (newer) versions of Ruby -- 2.2 & 2.3
+* config.ru is an allowed file for the rubocop check
+* Added a `pre-commit new` command to generate a new pre-commit plugin
+* The pry check now cheks for `binding.remote_pry` and `binding.remote_pry_em`
+
 ## 0.26.0
 
 * Add byebug support to the debugger check
