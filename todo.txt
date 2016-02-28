@@ -1,1 +1,0 @@
-In the generated hook, rescue LoadError when requiring 'pre-commit' #robustness
