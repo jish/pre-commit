@@ -128,4 +128,4 @@ the list of git files to check with:
 3. `.pre_commit.ignore` - `pre-commit` specific list can be shared,
     [Allowed filters](http://ruby-doc.org/core-2.1.3/File.html#method-c-fnmatch)
 
-## [Contributing](CONTRIBUTING.md)
+## [Contributing](.github/CONTRIBUTING.md)
