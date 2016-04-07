@@ -20,6 +20,23 @@ Use the pre-commit command to generate a stub pre-commit hook
 
 This creates a .git/hooks/pre-commit script which will check your git config and run checks that are enabled.
 
+### Bundler
+
+If you want to use Bundler to specify a version of RuboCop, add the following to `Gemfile`:
+
+```ruby
+group :development do
+  gem "pre-commit", require: false
+  gem "rubocop", require: false
+end
+```
+
+And run the following to run `pre-commit` via Bundler:
+
+```
+$ git config pre-commit.ruby "bundle exec ruby"
+```
+
 ### RVM
 
 If you are using rvm you need to install pre-commit into the ```default``` gemset, because it does not use the ```current``` environment
