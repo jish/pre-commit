@@ -8,11 +8,12 @@ module PreCommit
       end
 
       def pattern
-        "^.*([true|false] \&\&)"
+        "(false \&\&)|(true \\|\\|)"
+        # "(false\s*\&\&|true\s*\|\|)"
       end
 
       def self.description
-        "Finds files with a logical short circuit like 'if true &&'"
+        "Finds files with a logical short circuit like 'if false &&' or 'true ||'"
       end
 
     end
