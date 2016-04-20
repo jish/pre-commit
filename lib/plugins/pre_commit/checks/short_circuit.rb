@@ -8,8 +8,7 @@ module PreCommit
       end
 
       def pattern
-        "(false \&\&)|(true \\|\\|)"
-        # "(false\s*\&\&|true\s*\|\|)"
+        "(false\s*\&\&)|(true\s*\\|\\|)"
       end
 
       def self.description
