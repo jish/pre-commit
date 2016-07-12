@@ -25,6 +25,17 @@ describe PreCommit::Utils::StagedFiles do
       subject.staged_files.must_equal([])
     end
 
+    it "allows files with unicode characters" do
+      write("unicode_source.rb", <<-RUBY)
+# コメント
+def sample
+  # comment
+  # comment
+end
+      RUBY
+      sh "git add -A"
+      subject.staged_files.must_equal(["unicode_source.rb"])
+    end
 
     it "has empty list for no changes" do
       subject.staged_files.must_equal([])

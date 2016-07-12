@@ -33,7 +33,10 @@ module PreCommit
     private
       # from https://github.com/djberg96/ptools/blob/master/lib/ptools.rb#L90
       def binary?(file)
-        s = (File.read(file, File.stat(file).blksize) || "").split(//)
+        bytes = File.stat(file).blksize
+        bytes = 4096 if bytes > 4096
+        s = (File.read(file, bytes) || "")
+        s = s.encode('US-ASCII', :undef => :replace).split(//)
         ((s.size - s.grep(" ".."~").size) / s.size.to_f) > 0.30
       end
 
