@@ -1,3 +1,7 @@
+## 0.28.0
+
+* The binary check handles unicode source files.
+
 ## 0.27.0
 
 * Removed the closure check
