@@ -30,8 +30,7 @@ STEPS
 
     def all_files
       Dir.glob("#{TEMPLATE_DIR}/**/*", File::FNM_DOTMATCH)
-        .reject{ |path| File.directory?(path) }
-        .sort # for jRuby
+        .reject { |path| File.directory?(path) }
     end
 
     def target_path(file)

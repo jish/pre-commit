@@ -17,7 +17,7 @@ describe PreCommit::Template do
   it "substitutes in the plugin name in the file list" do
     processed_filenames = subject.all_files.map do |file|
       subject.target_path(file)
-    end
+    end.sort
 
     [
       "pre-commit-plugin-name/.gitignore",
