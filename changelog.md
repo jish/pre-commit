@@ -1,3 +1,7 @@
+## 0.29.0
+
+* Fixed a bug where version 0.27.0 and 0.28.0 could not be installed on Windows.
+
 ## 0.28.0
 
 * The binary check handles unicode source files.
