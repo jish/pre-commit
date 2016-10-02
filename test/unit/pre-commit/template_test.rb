@@ -32,7 +32,7 @@ describe PreCommit::Template do
       "pre-commit-plugin-name/test/files/.keep",
       "pre-commit-plugin-name/test/minitest_helper.rb",
       "pre-commit-plugin-name/test/plugins/pre_commit/checks/plugin-name_test.rb"
-    ].each_with_index do |expected, index|
+    ].sort.each_with_index do |expected, index|
       assert_equal(expected, processed_filenames[index])
     end
 
