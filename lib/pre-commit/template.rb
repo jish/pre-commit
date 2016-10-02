@@ -28,6 +28,18 @@ Next steps:
 STEPS
     end
 
+    def all_files
+      Dir.glob("#{TEMPLATE_DIR}/**/*", File::FNM_DOTMATCH)
+        .reject{ |path| File.directory?(path) }
+    end
+
+    def target_path(file)
+      file
+        .sub(TEMPLATE_DIR, gem_name)
+        .sub("GEM_NAME", gem_name)
+        .sub("PLUGIN_NAME", name)
+    end
+
   private
 
     def validate_params
@@ -38,22 +50,10 @@ STEPS
       raise ArgumentError, "#{gem_name} already exists" if File.directory?(gem_name)
     end
 
-    def all_files
-      Dir.glob("#{TEMPLATE_DIR}/**/*", File::FNM_DOTMATCH).reject{|path| File.directory?(path) }.sort
-    end
-
     def parse_and_save(file)
       save_file(
         target_path(file),
         parse_template(file),
-      )
-    end
-
-    def target_path(file)
-      ERB.new(
-        file.sub(TEMPLATE_DIR, gem_name)
-      ).result(
-        binding
       )
     end
 
