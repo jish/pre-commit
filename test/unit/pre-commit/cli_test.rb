@@ -37,7 +37,7 @@ describe PreCommit::Cli do
     cli = subject.new('install')
     cli.execute.must_equal(true)
     $stderr.string.must_equal('')
-    $stdout.string.must_match(/Installed .*\/templates\/hooks\/default to .*\n/)
+    $stdout.string.must_match(/Installed .*\/templates\/hooks\/automatic to .*\n/)
   end
 
   it "lists configuration" do

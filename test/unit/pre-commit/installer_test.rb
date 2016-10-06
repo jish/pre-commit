@@ -18,15 +18,18 @@ describe PreCommit::Installer do
   end
 
   subject { PreCommit::Installer }
+  let(:automatic_hook_contents) { File.read(subject.new.templates["automatic"]) }
 
   it "intalls the hook" do
     installer = subject.new
     File.exists?(installer.target).must_equal false
+
     installer.install.must_equal(true)
     File.exists?(installer.target).must_equal true
-    File.read(installer.target).must_equal File.read(installer.send(:templates)["default"])
+    File.read(installer.target).must_equal automatic_hook_contents
+
     $stderr.string.must_equal('')
-    $stdout.string.must_match(/Installed .*\/templates\/hooks\/default to #{installer.target}\n/)
+    $stdout.string.must_match(/Installed .*\/templates\/hooks\/automatic to #{installer.target}\n/)
   end
 
   it "installs other hook templates" do
@@ -39,12 +42,14 @@ describe PreCommit::Installer do
     $stdout.string.must_match(/Installed .*\/templates\/hooks\/manual to #{installer.target}\n/)
   end
 
-  it "installs the default hook when passed --automatic" do
+  it "installs the automatic hook when passed --automatic" do
     installer = subject.new('--automatic')
     File.exists?(installer.target).must_equal false
+
     installer.install.must_equal(true)
     File.exists?(installer.target).must_equal true
-    File.read(installer.target).must_equal File.read(installer.send(:templates)["default"])
+    File.read(installer.target).must_equal automatic_hook_contents
+
     $stderr.string.must_equal('')
     $stdout.string.must_match(/Installed .*\/templates\/hooks\/automatic to #{installer.target}\n/)
   end
