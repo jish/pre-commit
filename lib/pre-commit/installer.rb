@@ -2,7 +2,6 @@ require 'fileutils'
 require 'pre-commit/configuration'
 
 module PreCommit
-
   class Installer
 
     TARGET_GIT_PATH = '.git'
@@ -12,7 +11,7 @@ module PreCommit
     attr_reader :key
 
     def initialize(key = nil)
-      @key = key || "default"
+      @key = key || "automatic"
     end
 
     def hook
@@ -42,8 +41,6 @@ module PreCommit
         false
       end
     end
-
-  private
 
     def templates
       return @templates if @templates
