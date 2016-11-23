@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+# This hook can be used with SourceTree.
+# This hook will attempt to setup your environment before running checks.
+#
+# If you would like `pre-commit` to get out of your way and you are comfortable
+# setting up your own environment, you can install the simple hook using:
+#
+#     pre-commit install --simple
+#
+
+# This is a work-around to get GitHub for Mac to be able to run `node` commands
+# https://stackoverflow.com/questions/12881975/git-pre-commit-hook-failing-in-github-for-mac-works-on-command-line
+PATH=$PATH:/usr/local/bin:/usr/local/sbin
+
+RVM_PATH=$HOME/.rvm/bin
+if [ -d "$RVM_PATH" ] && [[ ! $PATH =~ (^|:)$RVM_PATH(:|$) ]]; then
+  PATH+=:$RVM_PATH
+fi
+
+export LC_CTYPE="en_US.UTF-8"
+export rvm_silence_path_mismatch_check_flag=1
+
+rvm default do bundle exec ruby -rrubygems -e '
+  begin
+    require "pre-commit"
+    true
+  rescue LoadError => e
+    $stderr.puts <<-MESSAGE
+pre-commit: WARNING: Skipping checks because: #{e}
+pre-commit: Did you set your Ruby version?
+MESSAGE
+    false
+  end and PreCommit.run
+'
