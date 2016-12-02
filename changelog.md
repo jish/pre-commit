@@ -1,3 +1,8 @@
+## 0.31.0
+
+* Handle empty file sizes on Windows
+* Add a SourceTree pre-commit hook template `pre-commit install --sourcetree`
+
 ## 0.30.0
 
 * Fixed a bug where the default pre-commit hook could not be installed on some
