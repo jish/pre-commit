@@ -22,3 +22,5 @@ else
   echo "Please install npm."
 
 fi
+
+bundle check || bundle install

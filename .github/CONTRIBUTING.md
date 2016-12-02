@@ -23,6 +23,16 @@ shell environment (through `ENV`), or a YAML file. See
 `lib/plugins/pre_commit/configuration/providers/` for more information and
 details on how to create a new configuration provider if necessary.
 
+## Development
+
+Bootstrap a development environment:
+
+    $ ./script/bootstrap
+
+Run tests:
+
+    $ bundle exec rake test
+
 ---
 
 ### Closing old issues
