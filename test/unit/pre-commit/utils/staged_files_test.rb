@@ -37,6 +37,12 @@ end
       subject.staged_files.must_equal(["unicode_source.rb"])
     end
 
+    it "does not blow up on zero size files" do
+      write("no_contents", "")
+      sh "git add -A"
+      subject.staged_files.must_equal(["no_contents"])
+    end
+
     it "has empty list for no changes" do
       subject.staged_files.must_equal([])
     end
