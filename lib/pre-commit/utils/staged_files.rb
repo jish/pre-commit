@@ -35,8 +35,8 @@ module PreCommit
       def binary?(file)
         bytes = File.stat(file).blksize.to_i
         bytes = 4096 if bytes > 4096
-        s = (File.read(file, bytes) || "")
-        s = s.encode('US-ASCII', :undef => :replace).split(//)
+        s = (File.read(file, bytes) || "").split(//)
+
         ((s.size - s.grep(" ".."~").size) / s.size.to_f) > 0.30
       end
 
