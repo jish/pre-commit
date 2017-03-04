@@ -1,3 +1,7 @@
+## 0.32.0
+
+* Go back to original binary file check. It was creating false-positives.
+
 ## 0.31.0
 
 * Handle empty file sizes on Windows
