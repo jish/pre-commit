@@ -33,13 +33,13 @@ EXPECTED
   end
 
   it "plugins have includes" do
-    list = subject.send(:format_plugin, "ruby", "6", configuration.pluginator.find_check(:ruby)).must_equal([
+    subject.send(:format_plugin, "ruby", "6", configuration.pluginator.find_check(:ruby)).must_equal([
       "  ruby : Plugins common for ruby.",
       "       - includes: pry local",
     ])
   end
   it "plugins have excludes" do
-    list = subject.send(:format_plugin, "rubocop", "7", configuration.pluginator.find_check(:rubocop)).must_equal([
+    subject.send(:format_plugin, "rubocop", "7", configuration.pluginator.find_check(:rubocop)).must_equal([
       "rubocop : Runs rubocop to detect errors.",
       "        - excludes: ruby_symbol_hashrocket",
     ])
