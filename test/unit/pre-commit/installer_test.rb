@@ -22,10 +22,10 @@ describe PreCommit::Installer do
 
   it "intalls the hook" do
     installer = subject.new
-    File.exists?(installer.target).must_equal false
+    File.exist?(installer.target).must_equal false
 
     installer.install.must_equal(true)
-    File.exists?(installer.target).must_equal true
+    File.exist?(installer.target).must_equal true
     File.read(installer.target).must_equal automatic_hook_contents
 
     $stderr.string.must_equal('')
@@ -34,9 +34,9 @@ describe PreCommit::Installer do
 
   it "installs other hook templates" do
     installer = subject.new('--manual')
-    File.exists?(installer.target).must_equal false
+    File.exist?(installer.target).must_equal false
     installer.install.must_equal(true)
-    File.exists?(installer.target).must_equal true
+    File.exist?(installer.target).must_equal true
     File.read(installer.target).must_equal File.read(installer.send(:templates)["manual"])
     $stderr.string.must_equal('')
     $stdout.string.must_match(/Installed .*\/templates\/hooks\/manual to #{installer.target}\n/)
@@ -44,10 +44,10 @@ describe PreCommit::Installer do
 
   it "installs the automatic hook when passed --automatic" do
     installer = subject.new('--automatic')
-    File.exists?(installer.target).must_equal false
+    File.exist?(installer.target).must_equal false
 
     installer.install.must_equal(true)
-    File.exists?(installer.target).must_equal true
+    File.exist?(installer.target).must_equal true
     File.read(installer.target).must_equal automatic_hook_contents
 
     $stderr.string.must_equal('')
@@ -56,7 +56,7 @@ describe PreCommit::Installer do
 
   it "handles missing templates" do
     installer = subject.new('--not-found')
-    File.exists?(installer.target).must_equal false
+    File.exist?(installer.target).must_equal false
     installer.install.must_equal(false)
     $stderr.string.must_match(/Could not find template/)
     $stdout.string.must_equal('')
