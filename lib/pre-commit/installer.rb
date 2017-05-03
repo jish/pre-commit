@@ -43,14 +43,14 @@ module PreCommit
     end
 
     def templates
-      return @templates if @templates
-      pattern = File.join(TEMPLATE_DIR, "*")
+      @templates ||= begin
+        pattern = File.join(TEMPLATE_DIR, "*")
 
-      @templates =
-      Dir.glob(pattern).inject({}) do |hash, file|
-        key = file.match(/\/([^\/]+?)$/)[1]
-        hash[key] = file
-        hash
+        Dir.glob(pattern).inject({}) do |hash, file|
+          key = file.match(/\/([^\/]+?)$/)[1]
+          hash[key] = file
+          hash
+        end
       end
     end
 

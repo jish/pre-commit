@@ -5,6 +5,14 @@ require 'pre-commit/line'
 module PreCommit
   module Checks
     class Grep < Shell
+      def initialize(*)
+        super
+
+        @extra_grep = nil
+        @message = nil
+        @pattern = nil
+      end
+
       class PaternNotSet < StandardError
         def message
           "Please define 'pattern' method."

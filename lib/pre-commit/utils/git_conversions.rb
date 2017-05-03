@@ -19,7 +19,7 @@ module PreCommit
       end
 
       def str2arr(string)
-        string.split(/, ?/).map{|string| str_symbolize(string.chomp.strip) }
+        string.split(/, ?/).map{|s| str_symbolize(s.chomp.strip) }
       end
 
       def str_symbolize(string)

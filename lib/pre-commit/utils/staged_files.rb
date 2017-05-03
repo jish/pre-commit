@@ -42,7 +42,7 @@ module PreCommit
 
       def filter_files(files)
         files.reject do |file|
-          !File.exists?(file) ||
+          !File.exist?(file) ||
           File.directory?(file) ||
           (
             size = File.size(file)

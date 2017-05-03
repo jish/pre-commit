@@ -25,12 +25,13 @@ module PreCommit
       private
 
         def config
-          return @config if @config
-          @config = {}
-          @config.merge!(read_config(system_file))
-          @config.merge!(read_config(global_file))
-          @config.merge!(read_config(local_file))
-          @config
+          @config ||= begin
+            config = {}
+            config.merge!(read_config(system_file))
+            config.merge!(read_config(global_file))
+            config.merge!(read_config(local_file))
+            config
+          end
         end
 
         def read_config(path)
