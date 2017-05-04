@@ -23,7 +23,7 @@ module PreCommit
       private
 
       def context
-        @context ||= ExecJS.compile(File.read(linter_src) << <<-JAVASCRIPT)
+        @context ||= ExecJS.compile("global = this;" << File.read(linter_src) << <<-JAVASCRIPT)
           ;JSHINT._getErrors = function(source, options, globals) {
             JSHINT(source, options, globals);
             return JSHINT.errors;
