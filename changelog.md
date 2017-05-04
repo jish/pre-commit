@@ -1,3 +1,9 @@
+## 0.33.0
+
+* Remove post-install message, it wasn't functioning properly anyway :(
+* Upgrade JSHint to 2.9.4
+* Fix Ruby warnings
+
 ## 0.32.0
 
 * Go back to original binary file check. It was creating false-positives.
