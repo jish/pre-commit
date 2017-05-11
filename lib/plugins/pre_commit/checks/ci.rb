@@ -6,7 +6,9 @@ module PreCommit
       CI_TASK_NAME = 'pre_commit:ci'
 
       def call(_)
-        return if system("rake #{Ci::CI_TASK_NAME} --silent")
+        cmd = 'bin/rake'
+        cmd = 'bundle exec rake' unless File.exist? cmd
+        return if system("#{cmd} #{Ci::CI_TASK_NAME} --silent")
         PreCommit::ErrorList.new(
           "your test suite has failed, for the full output run `#{CI_TASK_NAME}`"
         )
@@ -15,7 +17,6 @@ module PreCommit
       def self.description
         "Runs 'rake #{CI_TASK_NAME} --silent'"
       end
-
     end
   end
 end
