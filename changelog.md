@@ -1,3 +1,7 @@
+## 0.34.0
+
+* Update to latest pluginator version to fix bug with bundler 1.15
+
 ## 0.33.0
 
 * Remove post-install message, it wasn't functioning properly anyway :(
