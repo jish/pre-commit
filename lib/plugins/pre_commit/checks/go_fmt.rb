@@ -1,3 +1,5 @@
+require 'pre-commit/checks/plugin'
+
 module PreCommit
   module Checks
     class GoFmt < Plugin
