@@ -1,3 +1,7 @@
+## 0.35.0
+
+* Fix a bug in the `go_fmt` plugin
+
 ## 0.34.0
 
 * Update to latest pluginator version to fix bug with bundler 1.15
