@@ -9,15 +9,19 @@ module PreCommit
       end
 
       def message
-        ":focus found in specs:"
+        "focus found in specs:"
       end
 
       def pattern
         "(describe|context|it).*(:focus|focus:).*do"
       end
 
+      def extra_pattern
+        "(fdescribe|fcontext|fit).*(\"|').*(\"|').*do"
+      end
+
       def self.description
-        "Finds ruby specs with ':focus'."
+        "Finds ruby specs that are focused."
       end
 
     end

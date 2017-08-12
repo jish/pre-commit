@@ -37,6 +37,10 @@ module PreCommit
         @pattern or raise PaternNotSet.new
       end
 
+      def extra_pattern
+        @extra_pattern
+      end
+
     # general code:
 
       def call(staged_files)
@@ -47,7 +51,13 @@ module PreCommit
         in_groups(staged_files).map do |files|
           args = grep + [pattern] + files
           args += ["|", "grep"] + extra_grep if !extra_grep.nil? and !extra_grep.empty?
-          execute(args, success_status: false)
+
+          results = [
+            execute(args, success_status: false),
+            extra_execute(files)
+          ].compact
+
+          results.empty? ? nil : results.join('')
         end.compact
 
         result.empty? ? nil : parse_errors(message, result)
@@ -82,6 +92,13 @@ module PreCommit
 
       def detect_grep_version
         `grep --version | head -n 1 | sed -e 's/^[^0-9.]*\([0-9.]*\)$/\1/'`
+      end
+
+      def extra_execute(files)
+        return nil if extra_pattern.nil? or extra_pattern.empty?
+        args = grep + [extra_pattern] + files
+
+        execute(args, success_status: false)
       end
 
     end
