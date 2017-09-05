@@ -1,3 +1,7 @@
+## 0.36.0
+
+* Add more RSpec focus syntaxes to the RSpec focus check
+
 ## 0.35.0
 
 * Fix a bug in the `go_fmt` plugin
