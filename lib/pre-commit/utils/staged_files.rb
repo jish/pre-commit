@@ -8,9 +8,8 @@ module PreCommit
       include PreCommit::Configuration::TopLevel
 
       BINARIES = [".img", ".iso", ".dmg"].freeze
-      DOCUMENTS = [".md"].freeze
       IMAGES = [".jpg", ".jpeg", ".png", ".gif"].freeze
-      IGNORED_EXTENSIONS = BINARIES + DOCUMENTS + IMAGES
+      IGNORED_EXTENSIONS = BINARIES + IMAGES
 
       SOURCE_FILES = [".rb"].freeze
 
