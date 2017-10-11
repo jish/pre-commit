@@ -74,11 +74,12 @@ module PreCommit
       end
 
       def filter_files(files)
-        first_pass = files
-          .reject { |file| repo_ignored?(file) }
-          .reject { |file| ignore_extension?(file) }
-          .reject { |file| File.directory?(file) }
-          .select { |file| File.exists?(file) }
+        first_pass = files.reject do |file|
+          repo_ignored?(file) ||
+          ignore_extension?(file) ||
+          File.directory?(file) ||
+          !File.exists?(file)
+        end
 
         # If it's a source file, definitely check it.
         # Otherwise, attempt to guess if the file is binary or not.
