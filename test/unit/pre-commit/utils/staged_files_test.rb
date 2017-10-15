@@ -20,11 +20,16 @@ describe PreCommit::Utils::StagedFiles do
     end
 
     it "filters out binary files" do
-      write("test.rb", (1..50).map(&:chr).join)
+      write("test", (1..50).map(&:chr).join)
       sh "git add -A"
       subject.staged_files.must_equal([])
     end
 
+    it "quick-filters out images based on extension" do
+      write("foo.jpg", "not an image")
+      sh "git add -A"
+      subject.staged_files.must_equal([])
+    end
 
     it "does not blow up on zero size files" do
       write("no_contents", "")
@@ -46,6 +51,26 @@ describe PreCommit::Utils::StagedFiles do
     end
 
   end # :staged_files
+
+  describe "source file" do
+    it "always treats Ruby files as source files" do
+      subject.source_file?("foo.rb").must_equal(true)
+    end
+  end
+
+  describe "ignore extension" do
+    it "ignores images" do
+      subject.ignore_extension?("foo.jpg").must_equal(true)
+    end
+
+    it "treats ordinary source code extensions as source files" do
+      subject.ignore_extension?("foo.rb").must_equal(false)
+    end
+
+    it "treats disk images as non-source files" do
+      subject.ignore_extension?("foo.dmg").must_equal(true)
+    end
+  end
 
   describe :repo_ignores do
 
