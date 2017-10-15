@@ -7,11 +7,16 @@ module PreCommit
     module StagedFiles
       include PreCommit::Configuration::TopLevel
 
-      BINARIES = [".img", ".iso", ".dmg"].freeze
-      IMAGES = [".jpg", ".jpeg", ".png", ".gif"].freeze
+      BINARIES = [
+        ".dmg", ".gz", ".img", ".iso", ".rar", ".tar", ".xz", ".zip"
+      ].freeze
+      IMAGES = [".gif", ".ico", ".jpeg", ".jpg", ".pdf", ".png"].freeze
       IGNORED_EXTENSIONS = BINARIES + IMAGES
 
-      SOURCE_FILES = [".rb"].freeze
+      SOURCE_FILES = [
+        ".coffee", ".css", ".erb", ".feature", ".html", ".js", ".json",
+        ".liquid", ".md", ".rb", ".sass", ".scss", ".slim", ".yml"
+      ].freeze
 
       def set_staged_files(*args)
         case args[0].to_s
