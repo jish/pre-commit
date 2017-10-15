@@ -1,3 +1,9 @@
+## 0.37.0
+
+* Skip running binary test on known binary files and known source files.
+  This improves performance by not opening and reading each file before it is
+  committed.
+
 ## 0.36.0
 
 * Add more RSpec focus syntaxes to the RSpec focus check
