@@ -1,5 +1,8 @@
 require 'pre-commit/runner'
 
+##
+# The pre-commit gem.
+#
 module PreCommit
 
   # Can not delete this method with out a deprecation strategy.

@@ -1,5 +1,6 @@
 .bundle
 bin/rake
-Gemfile.lock
 coverage/
+/rdoc/html
+Gemfile.lock
 *.gem
