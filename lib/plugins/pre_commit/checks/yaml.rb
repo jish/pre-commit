@@ -1,9 +1,19 @@
+# frozen-string-literal: true
+
 require 'yaml'
 require 'pre-commit/checks/plugin'
 
 module PreCommit
   module Checks
+    ##
+    # The Yaml check will read and parse YAML files to ensure they have valid
+    # syntax.
+    #
     class Yaml < Plugin
+      def self.description
+        'Runs yaml to detect errors.'
+      end
+
       def call(staged_files)
         staged_files = staged_files.grep(/\.(yml|yaml)$/)
         return if staged_files.empty?
@@ -12,6 +22,8 @@ module PreCommit
 
         errors.join("\n") + "\n" unless errors.empty?
       end
+
+      private
 
       def load_file(file)
         if YAML.respond_to?(:safe_load)
@@ -38,10 +50,6 @@ module PreCommit
         nil
       rescue ArgumentError
         $stdout.puts "Warning: Skipping '#{file}' because it contains serialized ruby objects."
-      end
-
-      def self.description
-        'Runs yaml to detect errors.'
       end
     end
   end
