@@ -15,7 +15,7 @@ cache:
  - npm
 language: ruby
 rvm:
-  - jruby-9.0.5.0
+  - jruby
   - 2.0.0
   - 2.1.9
   - 2.2.5
