@@ -1,3 +1,5 @@
+* Ignore standard error when checking grep version
+
 ## 0.37.0
 
 * Skip running binary test on known binary files and known source files.
