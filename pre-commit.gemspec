@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('minitest', '~> 4.0')
   s.add_development_dependency('minitest-reporters', '~> 0')
   s.add_development_dependency('rake', '~> 10.0')
-  s.add_development_dependency('rubocop', '~> 0.25')
+  s.add_development_dependency('rubocop', '~> 0.49')
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
