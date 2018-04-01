@@ -1,4 +1,7 @@
+## 0.38.0
+
 * Ignore standard error when checking grep version
+* Security: Depend on RuboCop ~> 0.49
 
 ## 0.37.0
 
