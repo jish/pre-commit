@@ -93,11 +93,12 @@ module PreCommit
       end
 
       def detect_grep_version
-        first_line = Open3.popen2('grep', '--version') do |_, stdout, _|
-          stdout.readline
-        end
+        Open3.popen3('grep', '--version') do |_, stdout, _|
+          return '' if stdout.eof?
 
-        first_line.sub(/^[^0-9.]*\([0-9.]*\)$/, '\1')
+          first_line = stdout.readline
+          return first_line.sub(/^[^0-9.]*\([0-9.]*\)$/, '\1')
+        end
       end
 
       def extra_execute(files)
