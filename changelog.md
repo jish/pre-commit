@@ -1,3 +1,7 @@
+## 0.38.1
+
+* Fix bug when there is no standard output when detecting the grep version
+
 ## 0.38.0
 
 * Ignore standard error when checking grep version
