@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.description = "A git pre-commit hook written in ruby with a few more tricks up its sleeve"
 
   s.add_dependency('pluginator', '~> 1.5')
+  s.add_dependency('execjs')
 
   s.add_development_dependency('benchmark-ips')
   s.add_development_dependency('minitest', '~> 4.0')

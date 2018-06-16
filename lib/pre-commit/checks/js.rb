@@ -5,9 +5,7 @@ module PreCommit
     class Js < Plugin
       def call(staged_files)
         require 'execjs'
-      rescue RuntimeError, LoadError => e
-        $stderr.puts "Could not load execjs: #{e}"
-      else
+
         staged_files = files_filter(staged_files)
         return if staged_files.empty?
 
