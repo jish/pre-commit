@@ -58,7 +58,7 @@ USAGE
       let(:alternate_location){ 'missing.config' }
 
       it 'returns nil' do
-        subject.location.must_equal(nil)
+        subject.location.must_be_nil
       end
     end
   end
@@ -68,7 +68,7 @@ USAGE
     let(:alternate_location){ nil }
 
     it 'returns nil' do
-      subject.location.must_equal(nil)
+      subject.location.must_be_nil
     end
   end
 end

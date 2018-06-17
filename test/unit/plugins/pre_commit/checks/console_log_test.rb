@@ -15,15 +15,15 @@ describe PreCommit::Checks::ConsoleLog do
   end
 
   it "succeeds if nothing changed" do
-    subject.call([]).must_equal nil
+    subject.call([]).must_be_nil
   end
 
   it "succeeds with valid .js file changed" do
-    subject.call([fixture_file('valid_file.js')]).must_equal nil
+    subject.call([fixture_file('valid_file.js')]).must_be_nil
   end
 
   it "succeeds if non js files has console.log" do
-    subject.call([fixture_file('changelog.md')]).must_equal nil
+    subject.call([fixture_file('changelog.md')]).must_be_nil
   end
 
   it "fails if a js file has a console.log" do

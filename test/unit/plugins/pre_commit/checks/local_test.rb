@@ -7,12 +7,12 @@ describe PreCommit::Checks::Local do
   let(:check) { PreCommit::Checks::Local.new(nil, nil, []) }
 
   it "succeeds if there is no config" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds if script succeeds" do
     check.script = config_file
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "fails if script fails" do

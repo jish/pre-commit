@@ -5,11 +5,11 @@ describe PreCommit::Checks::Pry do
   let(:check){ PreCommit::Checks::Pry.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds if only good changes" do
-    check.call([fixture_file('valid_file.rb')]).must_equal nil
+    check.call([fixture_file('valid_file.rb')]).must_be_nil
   end
 
   it "fails if file contains pry" do

@@ -7,7 +7,7 @@ describe PreCommit::Checks::Grep do
   end
 
   it "succeeds if nothing changed" do
-    subject.call([]).must_equal nil
+    subject.call([]).must_be_nil
   end
 
   it "succeeds if nothing changed" do
@@ -16,7 +16,7 @@ describe PreCommit::Checks::Grep do
 
   it "succeeds if file has no pattern" do
     subject.instance_variable_set(:@pattern, "other")
-    subject.call([fixture_file('file_with_nb_space.rb')]).must_equal nil
+    subject.call([fixture_file('file_with_nb_space.rb')]).must_be_nil
   end
 
   it "fails if file has pattern" do
@@ -44,7 +44,7 @@ test/files/file_with_nb_space.rb:1:test")
   it "respects extra_grep" do
     subject.instance_variable_set(:@pattern, "test")
     subject.instance_variable_set(:@extra_grep, %w{-v test})
-    subject.call([fixture_file('file_with_nb_space.rb')]).must_equal(nil)
+    subject.call([fixture_file('file_with_nb_space.rb')]).must_be_nil
   end
 
   it "finds grep for FreeBSD" do

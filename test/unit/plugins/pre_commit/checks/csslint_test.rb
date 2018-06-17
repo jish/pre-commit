@@ -6,7 +6,7 @@ describe PreCommit::Checks::Csslint do
   let(:check){ PreCommit::Checks::Csslint.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds if only good changes" do
@@ -14,7 +14,7 @@ describe PreCommit::Checks::Csslint do
   end
 
   it "succeeds if only good changes" do
-    check.call([fixture_file('valid_file.css')]).must_equal nil
+    check.call([fixture_file('valid_file.css')]).must_be_nil
   end
 
   it "fails if file contains errors" do

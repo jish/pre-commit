@@ -5,11 +5,11 @@ describe PreCommit::Checks::Yaml do
   let(:check) {PreCommit::Checks::Yaml.new(nil, nil, [])}
 
   it "succeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds for good code" do
-    check.call([fixture_file('good.yml')]).must_equal nil
+    check.call([fixture_file('good.yml')]).must_be_nil
   end
 
   it "skips files with serialized ruby" do

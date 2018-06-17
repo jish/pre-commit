@@ -11,28 +11,28 @@ describe PreCommit::Checks::GemfilePath do
   after(&:destroy_temp_dir)
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds if non-gemfile changes" do
     write "Foofile", <<-RUBY
       gem "foo", :path => "xxx"
     RUBY
-    check.call(["Foofile"]).must_equal nil
+    check.call(["Foofile"]).must_be_nil
   end
 
   it "succeeds if only good changes" do
     write "Gemfile", <<-RUBY
       gem "foo"
     RUBY
-    check.call(["Gemfile"]).must_equal nil
+    check.call(["Gemfile"]).must_be_nil
   end
 
   it "succeeds with innocent path check" do
     write "Gemfile", <<-RUBY
       gem "foo_path"
     RUBY
-    check.call(["Gemfile"]).must_equal nil
+    check.call(["Gemfile"]).must_be_nil
   end
 
   it "fails if Gemfile contains path =>" do
@@ -59,7 +59,7 @@ describe PreCommit::Checks::GemfilePath do
     write "Gemfile", <<-RUBY
       # gem 'my-internal-app-gem', '~> 0.0.1', :path => './lib/my-internal-app-gem'
     RUBY
-    check.call(["Gemfile"]).must_equal nil, "There should be no errors"
+    check.call(["Gemfile"]).must_be_nil
   end
 
 end

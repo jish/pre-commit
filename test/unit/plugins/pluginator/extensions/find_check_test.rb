@@ -23,7 +23,7 @@ describe Pluginator::Extensions::FindCheck do
   end
 
   it "does not find missing plugin" do
-    @tester.find_check("missing_plugin").must_equal( nil )
+    @tester.find_check("missing_plugin").must_be_nil
     $stderr.string.must_equal(<<-EXPECTED)
 Could not find plugin supporting missing_plugin / MissingPlugin,
 available plugins: BeforeAll
