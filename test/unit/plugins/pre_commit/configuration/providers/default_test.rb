@@ -25,7 +25,7 @@ describe PreCommit::Configuration::Providers::Default do
     example = subject.new({:test1 => 1, :test2 => 2})
     example[:test1].must_equal(1)
     example[:test2].must_equal(2)
-    example[:test3].must_equal(nil)
+    example[:test3].must_be_nil
   end
 
   it "does not allow update" do

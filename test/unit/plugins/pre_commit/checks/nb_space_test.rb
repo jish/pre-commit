@@ -5,11 +5,11 @@ describe PreCommit::Checks::NbSpace do
   let(:check){ PreCommit::Checks::NbSpace.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds if only good changes" do
-    check.call([fixture_file("pre-commit.rb")]).must_equal nil
+    check.call([fixture_file("pre-commit.rb")]).must_be_nil
   end
 
   it "fails if script fails" do

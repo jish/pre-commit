@@ -41,7 +41,7 @@ describe PreCommit::PluginsList do
     end
 
     it "does not find class" do
-      subject.send(:find_class, :class2).must_equal(nil)
+      subject.send(:find_class, :class2).must_be_nil
     end
 
   end

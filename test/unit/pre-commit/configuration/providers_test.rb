@@ -44,7 +44,7 @@ DATA
       provider[:test1].must_equal([:c])
       provider[:test2].must_equal("5")
       provider[:test3].must_equal(3)
-      provider[:test4].must_equal(nil)
+      provider[:test4].must_be_nil
     end
 
     it "updates git configurations" do

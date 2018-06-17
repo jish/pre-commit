@@ -5,19 +5,19 @@ describe PreCommit::Checks::RspecFocus do
   let(:check){ PreCommit::Checks::RspecFocus.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds on non-specs" do
-    check.call([fixture_file('bad-spec.rb')]).must_equal nil
+    check.call([fixture_file('bad-spec.rb')]).must_be_nil
   end
 
   it "succeeds if only good changes" do
-    check.call([fixture_file('rspec_focus_good_spec.rb')]).must_equal nil
+    check.call([fixture_file('rspec_focus_good_spec.rb')]).must_be_nil
   end
 
   it "succeeds when there are keywords in the description" do
-    check.call([fixture_file('rspec_focus_sugar_good_spec.rb')]).must_equal nil
+    check.call([fixture_file('rspec_focus_sugar_good_spec.rb')]).must_be_nil
   end
 
   it 'fails if focus specified on describe, context or example block using any valid syntax' do

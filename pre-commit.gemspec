@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
   s.add_dependency('pluginator', '~> 1.5')
 
   s.add_development_dependency('benchmark-ips')
-  s.add_development_dependency('minitest', '~> 4.0')
-  s.add_development_dependency('minitest-reporters', '~> 0')
+  s.add_development_dependency('minitest', '~> 5.0')
+  s.add_development_dependency('minitest-reporters', '~> 1.0')
   s.add_development_dependency('rake', '~> 10.0')
   s.add_development_dependency('rubocop', '~> 0.49')
 

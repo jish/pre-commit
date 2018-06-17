@@ -5,7 +5,7 @@ describe PreCommit::Checks::GoBuild do
   let(:check) {PreCommit::Checks::GoBuild.new(nil, nil, [])}
 
   it "succeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds for good code" do

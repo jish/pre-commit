@@ -5,11 +5,11 @@ describe PreCommit::Checks::RubySymbolHashrockets do
   let(:check){ PreCommit::Checks::RubySymbolHashrockets.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds with valid" do
-    check.call([fixture_file('valid_hashrockets.rb')]).must_equal nil
+    check.call([fixture_file('valid_hashrockets.rb')]).must_be_nil
   end
 
   it "fails with invalid" do
