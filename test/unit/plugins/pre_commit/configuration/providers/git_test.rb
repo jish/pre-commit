@@ -21,7 +21,7 @@ describe PreCommit::Configuration::Providers::Git do
 
     it "reads values" do
       example = subject.new
-      example[:test1].must_equal(nil)
+      example[:test1].must_be_nil
       example[:test2].must_equal("2")
       example[:test3].must_equal("3")
     end

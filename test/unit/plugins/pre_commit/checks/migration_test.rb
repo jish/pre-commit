@@ -17,14 +17,14 @@ describe PreCommit::Checks::Migration do
   end
 
   it "succeeds if there is no change" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds if there is a migration and a schema change" do
     in_new_directory do
       write "db/migrate/20140718171920_foo.rb", "Yep"
       write "db/schema.rb", "version 20140718171920 bla"
-      check.call(['db/migrate/20140718171920_foo.rb', 'db/schema.rb']).must_equal nil
+      check.call(['db/migrate/20140718171920_foo.rb', 'db/schema.rb']).must_be_nil
     end
   end
 
@@ -32,7 +32,7 @@ describe PreCommit::Checks::Migration do
     in_new_directory do
       write "db/migrate/20140718171920_foo.rb", "Yep"
       write "db/foo_structure.sql", "version 20140718171920 bla"
-      check.call(['db/migrate/20140718171920_foo.rb', 'db/foo_structure.sql']).must_equal nil
+      check.call(['db/migrate/20140718171920_foo.rb', 'db/foo_structure.sql']).must_be_nil
     end
   end
 
@@ -44,18 +44,18 @@ describe PreCommit::Checks::Migration do
 
         INSERT INTO schema_migrations (version) VALUES ('20140718171920');
       STRUCTURE
-      check.call(['db/migrate/20140718171920_foo.rb', 'db/foo_structure.sql']).must_equal nil
+      check.call(['db/migrate/20140718171920_foo.rb', 'db/foo_structure.sql']).must_be_nil
     end
   end
 
   it "succeeds if random files are changed" do
-    check.call(['public/javascript/foo.js', 'lib/bar.rb']).must_equal nil
+    check.call(['public/javascript/foo.js', 'lib/bar.rb']).must_be_nil
   end
 
   it "succeeds when initial schema is added with version 0" do
     in_new_directory do
       write "db/schema.rb", "brand new 0 version"
-      check.call(['db/schema.rb']).must_equal nil
+      check.call(['db/schema.rb']).must_be_nil
     end
   end
 

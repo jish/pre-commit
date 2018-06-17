@@ -27,7 +27,7 @@ describe PreCommit::Configuration::Providers::Yaml do
       example[:test1].must_equal(1)
       example[:test2].must_equal(2)
       example[:test3].must_equal(3)
-      example[:test4].must_equal(nil)
+      example[:test4].must_be_nil
     end
 
     it "reads system and global values" do
@@ -38,7 +38,7 @@ describe PreCommit::Configuration::Providers::Yaml do
       example[:test1].must_equal(4)
       example[:test2].must_equal(5)
       example[:test3].must_equal(3)
-      example[:test4].must_equal(nil)
+      example[:test4].must_be_nil
     end
 
     it "reads system and local values" do
@@ -50,7 +50,7 @@ describe PreCommit::Configuration::Providers::Yaml do
       example[:test1].must_equal(6)
       example[:test2].must_equal(2)
       example[:test3].must_equal(3)
-      example[:test4].must_equal(nil)
+      example[:test4].must_be_nil
     end
 
     it "reads system and local values" do
@@ -63,7 +63,7 @@ describe PreCommit::Configuration::Providers::Yaml do
       example[:test1].must_equal(6)
       example[:test2].must_equal(5)
       example[:test3].must_equal(3)
-      example[:test4].must_equal(nil)
+      example[:test4].must_be_nil
     end
 
     it "saves values" do

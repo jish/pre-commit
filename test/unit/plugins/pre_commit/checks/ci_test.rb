@@ -6,7 +6,7 @@ describe PreCommit::Checks::Ci do
 
   it "succeeds if rake succeeds" do
     check.stub :system, true do
-      check.call([]).must_equal nil
+      check.call([]).must_be_nil
     end
   end
 

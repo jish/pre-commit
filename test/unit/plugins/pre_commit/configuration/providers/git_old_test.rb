@@ -21,7 +21,7 @@ describe PreCommit::Configuration::Providers::GitOld do
 
     it "reads values" do
       example = subject.new
-      example[:test1].must_equal(nil)
+      example[:test1].must_be_nil
       example[:checks].must_equal([:jshint, :local])
       example[:other].must_equal("jshint,local")
     end

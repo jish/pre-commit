@@ -7,7 +7,7 @@ describe PreCommit::Checks::Shell do
   end
 
   it "nil for success" do
-    subject.send(:execute_raw, "true").must_equal nil
+    subject.send(:execute_raw, "true").must_be_nil
   end
 
   it "error for fail" do
@@ -19,7 +19,7 @@ describe PreCommit::Checks::Shell do
   end
 
   it "nil for fail on expected false" do
-    subject.send(:execute_raw, "false", success_status: false).must_equal nil
+    subject.send(:execute_raw, "false", success_status: false).must_be_nil
   end
 
   it "builds_command" do

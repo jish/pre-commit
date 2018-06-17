@@ -5,7 +5,7 @@ describe PreCommit::Checks::BeforeAll do
   subject { PreCommit::Checks::BeforeAll.new(nil, nil, []) }
 
   it "succeeds if nothing changed" do
-    subject.call([]).must_equal nil
+    subject.call([]).must_be_nil
   end
 
   it "filters out rb files" do
@@ -17,7 +17,7 @@ describe PreCommit::Checks::BeforeAll do
   end
 
   it "succeeds if only good changes" do
-    subject.call([fixture_file('valid_spec.rb')]).must_equal nil
+    subject.call([fixture_file('valid_spec.rb')]).must_be_nil
   end
 
   it "fails if file contains before(:all)" do

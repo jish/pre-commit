@@ -5,11 +5,11 @@ describe PreCommit::Checks::Json do
   let(:check) {PreCommit::Checks::Json.new(nil, nil, [])}
 
   it "succeds if nothing changed" do
-    check.call([]).must_equal nil
+    check.call([]).must_be_nil
   end
 
   it "succeeds for good code" do
-    check.call([fixture_file('good.json')]).must_equal nil
+    check.call([fixture_file('good.json')]).must_be_nil
   end
 
   it "fails for bad formatted code" do

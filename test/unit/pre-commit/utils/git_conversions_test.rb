@@ -36,7 +36,7 @@ describe PreCommit::Utils::GitConversions do
     end
 
     it "transforms empty string to nil" do
-      subject.git_to_ruby("").must_equal(nil)
+      subject.git_to_ruby("").must_be_nil
     end
 
     it "transforms string to symbols" do
