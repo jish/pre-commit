@@ -6,7 +6,7 @@ module PreCommit
       def call(staged_files)
         require 'execjs'
       rescue RuntimeError, LoadError => e
-        $stderr.puts "Could not load execjs: #{e}"
+        $stderr.puts "Could not load execjs: #{e}. You need to manually install execjs to use JavaScript plugins for security reasons."
       else
         staged_files = files_filter(staged_files)
         return if staged_files.empty?
