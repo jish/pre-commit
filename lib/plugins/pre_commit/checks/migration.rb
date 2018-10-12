@@ -3,13 +3,9 @@ require 'pre-commit/checks/plugin'
 module PreCommit
   module Checks
     class Migration < Plugin
-      VERSION_PATTERN = /(\d{14})/
+      VERSION_PATTERN = /(\d{4}_?\d{2}_?\d{2}_?\d{6})/
 
-      self::VersionedFile = Struct.new(:file, :version) do
-        def to_s
-          "<#{self.class.name} file=\"#{file}\" version=\"#{version}\">"
-        end
-      end
+      VersionedFile = Struct.new(:file, :version)
 
       def self.aliases
         [:migrations]
@@ -25,7 +21,9 @@ module PreCommit
           "You're trying to change the schema without adding a migration file"
         elsif migration_files.any? && schema_files.any?
           migration_versions = migration_files.map(&:version)
-          missing_versions = migration_versions - schema_files.map(&:version)
+          schema_versions = schema_files.map(&:version)
+          missing_versions = migration_versions - schema_versions
+
           if missing_versions.any?
             "You did not add the schema versions for "\
             "#{migration_versions.join(', ')} to #{schema_files.map(&:file).join(' or ')}"
@@ -52,7 +50,8 @@ module PreCommit
 
         files.each_with_object([]) do |f, result|
           File.read(f).scan(VERSION_PATTERN) do |i|
-            result << VersionedFile.new(f, i.first)
+            version = i.first.gsub(/_/, "")
+            result << VersionedFile.new(f, version)
           end
         end
       end
