@@ -59,6 +59,26 @@ describe PreCommit::Checks::Migration do
     end
   end
 
+  it "succeeds when schema files use human-friendly date formats" do
+    in_new_directory do
+      write "db/migrate/20181012040244_add_books.rb", <<-RUBY
+        class AddBooks < ActiveRecord::Migration[5.2]
+          def change
+          end
+        end
+      RUBY
+      write "db/schema.rb", <<-RUBY
+        ActiveRecord::Schema.define(version: 2018_10_12_040244) do
+        end
+      RUBY
+
+      check.call([
+        "db/migrate/20181012040244_add_books.rb",
+        "db/schema.rb"
+      ]).must_be_nil
+    end
+  end
+
   it "fails if schema change is missing" do
     check.call(['db/migrate/20140718171920_foo.rb']).must_equal "It looks like you're adding a migration, but did not update the schema file"
   end

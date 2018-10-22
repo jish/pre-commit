@@ -46,7 +46,7 @@ module PreCommit
       @providers.update( plugin_name, "#{type}_remove", :+, checks )
       true
     rescue PreCommit::PluginNotFound => e
-      warn e
+      warn e.message
       false
     end
 
