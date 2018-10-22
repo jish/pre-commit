@@ -1,3 +1,7 @@
+## 0.39.0
+
+* Handle new Rails migration format
+
 ## 0.38.1
 
 * Fix bug when there is no standard output when detecting the grep version
