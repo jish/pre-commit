@@ -14,11 +14,11 @@ module PreCommit
     end
 
     def evaluated_names
-      evaluated_names_(evaluated_names_pairs).flatten.compact
+      evaluated_names_(evaluated_names_pairs).flatten.compact.uniq
     end
 
     def list_to_run
-      list_to_run_(evaluated_names_pairs).flatten.compact
+      list_to_run_(evaluated_names_pairs).flatten.compact.uniq
     end
 
   private
