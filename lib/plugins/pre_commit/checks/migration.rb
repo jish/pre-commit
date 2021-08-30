@@ -26,7 +26,7 @@ module PreCommit
 
           if missing_versions.any?
             "You did not add the schema versions for "\
-            "#{migration_versions.join(', ')} to #{schema_files.map(&:file).join(' or ')}"
+            "#{missing_versions.join(', ')} to #{schema_files.map(&:file).join(' or ')}"
           end
         end
       end
