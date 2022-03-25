@@ -83,7 +83,7 @@ module PreCommit
           repo_ignored?(file) ||
           ignore_extension?(file) ||
           File.directory?(file) ||
-          !File.exists?(file)
+          !File.exist?(file)
         end
 
         # If it's a source file, definitely check it.

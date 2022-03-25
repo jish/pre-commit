@@ -9,7 +9,7 @@ class Subject
       .reject { |file| repo_ignored?(file) }
       .reject { |file| ignore_extension?(file) }
       .reject { |file| File.directory?(file) }
-      .select { |file| File.exists?(file) }
+      .select { |file| File.exist?(file) }
 
     # If it's a source file, definitely check it.
     # Otherwise, attempt to guess if the file is binary or not.
@@ -23,7 +23,7 @@ class Subject
       .reject { |file| repo_ignored?(file) }
       .reject { |file| ignore_extension?(file) }
       .reject { |file| File.directory?(file) }
-      .select { |file| File.exists?(file) }
+      .select { |file| File.exist?(file) }
 
     # If it's a source file, definitely check it.
     # Otherwise, attempt to guess if the file is binary or not.
@@ -37,7 +37,7 @@ class Subject
       repo_ignored?(file) ||
       ignore_extension?(file) ||
       File.directory?(file) ||
-      !File.exists?(file)
+      !File.exist?(file)
     end
 
     # If it's a source file, definitely check it.
