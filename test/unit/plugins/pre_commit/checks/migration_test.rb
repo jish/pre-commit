@@ -48,7 +48,7 @@ describe PreCommit::Checks::Migration do
     end
   end
 
-  it "succeeds if random files are changed" do
+  it "succeeds if unrelated files are changed" do
     check.call(['public/javascript/foo.js', 'lib/bar.rb']).must_be_nil
   end
 
@@ -92,10 +92,49 @@ describe PreCommit::Checks::Migration do
 
   it "fails if the schema change does not include the added versions" do
     in_new_directory do
-      write "db/migrate/20140718171920_foo.rb", "Nope"
-      write "db/migrate/20140819201057_foo.rb", "Nope"
-      write "db/schema.rb", "Nope 20130111131344"
-      check.call(['db/schema.rb', 'db/migrate/20140819201057_foo.rb', 'db/migrate/20140718171920_foo.rb']).must_equal "You did not add the schema versions for 20140819201057, 20140718171920 to db/schema.rb"
+      write "db/migrate/20140506010100_foo.rb", "class CreateFoos < ActiveRecord::Migration"
+      write "db/migrate/20140506010200_bar.rb", "class CreateBars < ActiveRecord::Migration"
+
+      write "db/schema.rb", <<-RUBY
+        ActiveRecord::Schema.define(version: 2011_01_01_010100) do
+        end
+      RUBY
+
+      result = check.call([
+        "db/schema.rb",
+        "db/migrate/20140506010100_foo.rb",
+        "db/migrate/20140506010200_bar.rb"
+      ])
+
+      assert_equal(
+        "You did not add the schema versions for 20140506010100, 20140506010200 to db/schema.rb",
+        result
+      )
+    end
+  end
+
+  it "only lists the missing migration versions" do
+    in_new_directory do
+      write "db/migrate/20140506010100_foo.rb", "class CreateFoos < ActiveRecord::Migration"
+      write "db/migrate/20140506010200_bar.rb", "class CreateBars < ActiveRecord::Migration"
+      write "db/migrate/20140506010300_baz.rb", "class CreateBazs < ActiveRecord::Migration"
+
+      write "db/schema.rb", <<-RUBY
+        ActiveRecord::Schema.define(version: 2014_05_06_010200) do
+        end
+      RUBY
+
+      result = check.call([
+        "db/schema.rb",
+        "db/migrate/20140506010100_foo.rb",
+        "db/migrate/20140506010200_bar.rb",
+        "db/migrate/20140506010300_baz.rb"
+      ])
+
+      assert_equal(
+        "You did not add the schema versions for 20140506010100, 20140506010300 to db/schema.rb",
+        result
+      )
     end
   end
 end
