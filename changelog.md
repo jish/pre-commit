@@ -1,3 +1,8 @@
+## 0.40.0
+
+* Add Ruby 3.2 support -- deprecate `File.exists?`
+* Missing migrations check only lists versions missing from schema
+
 ## 0.39.0
 
 * Handle new Rails migration format
